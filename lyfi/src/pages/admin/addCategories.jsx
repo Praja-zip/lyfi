@@ -7,42 +7,36 @@ import "./../../componentadmin/ProductAdmin/AddProduct.css";
 
 const AddCategoriesAdmin = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-  const [category, setCategory] = useState("");
+  const [nama_kategori, setCategory] = useState("");
 
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
   };
 
   const handleSubmit = async () => {
-    const item = { category };
+    const item = { nama_kategori };
     console.log(item);
   
     const token = localStorage.getItem("token");
   
     try {
-      const response = await fetch(`http://127.0.0.1:8000/api/kategoris?token=${token}`, {
-        method: 'POST',
-        body: JSON.stringify(item),
-        headers: {
-          "Content-Type": 'application/json',
-          "Accept": 'application/json'
+      const response = await axios.post(`http://127.0.0.1:8000/api/kategoris`, 
+        item, 
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "Authorization": `Bearer ${token}`
+          }
         }
-      });
+      );
   
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-  
-      const data = await response.json();
-      console.log(data); 
+      console.log(response.data);
       window.location.reload();
-
     } catch (error) {
-      console.error("Error:", error);
-      // Handle fetch error
+      console.error("Error:", error.response ? error.response.data : error.message);
     }
   };
-  
 
   return (
     <div className="dashboardadmin">
@@ -53,13 +47,11 @@ const AddCategoriesAdmin = () => {
         </a>
       )}
       <div
-        className={`content ${
-          isSidebarOpen ? "content-open" : "content-closed"
-        }`}
+        className={`content ${isSidebarOpen ? "content-open" : "content-closed"}`}
       >
         <div className="main-content">
           <AddCategories 
-            category={category} 
+            category={nama_kategori} 
             setCategory={setCategory} 
             handleSubmit={handleSubmit} 
           />
