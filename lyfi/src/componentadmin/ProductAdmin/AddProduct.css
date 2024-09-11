@@ -1,0 +1,360 @@
+.container-productadmin {
+  margin-top: 5rem;
+  text-align: left;
+}
+.container-productadmin a {
+  background-color: white;
+  color: #000;
+  text-decoration: none;
+  padding: 1rem 3rem 1rem 3rem;
+  border-radius: 10px;
+}
+/* Table Start */
+.custom-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-top: 1rem;
+  border: 1px solid white;
+}
+
+.custom-table th,
+.custom-table td {
+  padding: 8px;
+  text-align: left;
+  border: 1px solid #ddd;
+  background-color: transparent; /* Pastikan td juga transparan */
+}
+
+.custom-table thead th {
+  background-color: #ffffff;
+  color: #333;
+  font-weight: bold;
+}
+
+.custom-table tbody,
+.custom-table tbody tr,
+.custom-table tbody td {
+  background-color: transparent !important; /* Paksa transparansi */
+}
+
+.custom-table tbody tr:hover {
+  background-color: transparent !important; /* Pastikan tetap transparan saat di-hover */
+}
+.custom-table tbody td button {
+  width: 50px;
+  height: 50px;
+  background-color: white;
+  border: none;
+  color: #000;
+  font-size: 1.5rem;
+}
+.custom-table tbody td button:hover {
+  background-color: rgb(150, 138, 80);
+  border: 1px solid white;
+}
+
+.custom-table img {
+  border-radius: 5px;
+}
+.pagination-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 20px;
+  background: none;
+}
+
+.pagination-scroll {
+  display: flex;
+  overflow-x: auto;
+  max-width: 200px;
+  scrollbar-width: none; /* Untuk Firefox */
+}
+
+.pagination-scroll::-webkit-scrollbar {
+  display: none; /* Untuk Chrome, Safari, Opera */
+}
+
+.pagination-btn {
+  background: none;
+  border: none;
+}
+.pagination-btn:hover {
+  background: none;
+  border: none;
+}
+.pagination-button:focus {
+  background: none;
+  border: none;
+}
+.pagination-number {
+  background-color: white;
+  border: none;
+  margin: 0 5px;
+  min-width: 50px;
+  height: 50px;
+  border-radius: 0px;
+  color: black;
+}
+
+.pagination-number.active,
+.pagination-number:hover {
+  background-color: rgb(150, 138, 80);
+  color: white;
+  border: 1px solid rgb(150, 138, 80);
+}
+
+/* table end */
+.next-page-product:hover {
+  background-color: rgb(245, 245, 245);
+}
+.container-productadmin a i {
+  border: 1px solid rgb(150, 138, 80);
+  color: rgb(150, 138, 80);
+}
+.addproduct {
+  width: 100%;
+}
+.addproduct .header-addproduct {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 10px;
+}
+.addproduct .header-addproduct h1 {
+  margin-left: 1rem;
+  margin-top: 0.3rem;
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+.form-addproduct {
+  background-color: white;
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 10px;
+}
+.form-addproduct label {
+  font-weight: 600;
+}
+.form-addproduct input {
+  margin-top: 1rem;
+  margin-left: 1rem;
+  border: none;
+  border-bottom: 1px solid rgb(150, 138, 80);
+  width: 80%;
+}
+.form-addproduct input::placeholder {
+  color: rgb(150, 138, 80);
+  font-style: italic;
+}
+.form-addproduct input:focus {
+  outline: none;
+}
+.checkbox-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-group input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  appearance: none;
+  border: 1px solid rgb(150, 138, 80);
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.checkbox-group input[type="radio"]:checked {
+  background-color: rgb(150, 138, 80);
+  border-color: rgb(150, 138, 80);
+}
+
+.checkbox-group label {
+  margin-top: 1.2rem;
+  cursor: pointer;
+  font-weight: 400;
+  line-height: 18px; /* Samakan dengan tinggi checkbox */
+}
+.custum-file-upload {
+  height: 200px;
+  width: 300px;
+  flex-direction: column;
+  align-items: space-between;
+  gap: 20px;
+  cursor: pointer;
+
+  border: 2px dashed rgb(150, 138, 80);
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0px 48px 35px -48px #e8e8e8;
+}
+
+.custum-file-upload .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custum-file-upload .icon svg {
+  height: 80px;
+  fill: rgb(150, 138, 80);
+}
+
+.custum-file-upload .text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custum-file-upload .text span {
+  font-weight: 400;
+  color: rgb(150, 138, 80);
+}
+
+.custum-file-upload input {
+  display: none;
+}
+.addproduct-save {
+  width: 20%;
+  background: #ffffff;
+  margin-top: 1rem;
+  margin-bottom: 5rem;
+  padding: 1rem;
+  border-radius: 10px;
+  font-style: italic;
+  text-align: center;
+  float: right;
+}
+.addproduct-save:hover {
+  background-color: rgb(150, 138, 80);
+  color: #ffffff;
+}
+.addproduct-back {
+  width: 20%;
+  background: rgb(150, 138, 80);
+  margin-top: 1rem;
+  margin-bottom: 5rem;
+  margin-right: 1rem;
+  padding: 1rem;
+  border-radius: 10px;
+  font-style: italic;
+  text-align: center;
+  float: right;
+  color: #ffffff;
+  border: 1px solid white;
+}
+.addproduct-back:hover {
+  background-color: rgb(124, 116, 74);
+}
+@media screen and (max-width: 768px) {
+  .custom-table th,
+  .custom-table td {
+    font-size: 8px;
+    padding: 4px;
+  }
+
+  .custom-table td img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .custom-table tbody td button {
+    width: 30px;
+    height: 30px;
+    font-size: 1rem;
+  }
+  .container-productadmin a {
+    font-size: 0.8rem;
+    padding: 10px;
+  }
+  .pagination-number {
+    min-width: 30px;
+    height: 30px;
+    font-size: 0.8rem;
+  }
+
+  .checkbox-container {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 10px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .custom-table th,
+  .custom-table td {
+    font-size: 7px;
+    padding: 3px;
+  }
+
+  .custom-table td img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .custom-table tbody td button {
+    width: 25px;
+    height: 25px;
+    font-size: 0.8rem;
+  }
+  .container-productadmin a {
+    font-size: 0.5rem;
+    padding: 10px;
+  }
+  .pagination-number {
+    min-width: 25px;
+    height: 25px;
+    font-size: 0.7rem;
+  }
+}
+
+@media screen and (max-width: 345px) {
+  .custom-table th,
+  .custom-table td {
+    font-size: 6px;
+    padding: 2%;
+  }
+  .header-addproduct{
+    width: 85%;
+  }
+  .container-productadmin a {
+    font-size: 0.5rem;
+    padding: 10px;
+  }
+  .custom-table td img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .custom-table tbody td button {
+    width: 20px;
+    height: 20px;
+    font-size: 0.6rem;
+  }
+  .form-addproduct {
+    width: 85%;
+  }
+  .pagination-number {
+    min-width: 20px;
+    height: 20px;
+    font-size: 0.6rem;
+  }
+  .custum-file-upload {
+    margin-left: -100rem;
+  }
+  .addproduct-save{
+    margin-right: 2rem;
+  }
+}

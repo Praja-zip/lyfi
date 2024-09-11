@@ -1,0 +1,318 @@
+.card-custom {
+  border-radius: 50px 0 50px 0px; /* Membuat sudut melengkung */
+  background-color: white;
+  padding: 1rem;
+  position: relative;
+  height: 200px;
+}
+
+.image-card-dashboard {
+  width: 100px; /* Mengatur ukuran gambar */
+  height: auto;
+}
+
+.card-title {
+  font-size: 48px; /* Ukuran font untuk angka */
+  color: #2c2c2c;
+  font-weight: 700; /* Warna teks */
+}
+
+.card-text {
+  font-size: 18px;
+  color: #2c2c2c; /* Warna teks untuk deskripsi */
+}
+
+.card-footer {
+  background-color: black;
+  width: 100%;
+  text-align: center;
+  padding: 0.75rem 0;
+  border-radius: 0px 0px 50px 0px !important; /* Membuat sudut bawah melengkung */
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  top: 70%;
+  transition: background 0.3s ease;
+}
+
+.card-link-text {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.card-link-text:hover {
+  text-decoration: underline;
+  background-color: white;
+}
+.card-footer:hover {
+  background-color: white;
+  border: 2px solid black;
+  color: black;
+}
+
+/* HEADER */
+.img-admin {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+.section-header {
+  position: relative;
+}
+
+.header-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+@media only screen and (max-width: 590px) {
+  .container-dashboard .card-title {
+    font-size: 1.5rem;
+    margin-left: 8rem;
+  }
+  .container-dashboard .card-text {
+    font-size: 1rem;
+    margin-left: 7rem;
+  }
+}
+@media only screen and (max-width: 320px) {
+}
+@media only screen and (max-width: 375px) {
+  .section-header .header-left {
+    font-size: 0.8rem;
+    margin-left: -2rem;
+    margin-top: 1rem;
+  }
+  .section-header .header-left h1 {
+    font-size: 1rem;
+    margin-left: -5rem;
+  }
+  .section-header .header-left p {
+    font-size: 0.8rem;
+    margin-top: -0.8rem;
+  }
+  .section-header .header-right p {
+    font-size: 0.8rem;
+  }
+  .section-header .header-right img {
+    width: 50px;
+    height: 50px;
+  }
+  .container-dashboard img {
+    width: 20px;
+  }
+  .card-footer {
+    top: 80%;
+  }
+  .container-dashboard .card-body {
+    display: contents;
+    margin: 0 auto;
+    justify-content: center;
+  }
+  .container-dashboard .card-title {
+    font-size: 1.5rem;
+    margin-left: 8rem;
+  }
+  .container-dashboard .card-text {
+    font-size: 1rem;
+    margin-left: 7rem;
+  }
+}
+.diagram-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+
+  background-color: #ffffff;
+  border-radius: 50px 0; /* Border luar warna hitam */
+  position: relative;
+}
+
+.diagram-container h3 {
+  width: 100%;
+  background-color: #000; /* Background warna hitam */
+  color: #ffffff;
+  margin: 0; /* Menghilangkan margin untuk menempel */
+  padding: 10px 0;
+  text-align: center;
+  border-radius: 50px 0px 0 0; /* Membulatkan sudut atas */
+}
+
+.diagram-container .chart-legend-wrapper {
+  display: flex;
+  align-items: stretch; /* Mengatur tinggi elemen agar sama */
+  justify-content: space-between;
+  width: 100%;
+  gap: 10rem; /* Jarak antara chart dan legend */
+}
+
+.diagram-container .chart-wrapper {
+  width: 600px; /* Ukuran lingkaran */
+  padding: 20px;
+}
+
+.diagram-container .divider {
+  width: 5px;
+  background-color: #000; /* Warna garis pembatas */
+  height: auto; /* Otomatis mengikuti tinggi konten */
+}
+
+.diagram-container .custom-legend {
+  width: 90%;
+  text-align: left;
+  flex-direction: column;
+}
+
+.diagram-container .legend-item {
+  margin-bottom: 10px;
+  font-size: 14px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #000; /* Border pada legend-item */
+  padding: 10px;
+  width: 114%;
+  margin-left: -10rem;
+}
+/* HEADER */
+@media only screen and (max-width: 590px) {
+  .container-dashboard .card-title {
+    font-size: 1.5rem;
+    margin-left: 5rem; /* Sesuaikan margin */
+  }
+  .container-dashboard .card-text {
+    font-size: 1rem;
+    margin-left: 5rem; /* Sesuaikan margin */
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .diagram-container .legend-item {
+    margin-left: 0rem;
+  }
+  .diagram-container .custom-legend {
+    margin-top: -5rem;
+  }
+  .container-dashboard .card-title {
+    font-size: 1.5rem;
+    margin-left: 5rem; /* Sesuaikan margin */
+  }
+  .container-dashboard .card-text {
+    font-size: 1rem;
+    margin-left: 5rem; /* Sesuaikan margin */
+  }
+  .card-footer {
+    top: 80%;
+  }
+  .chart-legend-wrapper{
+    display: flex;
+    flex-direction: column;
+    margin-top: -17rem;
+    width: 50%;
+  }
+  .custom-legend .legend-item{
+    width: 80%;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .container-dashboard .card-title {
+    font-size: 1.25rem; /* Ukuran font lebih kecil */
+    margin-left: 4rem;
+  }
+  .container-dashboard .card-text {
+    font-size: 0.875rem;
+    margin-left: 4rem;
+  }
+  .card-footer {
+    top: 85%;
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .section-header .header-left h1 {
+    font-size: 1rem;
+    margin-left: -3rem;
+  }
+  .section-header .header-right img {
+    width: 45px;
+    height: 45px;
+  }
+  .container-dashboard img {
+    width: 50px;
+  }
+  .container-dashboard .card-title {
+    font-size: 1.25rem;
+    margin-left: 9rem;
+  }
+  .container-dashboard .card-text {
+    font-size: 1rem;
+    margin-left: 7rem;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .section-header .header-left h1 {
+    font-size: 0.8rem;
+    margin-left: -2rem;
+  }
+  .section-header .header-right img {
+    width: 40px;
+    height: 40px;
+  }
+  .container-dashboard img {
+    width: 30px;
+  }
+  .container-dashboard .card-title {
+    font-size: 1rem;
+    margin-left: 7rem;
+  }
+  .container-dashboard .card-text {
+    font-size: 0.75rem;
+    margin-left: 6rem;
+  }
+  .card-footer {
+    top: 70%;
+  }
+}
+
+/* DIAGRAM */
+@media only screen and (max-width: 430px) {
+  .diagram-container .chart-wrapper {
+    width: 250px; /* Ukuran lingkaran lebih kecil */
+  }
+  .diagram-container .chart-legend-wrapper {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .diagram-container .legend-item {
+    width: 90%; /* Lebar legend menyesuaikan */
+  }
+  .card-footer {
+    top: 80%;
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .diagram-container .chart-wrapper {
+    width: 200px; /* Ukuran lingkaran lebih kecil */
+  }
+  .diagram-container .chart-legend-wrapper {
+    gap: 1.5rem;
+  }
+  .diagram-container .legend-item {
+    font-size: 12px; /* Ukuran font lebih kecil */
+    width: 90%; /* Lebar legend menyesuaikan */
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .diagram-container .chart-wrapper {
+    width: 150px; /* Ukuran lingkaran lebih kecil */
+  }
+  .diagram-container .legend-item {
+    font-size: 10px; /* Ukuran font lebih kecil */
+    width: 90%; /* Lebar legend menyesuaikan */
+  }
+}

@@ -1,0 +1,102 @@
+/* Navigation bar container */
+nav {
+  background: transparent;
+  width: 80%;
+  margin: 0 auto;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 40000;
+}
+
+/* Navigation items */
+.navbar-nav {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+  width: 100%;
+  position: relative; /* Needed for positioning the underline */
+}
+.navbar-toggler {
+  border: none !important;
+  box-shadow: none !important; /* Menghapus shadow jika ada */
+}
+
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler:hover {
+  border: none !important;
+  box-shadow: none !important; /* Menghapus shadow jika ada */
+}
+/* Individual nav items */
+.nav-item {
+  margin: 0 15px;
+  position: relative;
+}
+
+/* Nav item links */
+.nav-item a {
+  font-weight: 400;
+  position: relative;
+  z-index: 1;
+  padding-bottom: 5px; /* Add some space for the underline */
+  transition: font-weight 0.3s;
+}
+
+/* Underline effect */
+.nav-item::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    rgba(219, 202, 170, 1) 16%,
+    rgba(206, 187, 150, 1) 33%,
+    rgba(173, 156, 123, 1) 71%,
+    rgba(176, 158, 124, 1) 100%
+  ); /* Brown underline color */
+  transform: scaleX(0); /* Start with no underline */
+  transform-origin: right;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* When hovering over nav items */
+.nav-item:hover::after,
+.nav-item.active::after {
+  transform: scaleX(1); /* Show underline on hover */
+  transform-origin: left;
+}
+
+/* Active nav item */
+.nav-item.active a {
+  font-weight: 500;
+  color: black; /* Make the font slightly bolder */
+}
+
+.form {
+  border: none;
+  border-bottom: 1px solid black;
+  background: transparent;
+}
+
+.form:focus {
+  border: none;
+  border-bottom: 1px solid rgb(211, 224, 28);
+  outline: none;
+}
+
+button {
+  background: none;
+  border: none;
+  box-shadow: none;
+  width: 10px;
+}
+
+button:hover {
+  background: none;
+  border: none;
+  box-shadow: none;
+}

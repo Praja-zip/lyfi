@@ -1,0 +1,24 @@
+.modal-produk {
+  text-decoration: none;
+  color: rgb(150, 138, 80);
+  border: 1px dashed rgb(150, 138, 80);
+  width: 70%;
+  padding: 1rem;
+  border-radius: 10px;
+  margin-left: 1rem;
+  margin-top: 1rem;
+  transition: background 0.3s ease;
+}
+.modal-produk:hover {
+  border: 1px dashed white;
+  background-color: rgb(150, 138, 80);
+  color: white;
+}
+.modal-produk i {
+  border: 2px solid rgb(150, 138, 80);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  padding: 1rem;
+  margin: 0 auto;
+}

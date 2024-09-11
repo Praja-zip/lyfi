@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Diagram Kategori</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .diagram-container {
+        width: 600px;
+        background-color: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .header {
+        background-color: black;
+        color: white;
+        padding: 20px;
+        text-align: left;
+      }
+
+      .content {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px;
+      }
+
+      .diagram-lingkaran {
+        position: relative;
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        background-color: lightgray;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .circle-segment {
+        position: absolute;
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+      }
+
+      .black {
+        background-color: black;
+        top: 0;
+        left: 0;
+      }
+
+      .green {
+        background-color: green;
+        top: 0;
+        right: 0;
+      }
+
+      .teal {
+        background-color: teal;
+        bottom: 0;
+        right: 0;
+      }
+
+      .brown {
+        background-color: brown;
+        bottom: 0;
+        left: 0;
+      }
+
+      .detail-diagram {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 60%;
+      }
+
+      .detail-item {
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #000;
+        padding: 10px 0;
+      }
+
+      .icon {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        margin-right: 10px;
+      }
+
+      .black {
+        background-color: black;
+      }
+
+      .green {
+        background-color: green;
+      }
+
+      .teal {
+        background-color: teal;
+      }
+
+      .brown {
+        background-color: brown;
+      }
+    </style>
+    <div class="diagram-container">
+      <div class="header">
+        <h1>Diagram Kategori</h1>
+      </div>
+      <div class="content">
+        <div class="diagram-lingkaran">
+          <div class="circle-segment black"></div>
+          <div class="circle-segment green"></div>
+          <div class="circle-segment teal"></div>
+          <div class="circle-segment brown"></div>
+        </div>
+        <div class="detail-diagram">
+          <div class="detail-item">
+            <div class="icon black"></div>
+            <span>Serum 20%</span>
+          </div>
+          <div class="detail-item">
+            <div class="icon green"></div>
+            <span>Serum 20%</span>
+          </div>
+          <div class="detail-item">
+            <div class="icon teal"></div>
+            <span>Serum 20%</span>
+          </div>
+          <div class="detail-item">
+            <div class="icon brown"></div>
+            <span>Serum 20%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

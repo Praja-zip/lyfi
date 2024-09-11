@@ -1,0 +1,156 @@
+/* Header Start */
+.product {
+  min-height: 100vh;
+}
+.product-header-container {
+  position: relative;
+  height: 300px;
+  margin-top: -5rem;
+  overflow: hidden;
+}
+
+.product-header {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.line-header {
+  width: 40%;
+  border: 0; /* Menghapus border default */
+  border-top: 2px solid rgb(0, 0, 0); /* Menentukan ketebalan dan warna garis */
+  width: 40%;
+  margin: 0 auto;
+}
+.product-header-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 1),
+    rgba(255, 255, 255, 0.2)
+  );
+  pointer-events: none;
+}
+
+.product-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin: 100px auto;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+}
+.product-content h1 {
+  font-family: "Prata", serif;
+}
+/* Header End */
+/* Product Start */
+.category-filter-container {
+  overflow-x: auto; /* Izinkan scroll horizontal */
+  white-space: nowrap; /* Pastikan elemen tidak wrap ke baris berikutnya */
+  padding: 0.5rem; /* Opsional: tambahkan padding untuk jarak */
+}
+
+.category-filter-container a {
+  display: inline-block; /* Pastikan elemen berada dalam satu baris */
+  margin-right: 0.5rem; /* Jarak antar kategori */
+  text-decoration: none; /* Menghapus garis bawah link */
+}
+.container .category-filter-container a {
+  text-decoration: none;
+  margin-right: 3rem;
+}
+/* ProductList.css */
+.button-container {
+  overflow-x: auto; /* Membolehkan scroll horizontal */
+  padding: 10px 0;
+  margin: 0 auto; /* Ruang di atas dan bawah */
+}
+
+.button-category {
+  width: 100px; /* Set lebar tombol menjadi 100px */
+  text-align: center;
+  margin-right: 10px; /* Ruang antara tombol */
+  white-space: nowrap; /* Mencegah teks melengkung ke baris berikutnya */
+  border: none; /* Menghilangkan border default tombol */
+  font-size: 0.9rem; /* Ukuran font tombol */
+}
+
+.button-category:hover {
+  background-color: rgb(200, 191, 144);
+  color: white;
+  font-weight: 400;
+}
+
+.button-before {
+  background-color: rgb(200, 191, 144);
+  border-radius: 10px;
+}
+
+.button-after {
+  background-color: #f8f9fa; /* Warna default tombol */
+  border-radius: 10px;
+}
+
+.custom-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsif */
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.custom-container-product {
+  border: 1px solid black;
+  border-radius: 20px;
+  min-height: 400px;
+  max-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  overflow: hidden;
+}
+
+.custom-container-product img {
+  width: 100%;
+  border-radius: 20px 20px 0 0;
+}
+
+.custom-card-body {
+  margin: 0;
+  flex-grow: 1;
+}
+
+.custom-card-footer {
+  background-color: rgb(180, 171, 124);
+  padding: 2rem;
+  margin-top: auto;
+  transition: background 0.3s ease;
+}
+
+.custom-detail-produk {
+  color: white;
+  text-decoration: none;
+}
+
+.custom-detail-produk:hover {
+  color: rgb(180, 171, 124);
+}
+
+.custom-card-footer:hover {
+  background-color: rgb(255, 255, 255);
+  border-top: 1px solid rgb(180, 171, 124);
+}
+@media (max-width: 430px) {
+  .button-container {
+    display: flex;
+  }
+}
