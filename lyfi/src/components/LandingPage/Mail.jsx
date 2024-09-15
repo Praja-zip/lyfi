@@ -6,7 +6,7 @@ const Mail = () => {
   return (
     <div>
       <div className="container-mail">
-        <div class="image-container">
+        <div className="image-container">
           <img src={Background} alt="Your Image" class="image-girl bg-dark" />
           <div className="overlay-content">
             <h2>Leave Question Here</h2>

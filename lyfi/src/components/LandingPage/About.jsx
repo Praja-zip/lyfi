@@ -5,12 +5,12 @@ import "./LandingPage.css";
 const About = () => {
   return (
     <>
-      <div class="container-about text-center">
-        <div class="row">
-          <div class="col">
+      <div className="container-about text-center">
+        <div className="row">
+          <div className="col">
             <img src={about} alt="" />
           </div>
-          <div class="col text">
+          <div className="col text">
             <h1>About The Brand</h1>
             <hr
               style={{
