@@ -9,12 +9,12 @@ const InfoBundling = () => {
   return (
     <>
       <Navbar />
-      <div class="container-info-product text-center">
-        <div class="row">
-          <div class="col">
+      <div className="container-info-product text-center">
+        <div className="row">
+          <div className="col">
             <ImageProduct />
           </div>
-          <div class="col">
+          <div className="col">
             <DetailProduct />
           </div>
         </div>
