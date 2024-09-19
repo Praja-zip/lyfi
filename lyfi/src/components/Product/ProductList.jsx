@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "./../../assets/LandingPage/produk.png";
 import logo2 from "./../../assets/LandingPage/about.png";
@@ -56,8 +56,29 @@ const categories = [
   ...new Set(products.map((product) => product.category)),
 ];
 
+
+
 const ProductList = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [allProducts, setAllProducts] = useState([]);
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get("http://127.0.0.1:8000/api/master-products", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        console.log(response.data.data)
+        setAllProducts(response.data.data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+    fetchProducts();
+  }, [token]);
 
   const getShortName = (name) => {
     const words = name.split(" ");

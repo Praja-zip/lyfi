@@ -45,15 +45,13 @@ const AddProductAdmin = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get(
-          "http://127.0.0.1:8000/api/kategoris",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        // console.log(response)
+
+        const response = await axios.get("http://127.0.0.1:8000/api/kategoris", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        console.log(response)
         setAllCategories(response.data.data);
       } catch (error) {
         console.error("Error fetching categories:", error);

@@ -13,14 +13,13 @@ const ProductTable = ({ products }) => {
     product.category.includes(filter)
   );
 
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredProducts.slice(
-    indexOfFirstItem,
-    indexOfLastItem
-  );
+  // Memastikan allProducts ada sebelum slicing
+  const currentItems = allProducts?.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  ) || [];
 
-  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+  const totalPages = Math.ceil(allProducts?.length / itemsPerPage) || 1;
 
   const handlePageChange = (pageNumber) => {
     if (pageNumber > 0 && pageNumber <= totalPages) {
@@ -31,6 +30,7 @@ const ProductTable = ({ products }) => {
   return (
     <div>
       {/* Tabel Produk */}
+
       <Table
         responsive
         className="custom-table table-responsive"
@@ -48,15 +48,15 @@ const ProductTable = ({ products }) => {
         <tbody>
           {currentItems.map((product, index) => (
             <tr key={index}>
-              <td className="text-center text-light">{product.name}</td>
-              <td className="text-center text-light">{product.price}</td>
+              <td className="text-center text-light">{product.nama_produk}</td>
+              <td className="text-center text-light">{product.harga_produk}</td>
               <td className="text-center text-light" style={{ width: "40%" }}>
-                {product.details.split(" ").slice(0, 5).join(" ") + "..."}
+                {product.detail_produk.split(" ").slice(0, 5).join(" ") + "..."}
               </td>
               <td className="text-center">
                 <img
-                  src={product.image}
-                  alt={product.name}
+                  src={product.foto_produk}
+                  alt={product.nama_produk}
                   style={{ width: "80px", height: "80px" }}
                 />
               </td>

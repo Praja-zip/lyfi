@@ -1,51 +1,30 @@
-import React, { useRef } from "react";
-import logo from "./../../assets/LandingPage/produk.png";
-import logo2 from "./../../assets/LandingPage/about.png";
-import logo3 from "./../../assets/LandingPage/girl.png";
+import React, { useRef, useEffect, useState } from "react";
 import "./LandingPage.css";
 import { Link } from "react-router-dom";
-
-const products = [
-  {
-    id: 1,
-    category: "Skincare",
-    price: "Rp.100.000,00",
-    name: "Scarlet Whitening Facial Wash",
-    image: logo,
-  },
-  {
-    id: 2,
-    category: "Skincare",
-    price: "Rp.100.000,00",
-    name: "Scarlet Whitening Facial Wash",
-    image: logo2,
-  },
-  {
-    id: 3,
-    category: "Skincare",
-    price: "Rp.100.000,00",
-    name: "Scarlet Whitening",
-    image: logo3,
-  },
-  {
-    id: 4,
-    category: "Skincare",
-    price: "Rp.100.000,00",
-    name: "Scarlet Whitening",
-    image: logo2,
-  },
-  {
-    id: 5,
-    category: "Skincare",
-    price: "Rp.100.000,00",
-    name: "Scarlet Whitening",
-    image: logo,
-  },
-];
+import axios from "axios";
 
 const Product = () => {
   const containerRef = useRef(null);
+  const [allProducts, setAllProducts] = useState([]);
+  const token = localStorage.getItem('token');
 
+  useEffect(() => {
+    const fetchProduk = async () => {
+      try {
+        const response = await axios.get("http://127.0.0.1:8000/api/master-products", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setAllProducts(response.data.data);
+      } catch (error) {
+        console.error("Error fetching products:", error.response ? error.response.data.message : error.message);
+      }
+    };
+    fetchProduk();
+  }, [token]);
+
+  console.log(allProducts);
   const scrollLeft = () => {
     if (containerRef.current) {
       containerRef.current.scrollBy({
@@ -97,27 +76,27 @@ const Product = () => {
           }}
           ref={containerRef}
         >
-          {products.map((product, index) => (
+          {allProducts.map((product, index) => (
             <div
               key={index}
               className="product-card mx-2 border flex-shrink-0"
               style={{ width: "18rem", margin: "0 1rem" }} // Adjust margin to ensure space around each card
             >
               <img
-                src={product.image}
+                src={`http://127.0.0.1:8000/storage/images/${product.foto_produk}`}
                 className="card-img-top"
-                alt={product.name}
+                alt={product.nama_produk}
               />
               <div className="card-body mt-2">
                 <h5 className="text-muted fw-semibold">
-                  {truncateText(product.category, 2)}
+                  {truncateText(product.kategoris[0]?.nama_kategori || "Kategori Tidak Ditemukan", 2)}
                 </h5>
-                <p className="card-title fs-5">{truncateText(product.name, 2)}</p>
+                <p className="card-title fs-5">{truncateText(product.nama_produk, 2)}</p>
                 <p className="card-text mt-4">
-                  {truncateText(product.price, 2)}
+                  {product.harga_produk}
                 </p>
               </div>
-              <Link to={"/InfoProduct"} className="custom-detail-produk">
+              <Link to={`/InfoProduct/${product.id}`} className="custom-detail-produk">
                 <div className="custom-card-footer">Lihat Produk</div>
               </Link>
             </div>
