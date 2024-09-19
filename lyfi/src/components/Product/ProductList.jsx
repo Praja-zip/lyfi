@@ -41,6 +41,13 @@ const products = [
     category: "Lip Balm",
     image: logo,
   },
+  {
+    id: 4,
+    name: "Scarlett Whitening Lip Balm",
+    price: "Rp 120.000,-",
+    category: "Lip Balm",
+    image: logo,
+  },
   // Tambahkan produk lainnya sesuai kebutuhan
 ];
 
@@ -86,7 +93,7 @@ const ProductList = () => {
   return (
     <div className="container ">
       {/* Filter */}
-      <div className="my-3 button-container">
+      <div className="my-3 button-container d-flex justify-content-center">
         {categories.map((category, index) => (
           <button
             key={index}
@@ -106,7 +113,7 @@ const ProductList = () => {
           <div key={product.id} className="custom-container-product">
             <img src={product.image} alt={product.name} />
             <div className="custom-card-body">
-              <h3>{product.category}</h3>
+              <h3>{getShortName(product.category)}</h3>
               <p className="nama-product">{getShortName(product.name)}</p>
               <p>{product.price}</p>
             </div>

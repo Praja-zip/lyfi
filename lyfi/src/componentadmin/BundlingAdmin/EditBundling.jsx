@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PilihProdukModal from "./PilihprodukModal";
 import { Link } from "react-router-dom";
 
-const AddBundling = ({
+const EditBundling = ({
   produk,
   handleSubmit,
   setProduk,
@@ -68,11 +68,11 @@ const AddBundling = ({
           </div>
         )}
         <div className="header-addproduct">
-          <h1>Buat Bundling</h1>
+          <h1>Edit Bundling</h1>
         </div>
         <div className="form-addproduct">
           <div className="addproduct-input row">
-            <label htmlFor="addproduct">Nama Bundling :</label>
+            <label htmlFor="addproduct">Edit Bundling :</label>
             <input
               type="text"
               placeholder="Your Answer"
@@ -200,4 +200,4 @@ const AddBundling = ({
   );
 };
 
-export default AddBundling;
+export default EditBundling;

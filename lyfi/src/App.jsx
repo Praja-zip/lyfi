@@ -13,6 +13,10 @@ import AddBundlingAdmin from "./pages/admin/addBundlingadmin";
 import AddCategories from "./pages/admin/addCategories";
 import ProductAdmin from "./pages/admin/ProductAdmin";
 import BundlingAdmin from "./pages/admin/BundlingAdmin";
+import EditProduct from "./pages/admin/EditProduct";
+import EditBundlingAdmin from "./pages/admin/EditBundling";
+import EditCategoriesAdmin from "./pages/admin/EditCategory";
+import Category from "./pages/admin/Category";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -24,19 +28,26 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/Login" element={<Login />} />
-          <Route path="/Register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/" element={<LandingPage />} />
-          <Route path="/Product" element={<Product />} />
-          <Route path="/InfoProduct" element={<InfoProduct />} />
-          <Route path="/Bundling" element={<Bundling />} />
-          <Route path="/InfoBundling" element={<InfoBundling />} />
-          <Route path="/Admin" element={<DashboardAdmin />} />
-          <Route path="/Admin/AddProductAdmin" element={<AddProductAdmin />} />
-          <Route path="/Admin/AddBundlingAdmin" element={<AddBundlingAdmin />} />
-          <Route path="/Admin/ProductAdmin" element={<ProductAdmin />} />
-          <Route path="/Admin/AddCategories" element={<AddCategories />} />
-          <Route path="/Admin/BundlingAdmin" element={<BundlingAdmin />} />
+          <Route path="/product" element={<Product />} />
+          <Route path="/infoproduct" element={<InfoProduct />} />
+          <Route path="/bundling" element={<Bundling />} />
+          <Route path="/infobundling" element={<InfoBundling />} />
+          <Route path="/admin" element={<DashboardAdmin />} />
+          <Route path="/admin/addproductadmin" element={<AddProductAdmin />} />
+          <Route
+            path="/admin/addbundlingadmin"
+            element={<AddBundlingAdmin />}
+          />
+          <Route path="/admin/productadmin" element={<ProductAdmin />} />
+          <Route path="/admin/addcategories" element={<AddCategories />} />
+          <Route path="/admin/bundlingadmin" element={<BundlingAdmin />} />
+          <Route path="/admin/editproduct" element={<EditProduct />} />
+          <Route path="/admin/editbundling" element={<EditBundlingAdmin />} />
+          <Route path="/admin/editcategory" element={<EditCategoriesAdmin />} />
+          <Route path="/admin/category" element={<Category />} />
         </Routes>
       </BrowserRouter>
     </>

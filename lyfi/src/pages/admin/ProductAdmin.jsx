@@ -10,6 +10,8 @@ import ProductTable from "../../componentadmin/ProductAdmin/ProductTable";
 import "./../../componentadmin/ProductAdmin/AddProduct.css";
 import axios from "axios";
 
+
+
 const ProductAdmin = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [allProducts, setAllProducts] = useState([]);
@@ -54,12 +56,25 @@ useEffect(() => {
       >
         <div className="main-content">
           <Header />
-          <div className="container-productadmin">
-            <Link to="/admin/addproductadmin" className="next-page-product">
-              <i className="fa-solid fa-plus me-2"></i>Create Product
+
+          <div className="container-productadmin d-flex">
+            <Link
+              to="/admin/addproductadmin"
+              className="next-page-product"
+              href=""
+            >
+              <i class="fa-solid fa-plus me-2"></i>Create Product
+
             </Link>
             <Link to="/admin/addcategories" className="next-page-product mx-3">
               <i className="fa-solid fa-plus me-2"></i>Create Categories
+            </Link>
+            <Link
+              to="/admin/category"
+              href=""
+              className="next-page-product mx-3"
+            >
+              <i class="fa-solid fa-plus me-2"></i>Lihat Daftar Kategori
             </Link>
           </div>
           <div className="container-tableproduct mt-2">

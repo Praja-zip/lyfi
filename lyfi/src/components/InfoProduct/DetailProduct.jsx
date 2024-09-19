@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import tokped from "./../../assets/Bundling/tokped.png";
 import shopee from "./../../assets/Bundling/shopee.png";
 
 const DetailProduct = () => {
+  const copyLink = () => {
+    navigator.clipboard
+      .writeText(window.location.href)
+      .then(() => {
+        alert("Tautan telah disalin ke clipboard!");
+      })
+      .catch((err) => {
+        console.error("Gagal menyalin tautan: ", err);
+      });
+  };
+
   return (
     <>
       <div className="info-detail-product">
@@ -110,11 +121,16 @@ const DetailProduct = () => {
           </div>
         </div>
         <hr className="mt-5" />
-        <p class="bagikan-produk">
+        <p className="bagikan-produk">
           Bagikan Produk ini
           <span>
-            <i class="fa-brands fa-instagram me-3"></i>
-            <i class="fa-brands fa-whatsapp "></i>
+            <i
+              className="fa-solid fa-share-nodes me-3"
+              onClick={copyLink}
+              style={{ cursor: "pointer" }}
+            ></i>
+            <i className="fa-brands fa-instagram me-3"></i>
+            <i className="fa-brands fa-whatsapp "></i>
           </span>
         </p>
       </div>

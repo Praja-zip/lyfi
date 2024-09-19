@@ -1,12 +1,17 @@
 import React, { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+
 import { Table, Button } from "react-bootstrap";
 import "./AddProduct.css";
 
-const ProductTable = ({ allProducts }) => {
+const ProductTable = ({ products }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
+  const [filter] = useState("");
 
-  console.log("ini dari table", allProducts);
+  const filteredProducts = products.filter((product) =>
+    product.category.includes(filter)
+  );
 
   // Memastikan allProducts ada sebelum slicing
   const currentItems = allProducts?.slice(
@@ -23,49 +28,52 @@ const ProductTable = ({ allProducts }) => {
   };
 
   return (
-    <div className="table-container">
+    <div>
       {/* Tabel Produk */}
-      <div className="table-responsive">
-        <Table className="custom-table" style={{ borderRadius: "20px" }}>
-          <thead>
-            <tr>
-              <th className="text-center">Nama Produk</th>
-              <th className="text-center">Harga Produk</th>
-              <th className="text-center">Detail Produk</th>
-              <th className="text-center">Foto Produk</th>
-              <th className="text-center">Aksi</th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentItems.map((product, index) => (
-              <tr key={index}>
-                <td className="text-center text-light">{product.nama_produk}</td>
-                <td className="text-center text-light">{product.harga_produk}</td>
-                <td className="text-center text-light" style={{ width: "40%" }}>
-                  {product.detail_produk.length > 5
-                    ? product.detail_produk.split(" ").slice(0, 5).join(" ") + "..."
-                    : product.detail_produk}
-                </td>
-                <td className="text-center">
+
+      <Table
+        responsive
+        className="custom-table table-responsive"
+        style={{ borderRadius: "20px" }}
+      >
+        <thead>
+          <tr>
+            <th className="text-center">Nama Produk</th>
+            <th className="text-center">Harga Produk</th>
+            <th className="text-center">Detail Produk</th>
+            <th className="text-center">Foto Produk</th>
+            <th className="text-center">Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          {currentItems.map((product, index) => (
+            <tr key={index}>
+              <td className="text-center text-light">{product.nama_produk}</td>
+              <td className="text-center text-light">{product.harga_produk}</td>
+              <td className="text-center text-light" style={{ width: "40%" }}>
+                {product.detail_produk.split(" ").slice(0, 5).join(" ") + "..."}
+              </td>
+              <td className="text-center">
                 <img
-                    src={`http://127.0.0.1:8000/storage/images/${product.foto_produk}`}
-                    alt={product.nama_produk}
-                    style={{ width: "80px", height: "80px" }}
-                  />
-                </td>
-                <td className="text-center" style={{ width: "20%" }}>
-                  <Button size="sm">
+                  src={product.foto_produk}
+                  alt={product.nama_produk}
+                  style={{ width: "80px", height: "80px" }}
+                />
+              </td>
+              <td className="text-center" style={{ width: "20%" }}>
+                <Link to="/admin/editproduct">
+                  <Button className="button-aksi" size="sm">
                     <i className="fa-regular fa-pen-to-square"></i>
                   </Button>{" "}
-                  <Button size="sm">
-                    <i className="fa-solid fa-trash"></i>
-                  </Button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-      </div>
+                </Link>
+                <Button className="button-aksi" size="sm">
+                  <i className="fa-solid fa-trash"></i>
+                </Button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
 
       {/* Pagination */}
       <div className="pagination-container">

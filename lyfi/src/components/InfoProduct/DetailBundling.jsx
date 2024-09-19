@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Product from "../../assets/LandingPage/produk.png";
 import { Link } from "react-router-dom";
 import tokped from "./../../assets/Bundling/tokped.png";
 import shopee from "./../../assets/Bundling/shopee.png";
 
 const DetailBundling = () => {
+  const copyLink = () => {
+    navigator.clipboard
+      .writeText(window.location.href)
+      .then(() => {
+        alert("Tautan telah disalin ke clipboard!");
+      })
+      .catch((err) => {
+        console.error("Gagal menyalin tautan: ", err);
+      });
+  };
   return (
     <>
       <div className="info-detail-bundling text-start">
@@ -23,7 +33,7 @@ const DetailBundling = () => {
             <div className="information-bundling">
               <p className="product-name fw-semibold">Nama Product</p>
               <p className="product-price">Rp.999.999</p>
-              <Link className="information-link mt-5" href="">
+              <Link to="/infoproduct" className="information-link mt-5" href="">
                 Lihat Product<i class="fa-solid fa-arrow-right ms-2"></i>
               </Link>
             </div>
@@ -33,7 +43,7 @@ const DetailBundling = () => {
             <div className="information-bundling">
               <p className="product-name fw-semibold">Nama Product</p>
               <p className="product-price">Rp.999.999</p>
-              <Link className="information-link mt-5" href="">
+              <Link to="/infoproduct" className="information-link mt-5" href="">
                 Lihat Product<i class="fa-solid fa-arrow-right ms-2"></i>
               </Link>
             </div>
@@ -52,11 +62,16 @@ const DetailBundling = () => {
             </div>
           </div>
           <hr className="mt-5" />
-          <p class="bagikan-produk">
+          <p className="bagikan-produk">
             Bagikan Produk ini
             <span>
-              <i class="fa-brands fa-instagram me-3"></i>
-              <i class="fa-brands fa-whatsapp "></i>
+              <i
+                className="fa-solid fa-share-nodes me-3"
+                onClick={copyLink}
+                style={{ cursor: "pointer" }}
+              ></i>
+              <i className="fa-brands fa-instagram me-3"></i>
+              <i className="fa-brands fa-whatsapp "></i>
             </span>
           </p>
         </div>

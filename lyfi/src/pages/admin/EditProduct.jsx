@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./../../componentadmin/Admin.css";
 import Sidebar from "./../../componentadmin/sidebar";
-import AddProduct from "./../../componentadmin/ProductAdmin/AddProduct";
+import EditProducts from "../../componentadmin/ProductAdmin/EditProducts";
 import "./../../componentadmin/ProductAdmin/AddProduct.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom"; // Ensure you have this for navigation
 
-const AddProductAdmin = () => {
+const EditProduct = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -45,13 +45,15 @@ const AddProductAdmin = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-
-        const response = await axios.get("http://127.0.0.1:8000/api/kategoris", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        console.log(response)
+        const response = await axios.get(
+          "http://127.0.0.1:8000/api/kategoris",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        // console.log(response)
         setAllCategories(response.data.data);
       } catch (error) {
         console.error("Error fetching categories:", error);
@@ -136,7 +138,7 @@ const AddProductAdmin = () => {
         }`}
       >
         <div className="main-content">
-          <AddProduct
+          <EditProducts
             nama_produk={nama_produk}
             harga_produk={harga_produk}
             detail_produk={detail_produk}
@@ -163,4 +165,4 @@ const AddProductAdmin = () => {
   );
 };
 
-export default AddProductAdmin;
+export default EditProduct;

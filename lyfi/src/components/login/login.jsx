@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./login.css";
 
 const LoginPage = ({
@@ -9,8 +9,28 @@ const LoginPage = ({
   handleSubmit,
   error,
 }) => {
+  const [showError, setShowError] = useState(false);
+
+  useEffect(() => {
+    if (error) {
+      setShowError(true); // Show the error popup
+    }
+  }, [error]);
+
+  const handleCloseError = () => {
+    setShowError(false); // Hide the error popup when close button is clicked
+  };
+
   return (
     <div className="login-bg">
+      {error && (
+        <div className={`error-popup ${showError ? "show" : ""}`}>
+          <p className="error-message">{error}</p>
+          <button className="close-btn" onClick={handleCloseError}>
+            &times;
+          </button>
+        </div>
+      )}
       <div className="login">
         <div className="login-header">
           <h1>Lify Login</h1>
@@ -47,8 +67,6 @@ const LoginPage = ({
               />
               <span className="input-highlight"></span>
             </div>
-
-            {error && <p className="error-message">{error}</p>}
 
             <button type="submit" className="login-footer">
               Kirim

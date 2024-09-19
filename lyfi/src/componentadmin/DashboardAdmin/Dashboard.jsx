@@ -1,14 +1,38 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import shop from "./../../assets/icon/cart.png";
 import kubik from "./../../assets/icon/kubik.png";
 import user from "./../../assets/icon/user.png";
 
 const Dashboard = () => {
+  const [showNotification, setShowNotification] = useState(false);
+  const [message, setMessage] = useState("");
+
+  // Function to trigger notification
+  const handleNotification = (msg) => {
+    setMessage(msg);
+    setShowNotification(true);
+    setTimeout(() => {
+      setShowNotification(false); // Hide after 3 seconds
+    }, 3000);
+  };
+
+  useEffect(() => {
+    // Optionally show a welcome notification when the dashboard loads
+    handleNotification("Selamat datang di Dashboard Admin");
+  }, []);
+
   return (
     <>
-      <div class="container-dashboard text-start ms-2">
-        <div class="row">
-          <div class="col">
+      {/* Notification Popup */}
+      {showNotification && (
+        <div className="notification-popup">
+          <p className="notification-message">{message}</p>
+        </div>
+      )}
+
+      <div className="container-dashboard text-start ms-2">
+        <div className="row">
+          <div className="col">
             <div
               className="dashboard-card card-custom mb-3"
               style={{ maxWidth: "540px" }}
@@ -25,16 +49,20 @@ const Dashboard = () => {
                 <div className="col-md-8 mt-3">
                   <div className="card-body">
                     <h1 className="card-title">123</h1>
-                    <p className="card-text ">Total Produk</p>
+                    <p className="card-text">Total Produk</p>
                   </div>
                 </div>
               </div>
-              <a href="#" className="card-link-text">
+              <a
+                href="#"
+                className="card-link-text"
+                onClick={() => handleNotification("Viewing more products")}
+              >
                 <div className="card-footer">selengkapnya →</div>
               </a>
             </div>
           </div>
-          <div class="col">
+          <div className="col">
             <div
               className="dashboard-card card-custom mb-3"
               style={{ maxWidth: "540px" }}
@@ -45,7 +73,7 @@ const Dashboard = () => {
                     src={kubik}
                     style={{ width: "70px" }}
                     className="image-card-dashboard"
-                    alt="Shop"
+                    alt="Kubik"
                   />
                 </div>
                 <div className="col-md-8 mt-3">
@@ -55,12 +83,16 @@ const Dashboard = () => {
                   </div>
                 </div>
               </div>
-              <a href="#" className="card-link-text">
+              <a
+                href="#"
+                className="card-link-text"
+                onClick={() => handleNotification("Viewing bundling details")}
+              >
                 <div className="card-footer">selengkapnya →</div>
               </a>
             </div>
           </div>
-          <div class="col">
+          <div className="col">
             <div
               className="dashboard-card card-custom mb-3"
               style={{ maxWidth: "540px" }}
@@ -71,7 +103,7 @@ const Dashboard = () => {
                     src={user}
                     style={{ width: "50px" }}
                     className="image-card-dashboard"
-                    alt="Shop"
+                    alt="User"
                   />
                 </div>
                 <div className="col-md-8 mt-3">
@@ -81,7 +113,11 @@ const Dashboard = () => {
                   </div>
                 </div>
               </div>
-              <a href="#" className="card-link-text">
+              <a
+                href="#"
+                className="card-link-text"
+                onClick={() => handleNotification("Viewing visitor details")}
+              >
                 <div className="card-footer">selengkapnya →</div>
               </a>
             </div>

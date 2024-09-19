@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import axios from "axios"; // Pastikan axios diimpor
 import "./../../componentadmin/Admin.css";
 import Sidebar from "./../../componentadmin/sidebar";
-import AddCategories from "./../../componentadmin/ProductAdmin/AddCategories";
+import EditCategories from "./../../componentadmin/ProductAdmin/EditCategory";
 import "./../../componentadmin/ProductAdmin/AddProduct.css";
 
-const AddCategoriesAdmin = () => {
+const EditCategoriesAdmin = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [nama_kategori, setCategory] = useState("");
 
@@ -56,7 +56,7 @@ const AddCategoriesAdmin = () => {
         }`}
       >
         <div className="main-content">
-          <AddCategories
+          <EditCategories
             category={nama_kategori}
             setCategory={setCategory}
             handleSubmit={handleSubmit}
@@ -67,4 +67,4 @@ const AddCategoriesAdmin = () => {
   );
 };
 
-export default AddCategoriesAdmin;
+export default EditCategoriesAdmin;

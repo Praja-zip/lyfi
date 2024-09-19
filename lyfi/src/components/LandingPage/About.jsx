@@ -21,11 +21,13 @@ const About = () => {
               }}
             />
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-              ornare, est a efficitur lacinia, enim libero venenatis dolor, a
-              eleifend dui nibh eu lorem. Quisque ligula leo, commodo vel
-              volutpat ac, aliquam quis elit. Donec felis lorem, sagittis eget
-              leo a, efficitur facilisis ipsum. Nunc eget tempus ipsum.
+              Lyfi adalah serum essence premium yang bergerak di bidang
+              kecantikan, diciptakan untuk mencerahkan kulit dan mencegah
+              tanda-tanda penuaan dini. Dirancang sebagai produk bodycare yang
+              unggul, Lyfi menawarkan perawatan menyeluruh yang meratakan warna
+              kulit, menjaga kelembaban dan memberikan kilau alami. Dengan Lyfi,
+              dapatkan kulit yang tampak lebih cerah, sehat, dan awet muda
+              setiap hari.
             </p>
             <hr
               style={{
