@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Select from "react-select";
 
-const AddProduct = ({
+const EditProducts = ({
   nama_produk,
   harga_produk,
   detail_produk,
@@ -96,7 +96,7 @@ const AddProduct = ({
     <div className="addproduct text-start mt-5">
       <form onSubmit={handleFormSubmit}>
         <div className="header-addproduct">
-          <h1>Buat Produk</h1>
+          <h1>Edit Produk</h1>
         </div>
 
         {/* Notifikasi */}
@@ -311,4 +311,4 @@ const AddProduct = ({
   );
 };
 
-export default AddProduct;
+export default EditProducts;

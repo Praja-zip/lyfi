@@ -1,7 +1,7 @@
 import React from "react";
 import "./Footer.css";
 import logo from "./../../assets/LandingPage/logomerge.png";
-import "./LandingPage.css"
+import "./LandingPage.css";
 
 const Footer = () => {
   return (
@@ -11,8 +11,9 @@ const Footer = () => {
           <div className="main">
             <img src={logo} alt="" />
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat
-              porro, consequatur optio rerum quo et!
+              {" "}
+              perawatan menyeluruh yang meratakan warna kulit, menjaga
+              kelembaban dan memberikan kilau alami.
             </p>
           </div>
           <div className="detail">

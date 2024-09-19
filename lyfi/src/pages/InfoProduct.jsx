@@ -1,27 +1,52 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/LandingPage/Footer";
 import ImageProduct from "../components/InfoProduct/ImageProduct";
 import DetailProduct from "../components/InfoProduct/DetailProduct";
 import Product from "../components/LandingPage/Product";
+import Loading from "./../components/Loading/Loading";
 
 const InfoProduct = () => {
+  const [loading, setLoading] = useState(true); 
+
+  useEffect(() => {
+    const handlePageLoad = () => {
+      setLoading(false);
+    };
+    if (document.readyState === "complete") {
+      setLoading(false);
+    } else {
+      window.addEventListener("load", handlePageLoad);
+    }
+
+    return () => {
+      window.removeEventListener("load", handlePageLoad);
+    };
+  }, []);
+
   return (
     <>
-      <Navbar />
-      <div className="container-info-product text-center">
-        <div className="row">
-          <div className="col">
-            <ImageProduct />
+      {loading ? (
+        <Loading /> 
+      ) : (
+        <>
+          <Navbar />
+          <div className="container-info-product text-center">
+            <div className="row">
+              <div className="col">
+                <ImageProduct />
+              </div>
+              <div className="col">
+                <DetailProduct />
+              </div>
+            </div>
           </div>
-          <div className="col">
-            <DetailProduct />
-          </div>
-        </div>
-      </div>
-      <Product />
-      <Footer />
+          <Product />
+          <Footer />
+        </>
+      )}
     </>
   );
 };
+
 export default InfoProduct;

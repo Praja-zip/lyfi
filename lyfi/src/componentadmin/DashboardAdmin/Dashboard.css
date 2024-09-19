@@ -186,18 +186,27 @@
     font-size: 1rem;
     margin-left: 5rem; /* Sesuaikan margin */
   }
+  .diagram-container .custom-legend {
+    margin-top: -6rem;
+  }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 808px) {
   .diagram-container .legend-item {
     margin-left: 0rem;
   }
   .diagram-container .custom-legend {
-    margin-top: -5rem;
+    margin-top: -20rem;
   }
   .container-dashboard .card-title {
     font-size: 1.5rem;
     margin-left: 5rem; /* Sesuaikan margin */
+  }
+  .chart-legend-wrapper{
+    display: flex;
+    flex-direction: column;
+    width: 10%;
+
   }
   .container-dashboard .card-text {
     font-size: 1rem;
@@ -206,13 +215,13 @@
   .card-footer {
     top: 80%;
   }
-  .chart-legend-wrapper{
+  .chart-legend-wrapper {
     display: flex;
     flex-direction: column;
-    margin-top: -17rem;
+    margin-top: 1rem;
     width: 50%;
   }
-  .custom-legend .legend-item{
+  .custom-legend .legend-item {
     width: 80%;
   }
 }
@@ -245,6 +254,9 @@
   .container-dashboard .card-title {
     font-size: 1.25rem;
     margin-left: 9rem;
+  }
+  .diagram-container .custom-legend {
+    margin-top: -6rem;
   }
   .container-dashboard .card-text {
     font-size: 1rem;

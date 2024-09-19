@@ -81,7 +81,9 @@
   margin-right: 10px; /* Ruang antara tombol */
   white-space: nowrap; /* Mencegah teks melengkung ke baris berikutnya */
   border: none; /* Menghilangkan border default tombol */
-  font-size: 0.9rem; /* Ukuran font tombol */
+  font-size: 0.9rem;
+  padding: 0.5rem 0rem; 
+  transition: background-color 0.3s ease;
 }
 
 .button-category:hover {
@@ -93,6 +95,7 @@
 .button-before {
   background-color: rgb(200, 191, 144);
   border-radius: 10px;
+  color: white;
 }
 
 .button-after {

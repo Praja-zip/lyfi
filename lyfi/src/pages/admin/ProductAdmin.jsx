@@ -11,7 +11,7 @@ import "./../../componentadmin/ProductAdmin/AddProduct.css";
 
 const products = [
   {
-    name: "Moisturizer A",
+    name: "Moisturizer B",
     price: "Rp 150.000",
     details: "Pelembab dengan kandungan alami",
     image: foto,
@@ -41,7 +41,7 @@ const ProductAdmin = () => {
       >
         <div className="main-content">
           <Header />
-          <div className="container-productadmin">
+          <div className="container-productadmin d-flex">
             <Link
               to="/admin/addproductadmin"
               className="next-page-product"
@@ -55,6 +55,13 @@ const ProductAdmin = () => {
               className="next-page-product mx-3"
             >
               <i class="fa-solid fa-plus me-2"></i>Create Categories
+            </Link>
+            <Link
+              to="/admin/category"
+              href=""
+              className="next-page-product mx-3"
+            >
+              <i class="fa-solid fa-plus me-2"></i>Lihat Daftar Kategori
             </Link>
           </div>
           <div className="container-tableproduct mt-2">

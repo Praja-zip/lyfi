@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Table, Button } from "react-bootstrap";
+import { Link, useLocation } from "react-router-dom";
 
 const BundlingTable = ({ products }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -58,10 +59,12 @@ const BundlingTable = ({ products }) => {
                 />
               </td>
               <td className="text-center" style={{ width: "20%" }}>
-                <Button size="sm">
-                  <i className="fa-regular fa-pen-to-square"></i>
-                </Button>{" "}
-                <Button size="sm">
+                <Link to="/admin/editbundling">
+                  <Button className="button-aksi" size="sm">
+                    <i className="fa-regular fa-pen-to-square"></i>
+                  </Button>{" "}
+                </Link>
+                <Button className="button-aksi" size="sm">
                   <i className="fa-solid fa-trash"></i>
                 </Button>
               </td>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-const AddCategories = ({ category, setCategory }) => {
+const EditCategories = ({ category, setCategory }) => {
   const [showNotification, setShowNotification] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -10,7 +10,7 @@ const AddCategories = ({ category, setCategory }) => {
     console.log("Category value:", category);
 
     // Langsung memunculkan notifikasi tanpa handleSubmit
-    setMessage("Kategori berhasil ditambahkan!");
+    setMessage("Kategori berhasil diedit!");
     setShowNotification(true);
     setCategory("")
     // Sembunyikan notifikasi setelah 3 detik
@@ -22,7 +22,7 @@ const AddCategories = ({ category, setCategory }) => {
   return (
     <div className="addproduct text-start mt-5">
       <div className="header-addproduct">
-        <h1>Buat Kategori</h1>
+        <h1>Edit Kategori</h1>
       </div>
 
       {/* Notifikasi */}
@@ -62,4 +62,4 @@ const AddCategories = ({ category, setCategory }) => {
   );
 };
 
-export default AddCategories;
+export default EditCategories;

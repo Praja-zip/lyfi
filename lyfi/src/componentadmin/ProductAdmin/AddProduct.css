@@ -19,7 +19,9 @@
   margin-top: 1rem;
   border: 1px solid white;
 }
-
+.form-addproduct .addproduct-input .file-upload {
+  background-color: none;
+}
 .custom-table th,
 .custom-table td {
   padding: 8px;
@@ -43,7 +45,7 @@
 .custom-table tbody tr:hover {
   background-color: transparent !important; /* Pastikan tetap transparan saat di-hover */
 }
-.custom-table tbody td button {
+.custom-table tbody td .button-aksi {
   width: 50px;
   height: 50px;
   background-color: white;
@@ -51,7 +53,7 @@
   color: #000;
   font-size: 1.5rem;
 }
-.custom-table tbody td button:hover {
+.custom-table tbody td .button-aksi:hover {
   background-color: rgb(150, 138, 80);
   border: 1px solid white;
 }
@@ -152,40 +154,22 @@
 .form-addproduct input:focus {
   outline: none;
 }
-.checkbox-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+/* CSS untuk Select Dropdown */
+.custom-select {
+  width: 70%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-left: 1rem; /* Penting untuk memastikan dropdown muncul di tempat yang diinginkan */
 }
 
-.checkbox-group {
-  display: flex;
-  align-items: center;
+.form-addproduct label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
 }
 
-.checkbox-group input[type="radio"] {
-  width: 18px;
-  height: 18px;
-  margin-right: 8px;
-  appearance: none;
-  border: 1px solid rgb(150, 138, 80);
-  border-radius: 4px;
-  outline: none;
-  cursor: pointer;
-  vertical-align: middle;
-}
-
-.checkbox-group input[type="radio"]:checked {
-  background-color: rgb(150, 138, 80);
-  border-color: rgb(150, 138, 80);
-}
-
-.checkbox-group label {
-  margin-top: 1.2rem;
-  cursor: pointer;
-  font-weight: 400;
-  line-height: 18px; /* Samakan dengan tinggi checkbox */
-}
 .custum-file-upload {
   height: 200px;
   width: 300px;
@@ -270,7 +254,7 @@
     height: 50px;
   }
 
-  .custom-table tbody td button {
+  .custom-table tbody td .button-aksi {
     width: 30px;
     height: 30px;
     font-size: 1rem;
@@ -304,7 +288,7 @@
     height: 40px;
   }
 
-  .custom-table tbody td button {
+  .custom-table tbody td .button-aksi {
     width: 25px;
     height: 25px;
     font-size: 0.8rem;
@@ -326,7 +310,7 @@
     font-size: 6px;
     padding: 2%;
   }
-  .header-addproduct{
+  .header-addproduct {
     width: 85%;
   }
   .container-productadmin a {
@@ -338,7 +322,7 @@
     height: 30px;
   }
 
-  .custom-table tbody td button {
+  .custom-table tbody td .button-aksi {
     width: 20px;
     height: 20px;
     font-size: 0.6rem;
@@ -354,7 +338,7 @@
   .custum-file-upload {
     margin-left: -100rem;
   }
-  .addproduct-save{
+  .addproduct-save {
     margin-right: 2rem;
   }
 }
