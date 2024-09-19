@@ -8,14 +8,13 @@ const ProductTable = ({ allProducts }) => {
 
   console.log("ini dari table", allProducts);
 
-  // Pastikan allproducts ada sebelum slicing
+  // Memastikan allProducts ada sebelum slicing
   const currentItems = allProducts?.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   ) || [];
 
   const totalPages = Math.ceil(allProducts?.length / itemsPerPage) || 1;
-  console.log(totalPages);
 
   const handlePageChange = (pageNumber) => {
     if (pageNumber > 0 && pageNumber <= totalPages) {
@@ -28,9 +27,9 @@ const ProductTable = ({ allProducts }) => {
       {/* Tabel Produk */}
       <div className="table-responsive">
         <Table className="custom-table" style={{ borderRadius: "20px" }}>
-          {/* <thead>
+          <thead>
             <tr>
-              <th className="text-center">Nama Produkkk</th>
+              <th className="text-center">Nama Produk</th>
               <th className="text-center">Harga Produk</th>
               <th className="text-center">Detail Produk</th>
               <th className="text-center">Foto Produk</th>
@@ -43,11 +42,13 @@ const ProductTable = ({ allProducts }) => {
                 <td className="text-center text-light">{product.nama_produk}</td>
                 <td className="text-center text-light">{product.harga_produk}</td>
                 <td className="text-center text-light" style={{ width: "40%" }}>
-                  {product.detail_produk.split(" ").slice(0, 5).join(" ") + "..."}
+                  {product.detail_produk.length > 5
+                    ? product.detail_produk.split(" ").slice(0, 5).join(" ") + "..."
+                    : product.detail_produk}
                 </td>
                 <td className="text-center">
-                  <img
-                    src={`http://127.0.0.1:8000/storage/${product.foto_produk}`}
+                <img
+                    src={`http://127.0.0.1:8000/storage/images/${product.foto_produk}`}
                     alt={product.nama_produk}
                     style={{ width: "80px", height: "80px" }}
                   />
@@ -62,7 +63,7 @@ const ProductTable = ({ allProducts }) => {
                 </td>
               </tr>
             ))}
-          </tbody> */}
+          </tbody>
         </Table>
       </div>
 

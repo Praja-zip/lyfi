@@ -19,22 +19,24 @@ class MasterProductController extends Controller
         $this->middleware('admin.auth')->only(['store', 'update', 'destroy']);
     }
     public function index(Request $request)
-    {
-        // Menentukan jumlah item per halaman, defaultnya 10 jika tidak ada parameter 'per_page'
-        $perPage = $request->get('per_page', 10);
+{
+    // Menentukan jumlah item per halaman, defaultnya 10 jika tidak ada parameter 'per_page'
+    $perPage = $request->get('per_page', 10);
 
-        // Mengambil data produk dengan pagination
-        $master_products = Master_product::paginate($perPage);
+    // Mengambil data produk dengan relasi kategori yang terhubung, menggunakan eager loading
+    $master_products = Master_product::with('kategoris')->paginate($perPage);
 
-        // Mengembalikan respon JSON dengan data produk yang telah dipaginate
-        return response()->json([
-            'data' => $master_products->items(), // Data item pada halaman saat ini
-            'current_page' => $master_products->currentPage(), // Halaman saat ini
-            'last_page' => $master_products->lastPage(), // Halaman terakhir
-            'total' => $master_products->total(), // Total item
-            'per_page' => $master_products->perPage(), // Item per halaman
-        ]);
-    }
+    // Mengembalikan respon JSON dengan data produk beserta kategori yang terkait
+    return response()->json([
+        'data' => $master_products->items(), // Data item pada halaman saat ini
+        'current_page' => $master_products->currentPage(), // Halaman saat ini
+        'last_page' => $master_products->lastPage(), // Halaman terakhir
+        'total' => $master_products->total(), // Total item
+        'per_page' => $master_products->perPage(), // Item per halaman
+    ]);
+}
+
+
 
     /**
      * Show the form for creating a new resource.
