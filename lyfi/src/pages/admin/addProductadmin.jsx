@@ -50,7 +50,7 @@ const AddProductAdmin = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        // console.log(response)
+        console.log(response)
         setAllCategories(response.data.data);
       } catch (error) {
         console.error("Error fetching categories:", error);

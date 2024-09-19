@@ -51,8 +51,11 @@ class KategoriController extends Controller
  
         if ($validator->fails()){
             return response()->json(
-                $validator->errors(),
+                [
+                    'message' => 'kategori tidak berhasil ditambahkan',
+                    $validator->errors(),
                 422
+                ]
             );
         };
  
@@ -61,7 +64,8 @@ class KategoriController extends Controller
         $kategori = Kategori::create($input);
  
         return response()->json([
-            'data' => $kategori
+            'data' => $kategori,
+            'message' => 'kategori berhasil ditambahkan'
         ]);
     }
 
