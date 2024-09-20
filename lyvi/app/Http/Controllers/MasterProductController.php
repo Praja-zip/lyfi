@@ -28,11 +28,21 @@ class MasterProductController extends Controller
 
     // Mengembalikan respon JSON dengan data produk beserta kategori yang terkait
     return response()->json([
-        'data' => $master_products->items(), // Data item pada halaman saat ini
-        'current_page' => $master_products->currentPage(), // Halaman saat ini
-        'last_page' => $master_products->lastPage(), // Halaman terakhir
-        'total' => $master_products->total(), // Total item
-        'per_page' => $master_products->perPage(), // Item per halaman
+        'data' => $master_products->map(function ($product) {
+            return [
+                'nama_produk' => $product->nama_produk,
+                'harga_produk' => $product->harga_produk,
+                'foto_produk' => $product->foto_produk,
+                'detail_produk' => $product->detail_produk,
+                'kategori' => $product->kategoris->map(function ($kategori) {
+                    return $kategori->nama_kategori;
+                }),
+            ];
+        }),
+        'current_page' => $master_products->currentPage(),
+        'last_page' => $master_products->lastPage(),
+        'total' => $master_products->total(),
+        'per_page' => $master_products->perPage(),
     ]);
 }
 

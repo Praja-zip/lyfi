@@ -89,7 +89,7 @@ const Product = () => {
               />
               <div className="card-body mt-2">
                 <h5 className="text-muted fw-semibold">
-                  {truncateText(product.kategoris[0]?.nama_kategori || "Kategori Tidak Ditemukan", 2)}
+                  {truncateText(product?.kategori[0] || "Kategori Tidak Ditemukan", 2)}
                 </h5>
                 <p className="card-title fs-5">{truncateText(product.nama_produk, 2)}</p>
                 <p className="card-text mt-4">
