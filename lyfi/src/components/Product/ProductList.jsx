@@ -4,6 +4,7 @@ import logo from "./../../assets/LandingPage/produk.png";
 import logo2 from "./../../assets/LandingPage/about.png";
 import logo3 from "./../../assets/LandingPage/girl.png";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const products = [
   {
