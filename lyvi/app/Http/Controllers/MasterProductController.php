@@ -72,17 +72,27 @@ public function update(Request $request, $id)
 
     // Proses setiap file gambar jika ada
     if ($request->hasFile('foto_produk')) {
-        $gambar_paths = [];
+        // Hapus gambar lama jika ada
+        if ($master_product->foto_produk) {
+            foreach (json_decode($master_product->foto_produk) as $oldImage) {
+                if (Storage::disk('public')->exists($oldImage)) {
+                    Storage::disk('public')->delete($oldImage);
+                }
+            }
+        }
 
+        // Simpan gambar baru
+        $uploadedImages = [];
         foreach ($request->file('foto_produk') as $gambar) {
             $nama_gambar = time() . rand(1, 9) . '.' . $gambar->getClientOriginalExtension();
             Storage::disk('public')->put('images/' . $nama_gambar, file_get_contents($gambar));
-            $gambar_paths[] = 'storage/images/' . $nama_gambar; // Simpan path gambar
+            $uploadedImages[] = 'storage/images/' . $nama_gambar;
         }
 
-        // Simpan path gambar sebagai array (dalam format JSON)
-        $input['foto_produk'] = json_encode($gambar_paths);
+        // Simpan nama file gambar baru sebagai array
+        $input['foto_produk'] = json_encode($uploadedImages); // Simpan array gambar sebagai JSON
     }
+
 
     // Update data produk
     $master_product->update($input);

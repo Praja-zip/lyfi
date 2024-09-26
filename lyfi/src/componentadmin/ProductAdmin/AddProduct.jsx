@@ -21,7 +21,7 @@ const AddProduct = ({
   const [selectedCategory, setSelectedCategory] = useState(null);
 
   // Map categories to the format expected by react-select
-  const categoryOptions = allCategories.map((category) => ({
+  const categoryOptions = allCategories.map(category => ({
     value: category.id,
     label: category.nama_kategori,
   }));

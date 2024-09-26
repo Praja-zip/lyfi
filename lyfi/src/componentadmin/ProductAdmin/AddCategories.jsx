@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-const AddCategories = ({ category, setCategory }) => {
+const AddCategories = ({ category, setCategory, handleSubmit }) => {
   const [showNotification, setShowNotification] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -46,7 +46,7 @@ const AddCategories = ({ category, setCategory }) => {
 
       <button
         className="addproduct-save d-flex justify-content-center align-items-center"
-        onClick={onSubmit}
+        onClick={handleSubmit}
       >
         <i className="fa-regular fa-floppy-disk me-2"></i>{" "}
         <span className="d-none d-md-block">Save Changes</span>

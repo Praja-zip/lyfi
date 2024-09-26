@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios"; // Pastikan axios diimpor
+import axios from "axios";
 import "./../../componentadmin/Admin.css";
 import Sidebar from "./../../componentadmin/sidebar";
 import AddCategories from "./../../componentadmin/ProductAdmin/AddCategories";
@@ -8,16 +8,27 @@ import "./../../componentadmin/ProductAdmin/AddProduct.css";
 const AddCategoriesAdmin = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [nama_kategori, setCategory] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
 
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
   };
 
-  const handleSubmit = async () => {
-    const item = { nama_kategori };
-    console.log(item);
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Prevent default form submission
+    if (!nama_kategori.trim()) {
+      setError("Category name cannot be empty.");
+      return;
+    }
 
+    const item = { nama_kategori };
     const token = localStorage.getItem("token");
+
+    setLoading(true);
+    setError(null); // Clear previous errors
+    setSuccess(false); // Reset success state
 
     try {
       const response = await axios.post(
@@ -33,12 +44,14 @@ const AddCategoriesAdmin = () => {
       );
 
       console.log(response.data);
-      window.location.reload();
+      setSuccess(true); // Show success feedback
+      setCategory(""); // Clear the input field
     } catch (error) {
-      console.error(
-        "Error:",
-        error.response ? error.response.data : error.message
+      setError(
+        error.response ? error.response.data.message : error.message
       );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -51,16 +64,17 @@ const AddCategoriesAdmin = () => {
         </a>
       )}
       <div
-        className={`content ${
-          isSidebarOpen ? "content-open" : "content-closed"
-        }`}
+        className={`content ${isSidebarOpen ? "content-open" : "content-closed"}`}
       >
         <div className="main-content">
           <AddCategories
             category={nama_kategori}
             setCategory={setCategory}
             handleSubmit={handleSubmit}
+            loading={loading}
           />
+          {error && <p className="error-message">{error}</p>}
+          {success && <p className="success-message">Category added successfully!</p>}
         </div>
       </div>
     </div>
