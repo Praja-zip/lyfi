@@ -32,11 +32,8 @@ Route::middleware('admin.auth')->group(function () {
     Route::put('master-products/{id}', [MasterProductController::class, 'update'])->name('master-products.update');    
     Route::delete('master-products/{master_product}', [MasterProductController::class, 'destroy'])->name('master-products.destroy');
     Route::get('count-products', [HitungProdukController::class, 'countProducts']);
-    Route::get('master-products/{id}', [MasterProductController::class, 'show'])->name('master-products.show');
-    
-
 });
-
+    Route::get('master-products/{id}', [MasterProductController::class, 'show'])->name('master-products.show');
     Route::get('master-products', [MasterProductController::class, 'index'])->name('master-products.index');
 
 //Produk Bundlings
