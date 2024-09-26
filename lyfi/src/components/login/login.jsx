@@ -33,7 +33,7 @@ const LoginPage = ({
       )}
       <div className="login">
         <div className="login-header">
-          <h1>Lify Login</h1>
+          <h1>Lyfi Login</h1>
         </div>
 
         <div className="group">

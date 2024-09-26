@@ -23,7 +23,7 @@ class KategoriController extends Controller
         $kategori = Kategori::all();
  
         return response()->json([
-            'data' => $kategori
+            'kategoris' => $kategori
         ]);
     }
 

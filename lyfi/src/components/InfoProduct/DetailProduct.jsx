@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import tokped from "./../../assets/Bundling/tokped.png";
 import shopee from "./../../assets/Bundling/shopee.png";
 
-const DetailProduct = () => {
+const DetailProduct = ({ products }) => {
   const copyLink = () => {
     navigator.clipboard
       .writeText(window.location.href)
@@ -18,11 +18,9 @@ const DetailProduct = () => {
     <>
       <div className="info-detail-product">
         <div className="judul-Info">
-          <h1 className="text-start">Lyfi Product</h1>
+          <h1 className="text-start">{ products.nama_produk }</h1>
           <p className="text-start">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Consectetur totam a voluptatem quae quibusdam, minus, nam doloremque
-            possimus numquam ipsam exercitationem provident deleniti iure nulla.
+            { products.detail_produk }
           </p>
         </div>
         <div className="accordion" id="accordionPanelsStayOpenExample">
@@ -72,10 +70,7 @@ const DetailProduct = () => {
             >
               <div className="accordion-body">
                 <p className="text-start">
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Soluta, fugiat! Inventore quia, at velit quo aspernatur cum
-                  labore rem exercitationem numquam voluptas perferendis itaque
-                  nulla.
+                  { products.bahan_produk }
                 </p>
               </div>
             </div>
@@ -99,20 +94,17 @@ const DetailProduct = () => {
             >
               <div className="accordion-body">
                 <p className="text-start">
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Soluta, fugiat! Inventore quia, at velit quo aspernatur cum
-                  labore rem exercitationem numquam voluptas perferendis itaque
-                  nulla.
+                  { products.cara_pemakaian }
                 </p>
               </div>
             </div>
           </div>
         </div>
         <div className="price-info mt-5 text-start">
-          <p className="fs-3 fw-light">Rp.999.999</p>
+          <p className="fs-3 fw-light">Rp.{ products.harga_produk }</p>
           <p className="fw-semibold text-secondary">Tersedia di</p>
           <div className="checkout-product">
-            <a href="" className="tokopedia">
+            <a href={products.redirect} className="tokopedia">
               <img src={tokped} alt="" /> Tokopedia
             </a>
             <a href="" className="ms-2 shopee">

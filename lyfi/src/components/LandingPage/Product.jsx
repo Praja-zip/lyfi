@@ -96,7 +96,7 @@ const Product = () => {
                   {product.harga_produk}
                 </p>
               </div>
-              <Link to={`/InfoProduct/${product.id}`} className="custom-detail-produk">
+              <Link to={`/infoproduct/${product.id}`} className="custom-detail-produk">
                 <div className="custom-card-footer">Lihat Produk</div>
               </Link>
             </div>

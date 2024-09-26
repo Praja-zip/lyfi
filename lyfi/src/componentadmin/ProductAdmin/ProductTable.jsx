@@ -4,14 +4,14 @@ import { Link, useLocation } from "react-router-dom";
 import { Table, Button } from "react-bootstrap";
 import "./AddProduct.css";
 
-const ProductTable = ({ products }) => {
+const ProductTable = ({ allProducts }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
   const [filter] = useState("");
 
-  const filteredProducts = products.filter((product) =>
-    product.category.includes(filter)
-  );
+  // const filteredProducts = products.filter((product) =>
+  //   product.category.includes(filter)
+  // );
 
   // Memastikan allProducts ada sebelum slicing
   const currentItems = allProducts?.slice(
@@ -55,13 +55,13 @@ const ProductTable = ({ products }) => {
               </td>
               <td className="text-center">
                 <img
-                  src={product.foto_produk}
+                  src={`http://127.0.0.1:8000/storage/images/${product.foto_produk}`}
                   alt={product.nama_produk}
                   style={{ width: "80px", height: "80px" }}
                 />
               </td>
               <td className="text-center" style={{ width: "20%" }}>
-                <Link to="/admin/editproduct">
+                <Link to={`/admin/editproduct/${product.id}`}>
                   <Button className="button-aksi" size="sm">
                     <i className="fa-regular fa-pen-to-square"></i>
                   </Button>{" "}

@@ -32,7 +32,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/" element={<LandingPage />} />
           <Route path="/product" element={<Product />} />
-          <Route path="/infoproduct" element={<InfoProduct />} />
+          <Route path="/infoproduct/:id" element={<InfoProduct />} />
           <Route path="/bundling" element={<Bundling />} />
           <Route path="/infobundling" element={<InfoBundling />} />
           <Route path="/admin" element={<DashboardAdmin />} />
@@ -44,7 +44,7 @@ function App() {
           <Route path="/admin/productadmin" element={<ProductAdmin />} />
           <Route path="/admin/addcategories" element={<AddCategories />} />
           <Route path="/admin/bundlingadmin" element={<BundlingAdmin />} />
-          <Route path="/admin/editproduct" element={<EditProduct />} />
+          <Route path="/admin/editproduct/:id" element={<EditProduct />} />
           <Route path="/admin/editbundling" element={<EditBundlingAdmin />} />
           <Route path="/admin/editcategory" element={<EditCategoriesAdmin />} />
           <Route path="/admin/category" element={<Category />} />

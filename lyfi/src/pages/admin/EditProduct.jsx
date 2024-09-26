@@ -4,19 +4,19 @@ import Sidebar from "./../../componentadmin/sidebar";
 import EditProducts from "../../componentadmin/ProductAdmin/EditProducts";
 import "./../../componentadmin/ProductAdmin/AddProduct.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom"; // Ensure you have this for navigation
+import { useNavigate, useParams } from "react-router-dom";
 
 const EditProduct = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const navigate = useNavigate();
+  const { id } = useParams();
+  const [selectedFiles, setSelectedFiles] = useState([]);
+  console.log("params", id)
 
+  // Handle screen resize
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth <= 786) {
-        setSidebarOpen(false);
-      } else {
-        setSidebarOpen(true);
-      }
+      setSidebarOpen(window.innerWidth > 786);
     };
 
     handleResize();
@@ -27,102 +27,108 @@ const EditProduct = () => {
     };
   }, []);
 
-  const toggleSidebar = () => {
-    setSidebarOpen(!isSidebarOpen);
-  };
+  const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
 
-  const [nama_produk, setNamaProduk] = useState("");
-  const [harga_produk, setHargaProduk] = useState("");
-  const [detail_produk, setDetailProduk] = useState("");
-  const [bahan_produk, setBahanProduk] = useState("");
-  const [cara_pemakaian, setCaraPemakaian] = useState("");
-  const [redirect, setRedirect] = useState("");
-  const [foto_produk, setFotoProduk] = useState(null);
-  const [kategori, setKategori] = useState([]);
+  const [product, setProduct] = useState({
+    nama_produk: "",
+    harga_produk: "",
+    detail_produk: "",
+    bahan_produk: "",
+    cara_pemakaian: "",
+    kategori: "", // Updated to a single category
+    redirect: "",
+  });
+
+  const [foto_produk, setFotoProduk] = useState([]);
   const [allCategories, setAllCategories] = useState([]);
   const token = localStorage.getItem("token");
 
+  // Fetch product and categories data
   useEffect(() => {
-    const fetchCategories = async () => {
+    const fetchProduct = async () => {
       try {
         const response = await axios.get(
-          "http://127.0.0.1:8000/api/kategoris",
+          `http://127.0.0.1:8000/api/master-products/${id}`,
           {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
+            headers: { Authorization: `Bearer ${token}` },
           }
         );
-        // console.log(response)
-        setAllCategories(response.data.data);
+        console.log(response.data.data)
+        setProduct(response.data.data);
+      } catch (error) {
+        console.error("Error fetching product:", error);
+      }
+    };
+
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get("http://127.0.0.1:8000/api/kategoris", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setAllCategories(response.data.kategoris);
       } catch (error) {
         console.error("Error fetching categories:", error);
       }
     };
+
+    fetchProduct();
     fetchCategories();
-  }, [token]);
+  }, [id, token]);
 
-  const handleCheckboxChange = (e) => {
-    const value = e.target.value;
-    if (e.target.checked) {
-      setKategori([...kategori, value]);
-    } else {
-      setKategori(kategori.filter((item) => item !== value));
-    }
+  const handleFileChange = (event) => {
+    const files = Array.from(event.target.files); // Convert file list to array
+    setSelectedFiles(prevFiles => [...prevFiles, ...files]); // Append new files
+};
+  
+  
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setProduct((prev) => ({ ...prev, [name]: value }));
+  };
+  
+
+  const handleCategoryChange = (selectedCategory) => {
+    setProduct((prev) => ({ ...prev, kategori: selectedCategory.value }));
   };
 
-  const handleFileChange = (e) => {
-    setFotoProduk(e.target.files[0]);
-  };
-
-  const uploadProduct = async () => {
+  const uploadProduct = async ( ) => {
+    console.log("submit");
     const formData = new FormData();
-    formData.append("nama_produk", nama_produk);
-    formData.append("harga_produk", harga_produk);
-    formData.append("detail_produk", detail_produk);
-    formData.append("bahan_produk", bahan_produk);
-    formData.append("cara_pemakaian", cara_pemakaian);
-    formData.append("redirect", redirect);
-    formData.append("foto_produk", foto_produk);
+    formData.append('_method', 'PUT');
+    formData.append('nama_produk', product.nama_produk);
+    formData.append('harga_produk', product.harga_produk);
+    formData.append('detail_produk', product.detail_produk);
+    formData.append('bahan_produk', product.bahan_produk);
+    formData.append('cara_pemakaian', product.cara_pemakaian);
+    formData.append('kategori', product.kategori); // Jika tidak berupa array
+    formData.append('redirect', product.redirect);
 
-    kategori.forEach((kat, index) => {
-      formData.append(`kategori[${index}]`, kat);
-    });
+    selectedFiles.forEach((file, index) => {
+      formData.append(`foto_produk[]`, file); // Notice the `[]` to indicate an array
+  });
 
-    console.log([...formData]);
+    for (let pair of formData.entries()) {
+      console.log(`${pair[0]}: ${pair[1]}`);
+  }
+
 
     try {
-      const response = await axios.post(
-        "http://127.0.0.1:8000/api/master-products",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${token}`,
-          },
+      const response = await axios.post(`http://127.0.0.1:8000/api/master-products/${id}`, formData, {
+        headers: {
+          'Authorization': `Bearer ${token}`, 
+          'Content-Type': 'multipart/form-data'
         }
-      );
-
-      if (response) {
-        console.log(response);
-        setTimeout(() => {
-          navigate("/admin");
-        }, 2000);
-      }
+      });
+        console.log(response.data);
+        navigate('/admin/productadmin');
     } catch (error) {
-      if (error.response) {
-        console.log("Error Response:", error.response.data);
-        console.log("Status:", error.response.status);
-      } else {
-        console.error("Error uploading product!", error);
-      }
+        console.error("Error updating product:", error.response.data);
     }
-  };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await uploadProduct();
-  };
+};
+  
+
 
   return (
     <div className="dashboardadmin">
@@ -132,32 +138,17 @@ const EditProduct = () => {
           ☰
         </a>
       )}
-      <div
-        className={`content ${
-          isSidebarOpen ? "content-open" : "content-closed"
-        }`}
-      >
+      <div className={`content ${isSidebarOpen ? "content-open" : "content-closed"}`}>
         <div className="main-content">
           <EditProducts
-            nama_produk={nama_produk}
-            harga_produk={harga_produk}
-            detail_produk={detail_produk}
-            bahan_produk={bahan_produk}
-            cara_pemakaian={cara_pemakaian}
-            redirect={redirect}
-            kategori={kategori}
+            product={product}
             allCategories={allCategories}
-            handleInputChange={{
-              setNamaProduk,
-              setHargaProduk,
-              setDetailProduk,
-              setBahanProduk,
-              setCaraPemakaian,
-              setRedirect,
-            }}
-            handleCheckboxChange={handleCheckboxChange}
+            handleInputChange={handleInputChange}
+            handleCategoryChange={handleCategoryChange}
             handleFileChange={handleFileChange}
-            handleSubmit={handleSubmit}
+            handleSubmit={uploadProduct}
+            setSelectedFiles={ setSelectedFiles }
+            selectedFiles={ selectedFiles }
           />
         </div>
       </div>

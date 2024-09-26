@@ -3,54 +3,38 @@ import { Link } from "react-router-dom";
 import Select from "react-select";
 
 const EditProducts = ({
-  nama_produk,
-  harga_produk,
-  detail_produk,
-  bahan_produk,
-  cara_pemakaian,
-  redirect,
-  kategori,
+  product,
   allCategories,
   handleInputChange,
+  handleCategoryChange,
+  handleFileChange,
   handleSubmit,
+  setSelectedFiles,
+  selectedFiles
 }) => {
   const [showNotification, setShowNotification] = useState(false);
   const [message, setMessage] = useState("");
 
-  // Define the selectedCategory state
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const categories = Array.isArray(product.kategoris) ? 
+    product.kategoris.map(cat => cat.id) : [];
 
-  // Map categories to the format expected by react-select
-  const categoryOptions = allCategories.map((category) => ({
+  const categoryOptions = allCategories.map(category => ({
     value: category.id,
     label: category.nama_kategori,
   }));
 
-  // Handle when a category is selected
-  const handleDropdownChange = (selectedOption) => {
-    setSelectedCategory(selectedOption);
+  const selectedCategories = categoryOptions.filter(option =>
+    option.value === product.kategori
+  );
+  
+
+  
+  const [notification, setNotification] = useState("");
+
+  const handleRemoveFile = (index) => {
+    setSelectedFiles((prevFiles) => prevFiles.filter((_, i) => i !== index)); // Hapus file berdasarkan index
   };
-
-  const [selectedFiles, setSelectedFiles] = useState([]);
-  const [notification, setNotification] = useState(""); // State for notifications
-
-  // Handle file selection
-  const handleFileChange = (e) => {
-    const files = Array.from(e.target.files);
-    setSelectedFiles((prevFiles) => [...prevFiles, ...files]);
-  };
-
-  // Handle file removal
-  // Handle file removal
-  const handleRemoveFile = (index, e) => {
-    e.preventDefault(); // Prevent form submit when removing file
-
-    const fileName = selectedFiles[index].name; // Get the file name before removing
-    setSelectedFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
-
-    // Set notification when a file is removed
-    setNotification(`Foto ${fileName} berhasil dihapus`);
-  };
+  
 
   // Remove notification after 3 seconds
   useEffect(() => {
@@ -63,30 +47,22 @@ const EditProducts = ({
     }
   }, [notification]);
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-
-    // Panggil handleSubmit yang sudah ada
-    handleSubmit();
-
-    // Reset form values setelah submit
-    handleInputChange.setNamaProduk("");
-    handleInputChange.setHargaProduk("");
-    handleInputChange.setDetailProduk("");
-    handleInputChange.setCaraPemakaian("");
-    handleInputChange.setBahanProduk("");
-    handleInputChange.setRedirect("");
-    setSelectedCategory(null); // Reset dropdown kategori
-    setSelectedFiles([]); // Kosongkan file yang dipilih
-
-    // Tampilkan notifikasi jika diperlukan, lalu sembunyikan setelah 3 detik
-    setMessage("Produk berhasil ditambahkan");
-    setShowNotification(true);
-
-    setTimeout(() => {
-      setShowNotification(false);
-    }, 3000);
+  
+    try {
+      await handleSubmit(); // Ensure product contains the updated values
+      setNotification("Product updated successfully!");
+    } catch (error) {
+      if (error.response) {
+        // Log or set an error notification based on response
+        setNotification("Failed to update product: " + error.response.data.message);
+      } else {
+        setNotification("An error occurred while updating the product.");
+      }
+    }
   };
+  
 
   const handleCloseError = () => {
     setShowNotification(false); // Hide the error popup when close button is clicked
@@ -100,14 +76,18 @@ const EditProducts = ({
         </div>
 
         {/* Notifikasi */}
-        {showNotification && (
+        {notification && (
           <div className="notification-popup d-flex">
-            <p className="notification-message">{message}</p>
-            <button className="close-btn ms-4" onClick={handleCloseError}>
+            <p className="notification-message">{notification}</p>
+            <button
+              className="close-btn ms-4"
+              onClick={() => setNotification("")}
+            >
               &times;
             </button>
           </div>
         )}
+
 
         <div className="form-addproduct">
           <div className="addproduct-input row">
@@ -116,8 +96,8 @@ const EditProducts = ({
               type="text"
               name="nama_produk"
               placeholder="Nama Produk"
-              value={nama_produk}
-              onChange={(e) => handleInputChange.setNamaProduk(e.target.value)}
+              value={product.nama_produk}
+              onChange={handleInputChange}
             />
           </div>
         </div>
@@ -129,8 +109,8 @@ const EditProducts = ({
               type="text"
               name="harga_produk"
               placeholder="Harga Produk"
-              value={harga_produk}
-              onChange={(e) => handleInputChange.setHargaProduk(e.target.value)}
+              value={product.harga_produk}
+              onChange={ handleInputChange}
             />
           </div>
         </div>
@@ -142,10 +122,8 @@ const EditProducts = ({
               type="text"
               name="detail_produk"
               placeholder="Detail Produk"
-              value={detail_produk}
-              onChange={(e) =>
-                handleInputChange.setDetailProduk(e.target.value)
-              }
+              value={product.detail_produk}
+              onChange={ handleInputChange}
             />
           </div>
         </div>
@@ -157,10 +135,8 @@ const EditProducts = ({
               type="text"
               name="cara_pemakaian"
               placeholder="Cara Pemakaian Produk"
-              value={cara_pemakaian}
-              onChange={(e) =>
-                handleInputChange.setCaraPemakaian(e.target.value)
-              }
+              value={product.cara_pemakaian}
+              onChange={ handleInputChange}
             />
           </div>
         </div>
@@ -172,8 +148,8 @@ const EditProducts = ({
               type="text"
               name="bahan_produk"
               placeholder="Bahan Produk"
-              value={bahan_produk}
-              onChange={(e) => handleInputChange.setBahanProduk(e.target.value)}
+              value={product.bahan_produk}
+              onChange={ handleInputChange}
             />
           </div>
         </div>
@@ -183,9 +159,12 @@ const EditProducts = ({
             <label htmlFor="kategori">Kategori Produk :</label>
             <Select
               options={categoryOptions}
-              onChange={handleDropdownChange}
-              placeholder="Select value"
-              className="custom-select" // Tambahkan prefix untuk styling yang lebih mudah
+              onChange={(selected) => handleInputChange({
+                target: { name: "kategori", value: selected ? selected.value : "" }
+              })}
+              value={categoryOptions.find(option => option.value === product.kategori)} // Sesuaikan dengan ID kategori
+              placeholder="Pilih Kategori"
+              className="custom-select"
             />
           </div>
         </div>
@@ -206,79 +185,73 @@ const EditProducts = ({
             </div>
           )}
 
-          <div className="addproduct-input row">
-            {/* File input and total file count */}
-            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+      <div className="addproduct-input row">
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
               <label htmlFor="" className="d-block">
-                Foto Produk:
+                  Foto Produk:
               </label>
               <label
-                htmlFor="file-input"
-                style={{
-                  cursor: "pointer",
-                  background: "rgb(150, 138, 80)",
-                  padding: "0.5rem",
-                  color: "white",
-                  borderRadius: "10px",
-                }}
+                  htmlFor="file-input"
+                  style={{
+                      cursor: "pointer",
+                      background: "rgb(150, 138, 80)",
+                      padding: "0.5rem",
+                      color: "white",
+                      borderRadius: "10px",
+                  }}
               >
-                Pilih File
-                <input
-                  id="file-input"
-                  type="file"
-                  multiple
-                  onChange={handleFileChange}
-                  style={{ display: "none" }}
-                />
+                  Pilih File
+                  <input
+                      id="file-input"
+                      type="file"
+                      multiple
+                      onChange={handleFileChange}
+                      style={{ display: "none" }}
+                  />
               </label>
               <p>Total foto dipilih: {selectedFiles.length}</p>
-            </div>
-
-            {/* File preview section */}
-            <div
-              className="file-preview-container"
-              style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}
-            >
-              {selectedFiles.map((file, index) => (
-                <div
-                  key={index}
-                  style={{ position: "relative", width: "150px" }}
-                >
-                  <button
-                    type="button" // Ensure this is a button, not submit
-                    onClick={(e) => handleRemoveFile(index, e)}
-                    style={{
-                      position: "absolute",
-                      top: "5px",
-                      right: "5px",
-                      background: "red",
-                      color: "white",
-                      border: "none",
-                      borderRadius: "50%",
-                      width: "20px",
-                      height: "20px",
-                      cursor: "pointer",
-                    }}
-                  >
-                    X
-                  </button>
-                  {file.type.startsWith("image") ? (
-                    <img
-                      src={URL.createObjectURL(file)}
-                      alt={file.name}
-                      style={{
-                        width: "100%",
-                        height: "auto",
-                        borderRadius: "10px",
-                      }}
-                    />
-                  ) : (
-                    <p>{file.name}</p>
-                  )}
-                </div>
-              ))}
-            </div>
           </div>
+
+          <div className="file-preview-container" style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+              {selectedFiles.map((file, index) => (
+                  <div key={index} style={{ position: "relative", width: "150px" }}>
+                      <button
+                          type="button"
+                          onClick={() => handleRemoveFile(index)}
+                          style={{
+                              position: "absolute",
+                              top: "5px",
+                              right: "5px",
+                              background: "red",
+                              color: "white",
+                              border: "none",
+                              borderRadius: "50%",
+                              width: "20px",
+                              height: "20px",
+                              cursor: "pointer",
+                          }}
+                      >
+                          X
+                      </button>
+                      {file.type.startsWith("image") ? (
+                          <img
+                              src={URL.createObjectURL(file)}
+                              alt={file.name}
+                              style={{
+                                  width: "100%",
+                                  height: "auto",
+                                  borderRadius: "10px",
+                              }}
+                          />
+                      ) : (
+                          <p>{file.name}</p>
+                      )}
+                  </div>
+              ))}
+          </div>
+      </div>
+
+
         </div>
 
         <div className="form-addproduct">
@@ -288,8 +261,8 @@ const EditProducts = ({
               type="text"
               name="redirect"
               placeholder="Redirect Produk"
-              value={redirect}
-              onChange={(e) => handleInputChange.setRedirect(e.target.value)}
+              value={product.redirect}
+              onChange={ handleInputChange }
             />
           </div>
         </div>

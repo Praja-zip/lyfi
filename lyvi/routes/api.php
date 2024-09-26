@@ -29,12 +29,15 @@ Route::post('/admin/logout', [AdminController::class, 'logout']);
 //Master Produk
 Route::middleware('admin.auth')->group(function () {
     Route::post('master-products', [MasterProductController::class, 'store'])->name('master-products.store');
-    Route::put('master-products/{master_product}', [MasterProductController::class, 'update'])->name('master-products.update');    
+    Route::put('master-products/{id}', [MasterProductController::class, 'update'])->name('master-products.update');    
     Route::delete('master-products/{master_product}', [MasterProductController::class, 'destroy'])->name('master-products.destroy');
     Route::get('count-products', [HitungProdukController::class, 'countProducts']);
+    Route::get('master-products/{id}', [MasterProductController::class, 'show'])->name('master-products.show');
+    
+
 });
+
     Route::get('master-products', [MasterProductController::class, 'index'])->name('master-products.index');
-    Route::get('master-products/{master_product}', [MasterProductController::class, 'show'])->name('master-products.show');
 
 //Produk Bundlings
 Route::middleware('admin.auth')->group(function () {

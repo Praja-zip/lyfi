@@ -30,6 +30,7 @@ class MasterProductController extends Controller
     return response()->json([
         'data' => $master_products->map(function ($product) {
             return [
+                'id' => $product->id,
                 'nama_produk' => $product->nama_produk,
                 'harga_produk' => $product->harga_produk,
                 'foto_produk' => $product->foto_produk,
@@ -44,6 +45,81 @@ class MasterProductController extends Controller
         'total' => $master_products->total(),
         'per_page' => $master_products->perPage(),
     ]);
+}
+
+public function update(Request $request, $id)
+{
+    // Validasi input
+    $validator = Validator::make($request->all(), [
+        'nama_produk' => 'required|string|max:255',
+        'harga_produk' => 'required|numeric',
+        'detail_produk' => 'required|string',
+        'foto_produk.*' => 'nullable|file', // Mendukung array file
+        'bahan_produk' => 'required|string',
+        'cara_pemakaian' => 'required|string',
+        'kategori' => 'required|exists:kategoris,id', // Tidak lagi berupa array
+        'redirect' => 'required|url'
+    ]);
+
+    if ($validator->fails()) {
+        return response()->json($validator->errors(), 422);
+    }
+
+    $master_product = Master_product::findOrFail($id); 
+
+    // Ambil semua input kecuali kategori
+    $input = $request->except('kategori', 'foto_produk');
+
+    // Proses setiap file gambar jika ada
+    if ($request->hasFile('foto_produk')) {
+        $gambar_paths = [];
+
+        foreach ($request->file('foto_produk') as $gambar) {
+            $nama_gambar = time() . rand(1, 9) . '.' . $gambar->getClientOriginalExtension();
+            Storage::disk('public')->put('images/' . $nama_gambar, file_get_contents($gambar));
+            $gambar_paths[] = 'storage/images/' . $nama_gambar; // Simpan path gambar
+        }
+
+        // Simpan path gambar sebagai array (dalam format JSON)
+        $input['foto_produk'] = json_encode($gambar_paths);
+    }
+
+    // Update data produk
+    $master_product->update($input);
+
+    // Sinkronisasi kategori
+    $master_product->kategoris()->sync([$request->input('kategori')]);
+
+    return response()->json([
+        'message' => 'Product updated successfully!',
+        'data' => $master_product->load('kategoris')
+    ], 200);
+}
+
+
+// public function update(Request $request, $id)
+// {
+//     dd($request->all());  // Periksa data yang diterima backend
+// }
+
+
+public function show($id)
+{
+    try {
+        $product = Master_product::findOrFail($id); // Menggunakan findOrFail untuk menangani ID yang tidak ditemukan
+        return response()->json([
+            'success' => true,
+            'data' => $product,
+            'kategori' => $product->kategoris->map(function ($kategori) {
+                return $kategori->nama_kategori;
+            }),
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Product not found',
+        ], 404);
+    }
 }
 
 

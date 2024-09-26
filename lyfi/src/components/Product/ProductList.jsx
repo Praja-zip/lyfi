@@ -81,6 +81,14 @@ const ProductList = () => {
     fetchProducts();
   }, [token]);
 
+  // const truncateText = (text, numWords) => {
+  //   const words = text.split(" ");
+  //   if (words.length > numWords) {
+  //     return words.slice(0, numWords).join(" ") + "...";
+  //   }
+  //   return text;
+  // };
+
   const getShortName = (name) => {
     const words = name.split(" ");
     return words.length > 2 ? `${words.slice(0, 2).join(" ")}...` : name;
@@ -110,15 +118,17 @@ const ProductList = () => {
 
       {/* Product Grid */}
       <div className="custom-grid">
-        {filteredProducts.map((product) => (
+        {allProducts.map((product) => (
           <div key={product.id} className="custom-container-product">
-            <img src={product.image} alt={product.name} />
+            <img 
+            src={`http://127.0.0.1:8000/storage/images/${product.foto_produk}`} 
+            alt={product.nama_produk} />
             <div className="custom-card-body">
-              <h3>{getShortName(product.category)}</h3>
-              <p className="nama-product">{getShortName(product.name)}</p>
-              <p>{product.price}</p>
+              <h3> {product.kategori[0]}</h3>
+              <p className="nama-product">{getShortName(product?.nama_produk || "...", 2)}</p>
+              <p>{product.harga_produk}</p>
             </div>
-            <Link to={"/InfoProduct"} className="custom-detail-produk">
+            <Link to={`/infoproduct/${product.id}`} className="custom-detail-produk">
               <div className="custom-card-footer">Lihat Produk</div>
             </Link>
           </div>

@@ -27,7 +27,7 @@ const Sidebar = ({ isOpen, toggleSidebar, logoutHandler }) => {
                 Dashboard
               </li>
             </Link>
-            <Link to="/admin/Productadmin" className="sidebar-link">
+            <Link to="/admin/productadmin" className="sidebar-link">
               <li className="sidebar-item">
                 <i className="fa-solid fa-cart-shopping pe-3"></i>
                 Produk
