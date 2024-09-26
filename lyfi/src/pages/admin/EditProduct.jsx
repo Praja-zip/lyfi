@@ -29,6 +29,7 @@ const EditProduct = () => {
 
   const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
 
+  
   const [product, setProduct] = useState({
     nama_produk: "",
     harga_produk: "",
@@ -149,6 +150,7 @@ const EditProduct = () => {
             handleSubmit={uploadProduct}
             setSelectedFiles={ setSelectedFiles }
             selectedFiles={ selectedFiles }
+            // setSelectedCategory={ setSelectedCategory }
           />
         </div>
       </div>

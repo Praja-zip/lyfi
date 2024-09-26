@@ -40,7 +40,9 @@ const AddProductAdmin = () => {
   const [foto_produk, setFotoProduk] = useState(null);
   const [kategori, setKategori] = useState([]);
   const [allCategories, setAllCategories] = useState([]);
+  const [selectedFiles, setSelectedFiles] = useState([]);
   const token = localStorage.getItem("token");
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -55,7 +57,7 @@ const AddProductAdmin = () => {
     };
     fetchCategories();
   }, [token]);
-
+  
   const handleCheckboxChange = (e) => {
     const value = e.target.value;
     if (e.target.checked) {
@@ -65,9 +67,10 @@ const AddProductAdmin = () => {
     }
   };
 
-  const handleFileChange = (e) => {
-    setFotoProduk(e.target.files[0]);
-  };
+  const handleFileChange = (event) => {
+    const files = Array.from(event.target.files); // Convert file list to array
+    setSelectedFiles(prevFiles => [...prevFiles, ...files]); // Append new files
+};
 
   const uploadProduct = async () => {
     const formData = new FormData();
@@ -77,13 +80,16 @@ const AddProductAdmin = () => {
     formData.append("bahan_produk", bahan_produk);
     formData.append("cara_pemakaian", cara_pemakaian);
     formData.append("redirect", redirect);
-    formData.append("foto_produk", foto_produk);
+    formData.append("kategori", selectedCategory ? selectedCategory.value : "");
 
-    kategori.forEach((kat, index) => {
-      formData.append(`kategori[${index}]`, kat);
-    });
 
-    console.log([...formData]);
+    selectedFiles.forEach((file, index) => {
+      formData.append(`foto_produk[]`, file); // Notice the `[]` to indicate an array
+  });;
+
+    for (let pair of formData.entries()) {
+      console.log(`${pair[0]}: ${pair[1]}`);
+    }
 
     try {
       const response = await axios.post(
@@ -152,6 +158,9 @@ const AddProductAdmin = () => {
             handleCheckboxChange={handleCheckboxChange}
             handleFileChange={handleFileChange}
             handleSubmit={handleSubmit}
+            selectedFiles={ selectedFiles }
+            setSelectedFiles={ setSelectedFiles }
+            setSelectedCategory={ setSelectedCategory }
           />
         </div>
       </div>

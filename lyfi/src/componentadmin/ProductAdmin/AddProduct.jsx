@@ -13,12 +13,16 @@ const AddProduct = ({
   allCategories,
   handleInputChange,
   handleSubmit,
+  selectedFiles,
+  setSelectedFiles,
+  setSelectedCategory,
+  handleFileChange
 }) => {
   const [showNotification, setShowNotification] = useState(false);
   const [message, setMessage] = useState("");
 
   // Define the selectedCategory state
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  
 
   // Map categories to the format expected by react-select
   const categoryOptions = allCategories.map(category => ({
@@ -31,14 +35,7 @@ const AddProduct = ({
     setSelectedCategory(selectedOption);
   };
 
-  const [selectedFiles, setSelectedFiles] = useState([]);
   const [notification, setNotification] = useState(""); // State for notifications
-
-  // Handle file selection
-  const handleFileChange = (e) => {
-    const files = Array.from(e.target.files);
-    setSelectedFiles((prevFiles) => [...prevFiles, ...files]);
-  };
 
   // Handle file removal
   // Handle file removal
@@ -63,30 +60,29 @@ const AddProduct = ({
     }
   }, [notification]);
 
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
+  // const handleFormSubmit = () => {
 
-    // Panggil handleSubmit yang sudah ada
-    handleSubmit();
+  //   // Panggil handleSubmit yang sudah ada
+  //   handleSubmit();
 
     // Reset form values setelah submit
-    handleInputChange.setNamaProduk("");
-    handleInputChange.setHargaProduk("");
-    handleInputChange.setDetailProduk("");
-    handleInputChange.setCaraPemakaian("");
-    handleInputChange.setBahanProduk("");
-    handleInputChange.setRedirect("");
-    setSelectedCategory(null); // Reset dropdown kategori
-    setSelectedFiles([]); // Kosongkan file yang dipilih
+    // handleInputChange.setNamaProduk("");
+    // handleInputChange.setHargaProduk("");
+    // handleInputChange.setDetailProduk("");
+    // handleInputChange.setCaraPemakaian("");
+    // handleInputChange.setBahanProduk("");
+    // handleInputChange.setRedirect("");
+    // setSelectedCategory(null); // Reset dropdown kategori
+    // setSelectedFiles([]); // Kosongkan file yang dipilih
 
-    // Tampilkan notifikasi jika diperlukan, lalu sembunyikan setelah 3 detik
-    setMessage("Produk berhasil ditambahkan");
-    setShowNotification(true);
+    // // Tampilkan notifikasi jika diperlukan, lalu sembunyikan setelah 3 detik
+    // setMessage("Produk berhasil ditambahkan");
+    // setShowNotification(true);
 
-    setTimeout(() => {
-      setShowNotification(false);
-    }, 3000);
-  };
+    // setTimeout(() => {
+    //   setShowNotification(false);
+    // }, 3000);
+  // };
 
   const handleCloseError = () => {
     setShowNotification(false); // Hide the error popup when close button is clicked
@@ -94,7 +90,7 @@ const AddProduct = ({
 
   return (
     <div className="addproduct text-start mt-5">
-      <form onSubmit={handleFormSubmit}>
+      <form onSubmit={handleSubmit}>
         <div className="header-addproduct">
           <h1>Buat Produk</h1>
         </div>

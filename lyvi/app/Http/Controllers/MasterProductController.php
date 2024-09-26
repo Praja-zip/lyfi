@@ -25,7 +25,7 @@ class MasterProductController extends Controller
 
     // Mengambil data produk dengan relasi kategori yang terhubung, menggunakan eager loading
     $master_products = Master_product::with('kategoris')->paginate($perPage);
-
+    
     // Mengembalikan respon JSON dengan data produk beserta kategori yang terkait
     return response()->json([
         'data' => $master_products->map(function ($product) {
@@ -33,7 +33,7 @@ class MasterProductController extends Controller
                 'id' => $product->id,
                 'nama_produk' => $product->nama_produk,
                 'harga_produk' => $product->harga_produk,
-                'foto_produk' => $product->foto_produk,
+                'foto_produk' => json_decode($product->foto_produk),
                 'detail_produk' => $product->detail_produk,
                 'kategori' => $product->kategoris->map(function ($kategori) {
                     return $kategori->nama_kategori;
@@ -151,46 +151,51 @@ public function show($id)
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-       $validator = Validator::make($request->all(), [
-            'nama_produk' => 'required|string|max:255',
-            'harga_produk' => 'required|numeric',
-            'detail_produk' => 'required|string',
-            'foto_produk' => 'required|file|mimes:jpg,jpeg,png',
-            'bahan_produk' => 'required|string',
-            'cara_pemakaian' => 'required|string',
-            'kategori' => 'required|array',
-            'kategori.*' => 'exists:kategoris,id',
-            'redirect' => 'required|url'
-        ]);
-    
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
-        }
-    
-        // Extract all except 'kategori'
-        $input = $request->except('kategori');
-    
-        // Handle file upload
-        if ($request->hasFile('foto_produk')) {
-            $gambar = $request->file('foto_produk');
+{
+    // Validasi input
+    $validator = Validator::make($request->all(), [
+        'nama_produk' => 'required|string|max:255',
+        'harga_produk' => 'required|numeric',
+        'detail_produk' => 'required|string',
+        'foto_produk.*' => 'nullable|file',
+        'bahan_produk' => 'required|string',
+        'cara_pemakaian' => 'required|string',
+        'kategori' => 'required|exists:kategoris,id',
+        'redirect' => 'required|url'
+    ]);
+
+    // Jika validasi gagal, kembalikan error
+    if ($validator->fails()) {
+        return response()->json($validator->errors(), 422);
+    }
+
+    // Ekstrak semua input kecuali 'kategori' dan 'foto_produk'
+    $input = $request->except('kategori', 'foto_produk');
+
+    // Proses file gambar jika ada
+    if ($request->hasFile('foto_produk')) {
+        // Simpan gambar baru
+        $uploadedImages = [];
+        foreach ($request->file('foto_produk') as $gambar) {
             $nama_gambar = time() . rand(1, 9) . '.' . $gambar->getClientOriginalExtension();
-            
-            // Store the file in 'storage/app/public/images'
             Storage::disk('public')->put('images/' . $nama_gambar, file_get_contents($gambar));
-            
-            // Save the relative path to the database
-            $input['foto_produk'] = 'storage/images/' . $nama_gambar;
+            $uploadedImages[] = 'storage/images/' . $nama_gambar;
         }
-    
-        // Create the product
-        $master_product = Master_product::create($input);
-    
-        // Attach categories using the pivot table
-        $master_product->kategoris()->attach($request->input('kategori'));
-    
-        return response()->json([
-            'data' => $master_product->load('kategoris')
-        ], 201);
+
+        // Simpan nama file gambar baru sebagai array
+        $input['foto_produk'] = json_encode($uploadedImages);
+    }
+
+    // Buat entri produk baru
+    $master_product = Master_product::create($input);
+
+    // Lampirkan kategori ke produk menggunakan tabel pivot
+    $master_product->kategoris()->attach($request->input('kategori'));
+
+    // Kembalikan respon sukses dengan data produk beserta kategori yang terhubung
+    return response()->json([
+        'data' => $master_product->load('kategoris') // Muat relasi kategori
+    ], 201);
 }
+
 }

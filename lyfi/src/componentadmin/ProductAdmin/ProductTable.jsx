@@ -55,7 +55,7 @@ const ProductTable = ({ allProducts }) => {
               </td>
               <td className="text-center">
                 <img
-                  src={`http://127.0.0.1:8000/storage/images/${product.foto_produk[0]}`}
+                  src={`http://127.0.0.1:8000/${product.foto_produk[0]}`}
                   alt={product.nama_produk}
                   style={{ width: "80px", height: "80px" }}
                 />
