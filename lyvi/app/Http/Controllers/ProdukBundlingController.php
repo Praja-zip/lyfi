@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Master_product;
 use App\Models\Produk_bundling;
 use App\Models\Master_produk_bundling;
-use App\Models\Master_product;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class ProdukBundlingController extends Controller
@@ -29,7 +30,17 @@ class ProdukBundlingController extends Controller
 
         // Mengembalikan respon JSON dengan data produk yang telah dipaginate
         return response()->json([
-            'data' => $produk_bundlings->items(), // Data item pada halaman saat ini
+             'data' => $produk_bundlings->map(function ($bundling) {
+                // Decode JSON pada kolom array yang disimpan
+                return [
+                    'id' => $bundling->id,
+                    'nama_produk' => $bundling->nama_produk,
+                    'foto_produk' => json_decode($bundling->foto_produk), 
+                    'harga_produk' => $bundling->harga_produk,
+                    'detail_produk' => $bundling->detail_produk,
+                    'kategori' => $bundling->kategori, 
+                ];
+            }),
             'current_page' => $produk_bundlings->currentPage(), // Halaman saat ini
             'last_page' => $produk_bundlings->lastPage(), // Halaman terakhir
             'total' => $produk_bundlings->total(), // Total item
@@ -59,7 +70,7 @@ class ProdukBundlingController extends Controller
             'nama_bundle' => 'required',
             'harga_bundle' => 'required',
             'detail_bundle' => 'required',
-            'foto_bundle' => 'required|file',
+            'foto_bundle.*' => 'required|file',
             'pilih_produk' => 'required|array',
             'redirect' => 'required|array',
         ]);
@@ -70,11 +81,15 @@ class ProdukBundlingController extends Controller
     
         $input = $request->all();
     
-        if ($request->has('foto_bundle')) {
-            $gambar = $request->file('foto_bundle');
-            $nama_gambar = time() . rand(1, 9) . '.' . $gambar->getClientOriginalExtension();
-            $path = $gambar->storeAs('public/images', $nama_gambar);
-            $input['foto_bundle'] = $nama_gambar;
+        if ($request->hasFile('foto_bundle')) {
+            $uploadedImages = [];
+
+            foreach ($request->file('foto_bundle') as $gambar) {
+                $nama_gambar = time() . rand(1, 9) . '.' . $gambar->getClientOriginalExtension();
+                Storage::disk('public')->put('images/' . $nama_gambar, file_get_contents($gambar));
+                $uploadedImages[] = 'storage/images/' . $nama_gambar;
+            }
+            $input['foto_bundle'] = json_encode($uploadedImages);
         }
     
         $input['redirect'] = $request->input('redirect');

@@ -48,11 +48,11 @@ Route::middleware('admin.auth')->group(function () {
 //kategoris
 Route::middleware('admin.auth')->group(function () {
     Route::post('kategoris', [KategoriController::class, 'store'])->name('kategoris.store');
-    Route::put('kategoris/{kategori}', [KategoriController::class, 'update'])->name('kategoris.update');    
+    Route::put('kategoris/{id}', [KategoriController::class, 'update'])->name('kategoris.update');    
     Route::delete('kategoris/{kategori}', [KategoriController::class, 'destroy'])->name('kategoris.destroy');
 });
     Route::get('kategoris', [KategoriController::class, 'index'])->name('kategoris.index');
-    Route::get('kategoris/{kategori}', [KategoriController::class, 'show'])->name('kategoris.show');
+    Route::get('kategoris/{id}', [KategoriController::class, 'show'])->name('kategoris.show');
 
 //Hitung Pengunjung
 Route::post('/track-visitor', [HitungPengunjungController::class, 'trackVisitor']);

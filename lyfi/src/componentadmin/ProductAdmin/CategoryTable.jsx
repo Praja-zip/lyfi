@@ -1,8 +1,8 @@
 import React from "react";
 import { Table, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
-const CategoryTable = ({ category }) => {
+const CategoryTable = ({ categories }) => {
   return (
     <div>
       {/* Tabel Produk */}
@@ -18,11 +18,11 @@ const CategoryTable = ({ category }) => {
           </tr>
         </thead>
         <tbody>
-          {category.map((catItem, index) => (
+          {categories.map((catItem, index) => (
             <tr key={index}>
-              <td className="text-center text-light">{catItem.name}</td>
+              <td className="text-center text-light">{catItem.nama_kategori}</td>
               <td className="text-center" style={{ width: "20%" }}>
-                <Link to="/admin/editcategory">
+                <Link to={`/admin/editcategory/${catItem.id}`}>
                   <Button className="button-aksi" size="sm">
                     <i className="fa-regular fa-pen-to-square"></i>
                   </Button>{" "}

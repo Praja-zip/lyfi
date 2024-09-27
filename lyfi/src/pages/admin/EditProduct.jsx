@@ -75,12 +75,6 @@ const EditProduct = () => {
     fetchProduct();
     fetchCategories();
   }, [id, token]);
-
-  const handleFileChange = (event) => {
-    const files = Array.from(event.target.files); // Convert file list to array
-    setSelectedFiles(prevFiles => [...prevFiles, ...files]); // Append new files
-};
-  
   
 
   const handleInputChange = (e) => {

@@ -1,27 +1,44 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import axios from "axios"; // Pastikan axios diimpor
 import "./../../componentadmin/Admin.css";
 import Sidebar from "./../../componentadmin/sidebar";
 import EditCategories from "./../../componentadmin/ProductAdmin/EditCategory";
 import "./../../componentadmin/ProductAdmin/AddProduct.css";
+import { useNavigate, useParams } from "react-router-dom";
 
 const EditCategoriesAdmin = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [nama_kategori, setCategory] = useState("");
+  const { id } = useParams();
+  const token = localStorage.getItem("token");
 
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
   };
 
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/kategoris/${id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setCategory(response.data.data.nama_kategori);
+        console.log(response.data.data.nama_kategori);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+    fetchCategories();
+    
+  }, [id, token]);
+
   const handleSubmit = async () => {
-    const item = { nama_kategori };
+    const item = { nama_kategori }; // Data yang akan dikirim
     console.log(item);
 
-    const token = localStorage.getItem("token");
-
     try {
-      const response = await axios.post(
-        `http://127.0.0.1:8000/api/kategoris`,
+      const response = await axios.put( // Menggunakan PUT untuk update
+        `http://127.0.0.1:8000/api/kategoris/${id}`,
         item,
         {
           headers: {
@@ -33,7 +50,7 @@ const EditCategoriesAdmin = () => {
       );
 
       console.log(response.data);
-      window.location.reload();
+      window.location.reload(); // Refresh halaman setelah sukses
     } catch (error) {
       console.error(
         "Error:",

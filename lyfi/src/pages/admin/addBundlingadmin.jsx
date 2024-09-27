@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Sidebar from "./../../componentadmin/sidebar";
 import AddBundling from "../../componentadmin/BundlingAdmin/AddBundling";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const AddBundlingAdmin = () => {
   const token = localStorage.getItem("token");
@@ -16,6 +17,8 @@ const AddBundlingAdmin = () => {
   const [redirect, setRedirect] = useState([]);
   const [tokopediaLink, setTokopediaLink] = useState("");
   const [shopeeLink, setShopeeLink] = useState("");
+  const [selectedFiles, setSelectedFiles] = useState([]);
+  const navigate = useNavigate();
 
   const handleFotoChange = (e) => {
     const file = e.target.files[0];
@@ -32,6 +35,11 @@ const AddBundlingAdmin = () => {
     }
   };
 
+  const handleFileChange = (event) => {
+    const files = Array.from(event.target.files); // Convert file list to array
+    setSelectedFiles(prevFiles => [...prevFiles, ...files]); // Append new files
+};
+
   const handleRedirectChange = (e) => {
     const value = e.target.value;
     setRedirect(value.split(",")); // Assuming user inputs comma-separated values
@@ -42,7 +50,9 @@ const AddBundlingAdmin = () => {
     formData.append("nama_bundle", namaBundle);
     formData.append("harga_bundle", hargaBundle);
     formData.append("detail_bundle", detailBundle);
-    formData.append("foto_bundle", foto);
+    selectedFiles.forEach((file, index) => {
+      formData.append(`foto_bundle[]`, file); // Notice the `[]` to indicate an array
+  });
 
     formData.append("redirect[0]", tokopediaLink);
     formData.append("redirect[1]", shopeeLink);
@@ -64,7 +74,8 @@ const AddBundlingAdmin = () => {
           },
         }
       );
-      console.log("Bundling created:", response.data);
+      // console.log("Bundling created:", response.data);
+      navigate("/admin");
       
       // Reset form after success
       setNamaBundle("");
@@ -121,6 +132,10 @@ const AddBundlingAdmin = () => {
             handleRedirectChange={handleRedirectChange} 
             setTokopediaLink={ setTokopediaLink }
             setShopeeLink={ setShopeeLink }
+            shopeeLink={ shopeeLink }
+            tokopediaLink={ tokopediaLink }
+            setSelectedFiles={ setSelectedFiles }
+            selectedFiles={ selectedFiles }
           />
         </div>
       </div>

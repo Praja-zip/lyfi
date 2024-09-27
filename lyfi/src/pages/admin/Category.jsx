@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./../../componentadmin/Admin.css";
 import Sidebar from "./../../componentadmin/sidebar";
 import { Link } from "react-router-dom";
@@ -6,6 +6,7 @@ import "./../../componentadmin/BundlingAdmin/Bundlingadmin.css";
 
 import CategoryTable from "../../componentadmin/ProductAdmin/CategoryTable";
 import "./../../componentadmin/ProductAdmin/AddProduct.css";
+import axios from "axios";
 const cat = [
     {
       name: "Moisturizer A"
@@ -17,7 +18,23 @@ const cat = [
   
     const toggleSidebar = () => {
       setSidebarOpen(!isSidebarOpen);
+  };
+
+  const token = localStorage.getItem("token");
+  const [allCategories, setAllCategories] = useState([]);
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get("http://127.0.0.1:8000/api/kategoris", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setAllCategories(response.data.kategoris);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
     };
+    fetchCategories();
+  }, [token]);
   
   return (
     <div className="dashboardadmin">
@@ -34,7 +51,7 @@ const cat = [
       >
         <div className="main-content">
           <div className="container-tableproduct mt-2">
-            <CategoryTable category={cat} />
+            <CategoryTable categories={ allCategories } />
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-const EditCategories = ({ category, setCategory }) => {
+const EditCategories = ({ category, setCategory, handleSubmit }) => {
   const [showNotification, setShowNotification] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -9,11 +9,10 @@ const EditCategories = ({ category, setCategory }) => {
     console.log("Submit button clicked");
     console.log("Category value:", category);
 
-    // Langsung memunculkan notifikasi tanpa handleSubmit
+    handleSubmit(); 
+
     setMessage("Kategori berhasil diedit!");
     setShowNotification(true);
-    setCategory("")
-    // Sembunyikan notifikasi setelah 3 detik
     setTimeout(() => {
       setShowNotification(false);
     }, 3000);

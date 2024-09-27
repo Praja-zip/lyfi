@@ -16,11 +16,13 @@ const AddBundling = ({
   setHargaBundle,
   setTokopediaLink,
   setShopeeLink,
+  shopeeLink,
+  tokopediaLink,
+  setSelectedFiles,
+  selectedFiles
 }) => {
-  const [selectedFiles, setSelectedFiles] = useState([]);
+  
   const [fotoPreview, setFotoPreview] = useState([]);
-  const [tokopediaLink, setTokopediaLinkLocal] = useState("");
-  const [shopeeLink, setShopeeLinkLocal] = useState("");
   const [showNotification, setShowNotification] = useState(false); // Notifikasi
 
   const handleFotoChange = (e) => {
@@ -123,13 +125,13 @@ const AddBundling = ({
                 type="text"
                 placeholder="Tokopedia"
                 value={tokopediaLink}
-                onChange={(e) => setTokopediaLinkLocal(e.target.value)}
+                onChange={(e) => setTokopediaLink(e.target.value)}
               />
               <input
                 type="text"
                 placeholder="Shopee"
                 value={shopeeLink}
-                onChange={(e) => setShopeeLinkLocal(e.target.value)}
+                onChange={(e) => setShopeeLink(e.target.value)}
               />
             </div>
           </div>
@@ -183,7 +185,7 @@ const AddBundling = ({
           </div>
         </div>
         <button
-          onClick={handleFormSubmit}
+          onClick={handleSubmit}
           className="addproduct-save d-flex justify-content-center align-items-center"
         >
           <i className="fa-regular fa-floppy-disk me-2"></i>{" "}

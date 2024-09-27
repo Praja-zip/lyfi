@@ -46,7 +46,7 @@ function App() {
           <Route path="/admin/bundlingadmin" element={<BundlingAdmin />} />
           <Route path="/admin/editproduct/:id" element={<EditProduct />} />
           <Route path="/admin/editbundling" element={<EditBundlingAdmin />} />
-          <Route path="/admin/editcategory" element={<EditCategoriesAdmin />} />
+          <Route path="/admin/editcategory/:id" element={<EditCategoriesAdmin />} />
           <Route path="/admin/category" element={<Category />} />
         </Routes>
       </BrowserRouter>

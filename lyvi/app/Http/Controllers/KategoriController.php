@@ -75,11 +75,21 @@ class KategoriController extends Controller
      * @param  \App\Models\Kategori  $kategori
      * @return \Illuminate\Http\Response
      */
-    public function show(Kategori $kategori)
+    public function show($id)
     {
-        return response()->json([
-            'data' => $kategori 
-        ]);
+        try {
+            $product = Kategori::findOrFail($id); // Menggunakan findOrFail untuk menangani ID yang tidak ditemukan
+            return response()->json([
+                'success' => true,
+                'data' => $product,
+                
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Product not found',
+            ], 404);
+        }
     }
 
     /**
@@ -100,29 +110,46 @@ class KategoriController extends Controller
      * @param  \App\Models\Kategori  $kategori
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Kategori $kategori)
-    {
-        $validator = Validator::make($request->all(), [
-            'nama_kategori' => 'required',           
-        ]);
-   
-        if ($validator->fails()){
-            return response()->json(
-                $validator->errors(),
-                422
-            );
-        }
-   
-        $input = $request->all();
-   
-        // Memperbarui data kategori
-        $kategori->update($input);
-   
+    public function update(Request $request, $id)
+{
+    // Validasi input
+    $validator = Validator::make($request->all(), [
+        'nama_kategori' => 'required',
+    ]);
+
+    // Jika validasi gagal
+    if ($validator->fails()) {
         return response()->json([
-            'message' => 'success',
-            'data' => $kategori
-        ]);
+            'success' => false,
+            'errors' => $validator->errors(),
+        ], 422);
     }
+
+    try {
+        // Mencari kategori berdasarkan ID
+        $kategori = Kategori::findOrFail($id);
+
+        // Memperbarui data kategori
+        $kategori->update($request->all());
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Kategori berhasil diperbarui',
+            'data' => $kategori,
+        ]);
+    } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Kategori tidak ditemukan',
+        ], 404);
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Terjadi kesalahan saat memperbarui kategori',
+        ], 500);
+    }
+}
+
 
     /**
      * Remove the specified resource from storage.
