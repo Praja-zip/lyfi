@@ -82,6 +82,10 @@ const EditProduct = () => {
     setProduct((prev) => ({ ...prev, [name]: value }));
   };
   
+  const handleFileChange = (event) => {
+    const files = Array.from(event.target.files); // Konversi file list ke array
+    setSelectedFiles((prevFiles) => [...prevFiles, ...files]); // Append file baru ke file yang sudah ada
+  };
 
   const handleCategoryChange = (selectedCategory) => {
     setProduct((prev) => ({ ...prev, kategori: selectedCategory.value }));

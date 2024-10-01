@@ -14,14 +14,13 @@ import AddCategories from "./pages/admin/addCategories";
 import ProductAdmin from "./pages/admin/ProductAdmin";
 import BundlingAdmin from "./pages/admin/BundlingAdmin";
 import EditProduct from "./pages/admin/EditProduct";
-import EditBundlingAdmin from "./pages/admin/EditBundling";
 import EditCategoriesAdmin from "./pages/admin/EditCategory";
 import Category from "./pages/admin/Category";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import Register from "./pages/Register";
-import axios from "axios";
+import EditBundlingAdmin from "./pages/admin/EditBundlingAdmin";
 
 function App() {
   return (
@@ -45,7 +44,7 @@ function App() {
           <Route path="/admin/addcategories" element={<AddCategories />} />
           <Route path="/admin/bundlingadmin" element={<BundlingAdmin />} />
           <Route path="/admin/editproduct/:id" element={<EditProduct />} />
-          <Route path="/admin/editbundling" element={<EditBundlingAdmin />} />
+          <Route path="/admin/editbundling/:id" element={<EditBundlingAdmin />} />
           <Route path="/admin/editcategory/:id" element={<EditCategoriesAdmin />} />
           <Route path="/admin/category" element={<Category />} />
         </Routes>

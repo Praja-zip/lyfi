@@ -10,25 +10,21 @@ const EditBundling = ({
   hargaBundle,
   detailBundle,
   allProducts,
-  handleProdukChange,
   setNamaBundle,
   setDetailBundle,
   setHargaBundle,
   setTokopediaLink,
   setShopeeLink,
+  handleProdukChange,
+  fotoPreview,
+  handleFotoChange,
+  tokopediaLink,
+  shopeeLink,
+  setFotoPreview
 }) => {
   const [selectedFiles, setSelectedFiles] = useState([]);
-  const [fotoPreview, setFotoPreview] = useState([]);
-  const [tokopediaLink, setTokopediaLinkLocal] = useState("");
-  const [shopeeLink, setShopeeLinkLocal] = useState("");
-  const [showNotification, setShowNotification] = useState(false); // Notifikasi
+  const [showNotification, setShowNotification] = useState(false); 
 
-  const handleFotoChange = (e) => {
-    const files = Array.from(e.target.files);
-    setSelectedFiles((prevFiles) => [...prevFiles, ...files]);
-    const newPreview = files.map((file) => URL.createObjectURL(file));
-    setFotoPreview((prevPreview) => [...prevPreview, ...newPreview]);
-  };
 
   const handleRemoveFile = (index, e) => {
     e.preventDefault();
@@ -38,9 +34,9 @@ const EditBundling = ({
     console.log(`Foto ${fileName} berhasil dihapus`);
   };
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    handleSubmit(); // Memanggil fungsi submit yang sudah ada
+    await handleSubmit(); // Memanggil fungsi submit yang sudah ada
 
     // Tampilkan notifikasi setelah submit
     setShowNotification(true);
@@ -55,8 +51,6 @@ const EditBundling = ({
     setProduk([]); // Reset produk
     setSelectedFiles([]); // Hapus file yang sudah diupload
     setFotoPreview([]); // Reset preview foto
-    setTokopediaLinkLocal("");
-    setShopeeLinkLocal("");
   };
 
   return (
@@ -119,17 +113,17 @@ const EditBundling = ({
           <div className="addproduct-input row">
             <label htmlFor="addproduct">Link Bundling :</label>
             <div className="link-product">
-              <input
+               <input
                 type="text"
                 placeholder="Tokopedia"
                 value={tokopediaLink}
-                onChange={(e) => setTokopediaLinkLocal(e.target.value)}
+                onChange={(e) => setTokopediaLink(e.target.value)}
               />
               <input
                 type="text"
                 placeholder="Shopee"
                 value={shopeeLink}
-                onChange={(e) => setShopeeLinkLocal(e.target.value)}
+                onChange={(e) => setShopeeLink(e.target.value)}
               />
             </div>
           </div>
@@ -153,33 +147,48 @@ const EditBundling = ({
                 onChange={handleFotoChange}
               />
             </label>
-            {fotoPreview.length > 0 && (
+            
               <div className="image-preview mt-4 d-flex flex-wrap">
-                {fotoPreview.map((preview, index) => (
-                  <div key={index} className="position-relative me-3 mb-3">
-                    <img src={preview} alt="Foto Preview" width="200" />
-                    <button
-                      type="button"
-                      onClick={(e) => handleRemoveFile(index, e)}
-                      style={{
-                        position: "absolute",
-                        top: "5px",
-                        right: "5px",
-                        background: "red",
-                        color: "white",
-                        border: "none",
-                        borderRadius: "50%",
-                        width: "20px",
-                        height: "20px",
-                        cursor: "pointer",
-                      }}
-                    >
-                      X
-                    </button>
-                  </div>
-                ))}
-              </div>
-            )}
+  {fotoPreview.map((preview, index) => (
+    <div key={index} className="position-relative me-3 mb-3">
+      
+      <button
+        type="button"
+        onClick={() => handleRemoveFile(index)}
+        style={{
+          position: "absolute",
+          top: "5px",
+          right: "5px",
+          background: "red",
+          color: "white",
+          border: "none",
+          borderRadius: "50%",
+          width: "20px",
+          height: "20px",
+          cursor: "pointer",
+        }}
+      >
+        X
+      </button>
+       {preview.type.startsWith("image") ? (
+        <img
+            src={URL.createObjectURL(preview)}
+            alt={preview.name}
+            style={{
+                width: "100%",
+                height: "auto",
+                borderRadius: "10px",
+                height: "150px",
+                objectFit: "cover",
+
+            }}
+        />
+    ) : (
+        <p>{preview.name}</p>
+    )}
+    </div>
+  ))}
+</div>
           </div>
         </div>
         <button

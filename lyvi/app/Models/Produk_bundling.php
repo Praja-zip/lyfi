@@ -28,4 +28,12 @@ class Produk_bundling extends Model
     {
         return $this->hasMany(Master_produk_bundling::class, 'id_produk_bundling');
     }
+
+    public function products()
+    {
+        return $this->belongsToMany(Master_product::class, 'master_produk_bundlings', 'id_produk_bundling', 'id_produk_master');
+    }
+    
+
+    
 }

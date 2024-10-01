@@ -63,7 +63,7 @@ const PilihProdukModal = ({
             {selectedProducts.map((product) => (
               <li key={product.id}>
                 <img
-                  src={`http://127.0.0.1:8000/${product.foto_produk[0]}`}
+                  src={`http://127.0.0.1:8000/storage/${product.foto_produk[0]}`}
                   alt={product.nama_produk}
                   style={{ width: "50px", height: "50px", marginRight: "10px" }}
                 />

@@ -48,7 +48,7 @@ const PilihProduk = ({ allProducts,
                 </td>
                 <td className="text-center">
                   <img
-                    src={`http://127.0.0.1:8000/storage/images/${product.foto_produk}`}
+                    src={`http://127.0.0.1:8000/storage/${product.foto_produk}`}
                     alt={product.nama_produk}
                     style={{ width: "80px", height: "80px" }}
                   />

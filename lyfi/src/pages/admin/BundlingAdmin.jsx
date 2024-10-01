@@ -1,27 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./../../componentadmin/Admin.css";
 import Sidebar from "./../../componentadmin/sidebar";
 import Header from "../../componentadmin/ProductAdmin/Header";
 import { Link } from "react-router-dom";
 import foto from "./../../assets/LandingPage/about.png";
 import "./../../componentadmin/BundlingAdmin/Bundlingadmin.css";
-
 import BundlingTable from "../../componentadmin/BundlingAdmin/BundlingTable";
 
 import "./../../componentadmin/ProductAdmin/AddProduct.css";
+import axios from "axios";
 
-const bundling = [
-  {
-    name: "Moisturizer A",
-    price: "Rp 150.000",
-    details: "Pelembab dengan kandungan alami",
-    image: foto,
-    category: "Moisturizer",
-  },
-  // Tambahkan lebih banyak produk
-];
+
+
 const BundlingAdmin = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [allBundlings, setAllBundlings] = useState([]);
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    const fetchBundling = async () => {
+      try {
+        const response = await axios.get("http://127.0.0.1:8000/api/produk-bundlings", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setAllBundlings(response.data.data);
+        console.log(response.data.data)
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+    fetchBundling();
+  }, [token]);
 
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
@@ -52,7 +61,7 @@ const BundlingAdmin = () => {
             </Link>
           </div>
           <div className="container-tableproduct mt-2">
-            <BundlingTable products={bundling} />
+            <BundlingTable products={allBundlings} />
           </div>
         </div>
       </div>

@@ -32,4 +32,12 @@ class Master_product extends Model
     {
         return $this->belongsToMany(Kategori::class, 'produk_kategoris', 'id_produk', 'id_kategori');
     }
+
+    public function produkBundlings()
+    {
+        return $this->belongsToMany(Produk_bundling::class, 'master_produk_bundlings', 'id_produk_master', 'id_produk_bundling');
+    }
+    
+    
+    
 }

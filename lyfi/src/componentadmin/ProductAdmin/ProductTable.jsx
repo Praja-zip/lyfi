@@ -7,7 +7,6 @@ import "./AddProduct.css";
 const ProductTable = ({ allProducts }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
-  const [filter] = useState("");
 
   // const filteredProducts = products.filter((product) =>
   //   product.category.includes(filter)

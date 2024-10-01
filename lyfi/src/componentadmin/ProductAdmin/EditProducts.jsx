@@ -34,6 +34,8 @@ const EditProducts = ({
   const handleRemoveFile = (index) => {
     setSelectedFiles((prevFiles) => prevFiles.filter((_, i) => i !== index)); // Hapus file berdasarkan index
   };
+
+  
   
 
   // Remove notification after 3 seconds

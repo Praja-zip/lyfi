@@ -7,18 +7,12 @@ const BundlingTable = ({ products }) => {
   const [itemsPerPage] = useState(5);
   const [filter] = useState("");
 
-  const filteredProducts = products.filter((product) =>
-    product.category.includes(filter)
-  );
+  const currentItems = products?.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  ) || [];
 
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredProducts.slice(
-    indexOfFirstItem,
-    indexOfLastItem
-  );
-
-  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+  const totalPages = Math.ceil(products.length / itemsPerPage);
 
   const handlePageChange = (pageNumber) => {
     if (pageNumber > 0 && pageNumber <= totalPages) {
@@ -46,20 +40,20 @@ const BundlingTable = ({ products }) => {
         <tbody>
           {currentItems.map((product, index) => (
             <tr key={index}>
-              <td className="text-center text-light">{product.name}</td>
-              <td className="text-center text-light">{product.price}</td>
+              <td className="text-center text-light">{product.nama_bundle}</td>
+              <td className="text-center text-light">{product.harga_bundle}</td>
               <td className="text-center text-light" style={{ width: "40%" }}>
-                {product.details.split(" ").slice(0, 5).join(" ") + "..."}
+                {product.detail_bundle.split(" ").slice(0, 5).join(" ") + "..."}
               </td>
               <td className="text-center">
                 <img
-                  src={product.image}
-                  alt={product.name}
+                  src={`http://127.0.0.1:8000/storage/${product.foto_bundle[0]}`}
+                  alt={product.nama_bundle}
                   style={{ width: "80px", height: "80px" }}
                 />
               </td>
               <td className="text-center" style={{ width: "20%" }}>
-                <Link to="/admin/editbundling">
+                <Link to={`/admin/editbundling/${product.id}`}>
                   <Button className="button-aksi" size="sm">
                     <i className="fa-regular fa-pen-to-square"></i>
                   </Button>{" "}
