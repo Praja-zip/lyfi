@@ -154,7 +154,7 @@ class ProdukBundlingController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {7
+    {
         // Validasi input
         $validator = Validator::make($request->all(), [
             'nama_bundle' => 'required',

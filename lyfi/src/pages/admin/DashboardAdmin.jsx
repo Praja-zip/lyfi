@@ -11,10 +11,28 @@ import axios from "axios";
 const DashboardAdmin = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [user, setUser] = useState({});
+  const [produk, setProduk] = useState("");
+  const [bundling, setBundling] = useState("");
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
   console.log('Token:', token)
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/count`, {
+          
+        });
+        setProduk(response.data.total_produk);
+        setBundling(response.data.total_bundling)
+        console.log(response.data.total_bundling);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+    fetchCategories();
+    
+  }, [ ]);
 
   const fetchData = async () => {
     const token = localStorage.getItem("token"); // Ambil token dari localStorage
@@ -34,13 +52,6 @@ const DashboardAdmin = () => {
     }
   }  
 
-  // useEffect(() => {
-  //   if (!token) {
-  //     navigate('/login');
-  //   } else {
-  //     fetchData();
-  //   }
-  // }, [token, navigate]);
 
   const logoutHandler = async () => {
     try {
@@ -71,7 +82,7 @@ const DashboardAdmin = () => {
       <div className={`content ${isSidebarOpen ? "content-open" : "content-closed"}`}>
         <div className="main-content">
           <Header />
-          <Dashboard />
+          <Dashboard produk={ produk } bundling={ bundling } />
           <DoughnutChart />
         </div>
       </div>

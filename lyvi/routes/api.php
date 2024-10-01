@@ -35,6 +35,7 @@ Route::middleware('admin.auth')->group(function () {
 });
     Route::get('master-products/{id}', [MasterProductController::class, 'show'])->name('master-products.show');
     Route::get('master-products', [MasterProductController::class, 'index'])->name('master-products.index');
+    Route::get('count', [MasterProductController::class, 'count'])->name('master-products.count');
 
 //Produk Bundlings
 Route::middleware('admin.auth')->group(function () {

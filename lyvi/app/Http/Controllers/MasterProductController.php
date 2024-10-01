@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Master_product;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Produk_bundling;
+
 
 class MasterProductController extends Controller
 {
@@ -44,6 +46,16 @@ class MasterProductController extends Controller
         'last_page' => $master_products->lastPage(),
         'total' => $master_products->total(),
         'per_page' => $master_products->perPage(),
+    ]);
+}
+
+public function count(){
+    $produk = Master_product::count();
+    $bundling = Produk_bundling::count();
+
+    return response()->json([
+        'total_produk' => $produk,   
+        'total_bundling' => $bundling, 
     ]);
 }
 

@@ -176,7 +176,6 @@ const EditBundling = ({
             alt={preview.name}
             style={{
                 width: "100%",
-                height: "auto",
                 borderRadius: "10px",
                 height: "150px",
                 objectFit: "cover",

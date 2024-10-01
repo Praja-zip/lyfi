@@ -3,7 +3,7 @@ import shop from "./../../assets/icon/cart.png";
 import kubik from "./../../assets/icon/kubik.png";
 import user from "./../../assets/icon/user.png";
 
-const Dashboard = () => {
+const Dashboard = ({ produk, bundling }) => {
   const [showNotification, setShowNotification] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -48,7 +48,7 @@ const Dashboard = () => {
                 </div>
                 <div className="col-md-8 mt-3">
                   <div className="card-body">
-                    <h1 className="card-title">123</h1>
+                    <h1 className="card-title">{ produk }</h1>
                     <p className="card-text">Total Produk</p>
                   </div>
                 </div>
@@ -78,7 +78,7 @@ const Dashboard = () => {
                 </div>
                 <div className="col-md-8 mt-3">
                   <div className="card-body">
-                    <h1 className="card-title">123</h1>
+                    <h1 className="card-title">{ bundling }</h1>
                     <p className="card-text">Total Bundling</p>
                   </div>
                 </div>
