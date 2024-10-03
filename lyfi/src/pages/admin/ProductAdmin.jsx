@@ -4,11 +4,10 @@ import Sidebar from "./../../componentadmin/sidebar";
 import Header from "../../componentadmin/ProductAdmin/Header";
 import { Link } from "react-router-dom";
 import foto from "./../../assets/LandingPage/about.png";
-
 import ProductTable from "../../componentadmin/ProductAdmin/ProductTable";
-
 import "./../../componentadmin/ProductAdmin/AddProduct.css";
 import axios from "axios";
+import DeleteProducts from "../../componentadmin/ProductAdmin/DeleteProducts";
 
 
 
@@ -16,9 +15,24 @@ const ProductAdmin = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [allProducts, setAllProducts] = useState([]);
   const token = localStorage.getItem("token");
+  const [deleteComponent, setDeleteProducts] = useState({ show: false, product: null });
 
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
+  };
+
+  const handleDeleteProduct = async (id) => {
+    try {
+      const response = await axios.delete(`http://127.0.0.1:8000/api/master-products/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("Product deleted:", response.data);
+      setAllProducts(allProducts.filter((product) => product.id !== id));
+    } catch (error) {
+      console.error("Error deleting product:", error);
+    }
   };
 
   
@@ -78,8 +92,22 @@ useEffect(() => {
             </Link>
           </div>
           <div className="container-tableproduct mt-2">
-            <ProductTable allProducts={allProducts} />
+            <ProductTable allProducts={allProducts}  
+            handleDeleteProduct={(product) => setDeleteProducts({ show: true, product })}
+            />
           </div>
+
+          {deleteComponent.show && (
+            <DeleteProducts
+              productName={deleteComponent.product?.nama_produk}
+              onConfirm={() => {
+                handleDeleteProduct(deleteComponent.product.id);
+                setDeleteProducts({ show: false, product: null });
+              }}
+              onCancel={() => setDeleteProducts({ show: false, product: null })}
+            />
+          )}
+
         </div>
       </div>
     </div>

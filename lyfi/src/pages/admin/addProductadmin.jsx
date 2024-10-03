@@ -106,8 +106,8 @@ const AddProductAdmin = () => {
       if (response) {
         console.log(response);
         setTimeout(() => {
-          navigate("/admin");
-        }, 2000);
+          navigate("/admin/productadmin");
+        }, 500);
       }
     } catch (error) {
       if (error.response) {

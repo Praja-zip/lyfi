@@ -121,7 +121,7 @@ const ProductList = () => {
         {allProducts.map((product) => (
           <div key={product.id} className="custom-container-product">
             <img 
-            src={`http://127.0.0.1:8000/storage/images/${product.foto_produk}`} 
+            src={`http://127.0.0.1:8000/storage/${product.foto_produk}`} 
             alt={product.nama_produk} />
             <div className="custom-card-body">
               <h3> {product.kategori[0]}</h3>
