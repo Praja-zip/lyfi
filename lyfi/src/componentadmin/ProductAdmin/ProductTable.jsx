@@ -4,19 +4,19 @@ import { Link, useLocation } from "react-router-dom";
 import { Table, Button } from "react-bootstrap";
 import "./AddProduct.css";
 
-const ProductTable = ({ allProducts }) => {
+const ProductTable = ({ allProducts,  handleDeleteProduct, setDeleteProducts }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
-
-  // const filteredProducts = products.filter((product) =>
-  //   product.category.includes(filter)
-  // );
 
   // Memastikan allProducts ada sebelum slicing
   const currentItems = allProducts?.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   ) || [];
+
+  const handleProduct = () => {
+    setDeleteProducts(true);
+  }
 
   const totalPages = Math.ceil(allProducts?.length / itemsPerPage) || 1;
 
@@ -65,7 +65,11 @@ const ProductTable = ({ allProducts }) => {
                     <i className="fa-regular fa-pen-to-square"></i>
                   </Button>{" "}
                 </Link>
-                <Button className="button-aksi" size="sm">
+                <Button
+                  className="button-aksi"
+                  size="sm"
+                  onClick={() => handleDeleteProduct(product)}
+                >
                   <i className="fa-solid fa-trash"></i>
                 </Button>
               </td>

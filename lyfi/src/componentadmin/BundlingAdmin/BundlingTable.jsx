@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Table, Button } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
 
@@ -6,6 +6,7 @@ const BundlingTable = ({ products }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
   const [filter] = useState("");
+  
 
   const currentItems = products?.slice(
     (currentPage - 1) * itemsPerPage,

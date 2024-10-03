@@ -30,7 +30,7 @@ Route::post('/admin/logout', [AdminController::class, 'logout']);
 Route::middleware('admin.auth')->group(function () {
     Route::post('master-products', [MasterProductController::class, 'store'])->name('master-products.store');
     Route::put('master-products/{id}', [MasterProductController::class, 'update'])->name('master-products.update');    
-    Route::delete('master-products/{master_product}', [MasterProductController::class, 'destroy'])->name('master-products.destroy');
+    Route::delete('master-products/{id}', [MasterProductController::class, 'destroy'])->name('master-products.destroy');
     Route::get('count-products', [HitungProdukController::class, 'countProducts']);
 });
     Route::get('master-products/{id}', [MasterProductController::class, 'show'])->name('master-products.show');

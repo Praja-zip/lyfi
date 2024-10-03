@@ -59,6 +59,8 @@ public function count(){
     ]);
 }
 
+
+
 public function update(Request $request, $id)
 {
     // Validasi input
@@ -209,5 +211,47 @@ public function show($id)
         'data' => $master_product->load('kategoris') // Muat relasi kategori
     ], 201);
 }
+
+public function destroy($id)
+    {
+        try {
+            // Cari produk berdasarkan id
+            $product = Master_product::find($id);
+            if (!$product) {
+                return response()->json([
+                    'message' => 'Product not found'
+                ], 404);
+            }
+    
+            $photos = json_decode($product->foto_produk);
+    
+            // Hapus foto produk dari storage jika ada
+            if (!empty($photos)) {
+                foreach ($photos as $foto) {
+                    // Menghapus file dari storage
+                    if (Storage::exists($foto)) {
+                        Storage::delete($foto);
+                    }
+                }
+            }
+    
+            $product->delete();
+
+            // Kembalikan respon sukses
+            return response()->json([
+                'message' => 'Product deleted successfully'
+            ], 200);
+        } catch (\Exception $e) {
+            // Tangani kesalahan
+            return response()->json([
+                'message' => 'Error deleting product',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+
+        
+        
+
+    }
 
 }
