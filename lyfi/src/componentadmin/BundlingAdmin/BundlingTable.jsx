@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Table, Button } from "react-bootstrap";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const BundlingTable = ({ products }) => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(5);
-  const [filter] = useState("");
+const BundlingTable = ({ products, handleDeleteBundling }) => {
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const itemsPerPage = 5;
   
-
   const currentItems = products?.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
@@ -23,12 +21,7 @@ const BundlingTable = ({ products }) => {
 
   return (
     <div>
-      {/* Tabel Produk */}
-      <Table
-        responsive
-        className="custom-table table-responsive"
-        style={{ borderRadius: "20px" }}
-      >
+      <Table responsive className="custom-table table-responsive" style={{ borderRadius: "20px" }}>
         <thead>
           <tr>
             <th className="text-center">Nama Bundling</th>
@@ -57,9 +50,12 @@ const BundlingTable = ({ products }) => {
                 <Link to={`/admin/editbundling/${product.id}`}>
                   <Button className="button-aksi" size="sm">
                     <i className="fa-regular fa-pen-to-square"></i>
-                  </Button>{" "}
+                  </Button>
                 </Link>
-                <Button className="button-aksi" size="sm">
+                <Button
+                  className="button-aksi" size="sm"
+                  onClick={() => handleDeleteBundling(product)}
+                >
                   <i className="fa-solid fa-trash"></i>
                 </Button>
               </td>
@@ -68,33 +64,18 @@ const BundlingTable = ({ products }) => {
         </tbody>
       </Table>
 
-      {/* Pagination */}
       <div className="pagination-container">
-        <Button
-          className="pagination-btn text-dark"
-          onClick={() => handlePageChange(currentPage - 1)}
-        >
+        <Button className="pagination-btn text-dark" onClick={() => handlePageChange(currentPage - 1)}>
           &lt;
         </Button>
         <div className="pagination-scroll">
-          {Array(totalPages)
-            .fill()
-            .map((_, i) => (
-              <Button
-                key={i}
-                onClick={() => handlePageChange(i + 1)}
-                className={`pagination-number ${
-                  currentPage === i + 1 ? "active" : ""
-                }`}
-              >
-                {i + 1}
-              </Button>
-            ))}
+          {Array(totalPages).fill().map((_, i) => (
+            <Button key={i} onClick={() => handlePageChange(i + 1)} className={`pagination-number ${currentPage === i + 1 ? "active" : ""}`}>
+              {i + 1}
+            </Button>
+          ))}
         </div>
-        <Button
-          className="pagination-btn text-dark"
-          onClick={() => handlePageChange(currentPage + 1)}
-        >
+        <Button className="pagination-btn text-dark" onClick={() => handlePageChange(currentPage + 1)}>
           &gt;
         </Button>
       </div>

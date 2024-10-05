@@ -237,12 +237,31 @@ class ProdukBundlingController extends Controller
      * @param  \App\Models\Produk_bundling  $produk_bundling
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Produk_bundling $produk_bundling)
-    {
-        $produk_bundling->delete();
- 
-        return response()->json([
-            'message' => 'success'
-        ]);
+    public function destroy($id)
+{
+    // Cari bundling berdasarkan ID
+    $bundling = Produk_bundling::findOrFail($id);
+
+    // Cek apakah ada foto bundling dan decode JSON
+    if ($bundling->foto_bundle) {
+        $fotoArray = json_decode($bundling->foto_bundle, true); // Decode JSON menjadi array
+
+        // Menghapus file gambar yang terkait
+        foreach ($fotoArray as $foto) {
+            $filePath = public_path($foto); // Path lengkap gambar
+            if (file_exists($filePath)) {
+                unlink($filePath); // Hapus file gambar
+            }
+        }
     }
+
+    // Hapus bundling dari database
+    $bundling->delete();
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Bundling deleted successfully',
+    ], 200);
+}
+
 }
