@@ -26,7 +26,7 @@ const PilihProdukModal = ({
   return (
     <>
       <a href="#" className="modal-produk" onClick={handleShow}>
-        <i className="fa-solid fa-arrow-up me-3"></i>Pilih Produk
+        <i class="fa-solid fa-arrow-up me-3"></i>Pilih Produk
       </a>
 
       <Modal show={show} onHide={handleClose} centered size="xl">
@@ -56,7 +56,16 @@ const PilihProdukModal = ({
       </Modal>
 
       {/* List produk yang dipilih ditampilkan di bawah modal */}
-      <div className="selected-products mt-5 ms-3" style={{backgroundColor: "rgb(150, 138, 80)", color: "white", padding: "1rem", width: "50%", borderRadius: "10px"   }}>
+      <div
+        className="selected-products mt-5 ms-3"
+        style={{
+          backgroundColor: "rgb(150, 138, 80)",
+          color: "white",
+          padding: "1rem",
+          width: "50%",
+          borderRadius: "10px",
+        }}
+      >
         <h5>Produk yang dipilih:</h5>
         {selectedProducts.length > 0 ? (
           <ul>
