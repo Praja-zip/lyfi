@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 
 const InfoProduct = () => {
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
   const { id } = useParams();
   const token = localStorage.getItem("token");
 
@@ -60,17 +60,17 @@ const InfoProduct = () => {
   return (
     <>
       {loading ? (
-        <Loading /> 
+        <Loading />
       ) : (
         <>
           <Navbar />
           <div className="container-info-product text-center">
             <div className="row">
               <div className="col">
-                <ImageProduct product={ product } />
+                <ImageProduct product={product} />
               </div>
               <div className="col">
-                <DetailProduct products={ product } />
+                <DetailProduct products={product} />
               </div>
             </div>
           </div>
