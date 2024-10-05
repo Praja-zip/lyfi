@@ -20,12 +20,14 @@ const ProductTable = ({
     }
   }, [allProducts]);
 
+
   // Memastikan allProducts ada sebelum slicing
   const currentItems =
     allProducts?.slice(
       (currentPage - 1) * itemsPerPage,
       currentPage * itemsPerPage
     ) || [];
+
 
   const totalPages = Math.ceil(allProducts?.length / itemsPerPage) || 1;
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Table, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+
 import Loading from "../../components/Loading/LoadingTable";// Import Loading
 
 const CategoryTable = ({ categories }) => {
@@ -21,6 +22,7 @@ const CategoryTable = ({ categories }) => {
         className="custom-table table-responsive mt-5"
         style={{ borderRadius: "20px" }}
       >
+
         <thead>
           <tr>
             <th className="text-center">Nama Kategori</th>
@@ -47,6 +49,7 @@ const CategoryTable = ({ categories }) => {
                     </Button>{" "}
                   </Link>
                   <Button className="button-aksi" size="sm">
+
                     <i className="fa-solid fa-trash"></i>
                   </Button>
                 </td>
@@ -56,6 +59,7 @@ const CategoryTable = ({ categories }) => {
             <tr>
               <td colSpan="2" className="text-center text-light">
                 Tidak ada kategori yang tersedia.
+
               </td>
             </tr>
           )}

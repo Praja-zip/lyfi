@@ -23,7 +23,7 @@ const BundlingTable = ({ products }) => {
       currentPage * itemsPerPage
     ) || [];
 
-  const totalPages = Math.ceil(products.length / itemsPerPage);
+  const totalPages = Math.ceil(products.length / itemsPerPage) || 1;
 
   const handlePageChange = (pageNumber) => {
     if (pageNumber > 0 && pageNumber <= totalPages) {

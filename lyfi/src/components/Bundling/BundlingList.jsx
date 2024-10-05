@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "./../../assets/LandingPage/produk.png";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const products = [
   {
@@ -41,6 +42,21 @@ const ProductList = () => {
     const words = name.split(" ");
     return words.length > 2 ? `${words.slice(0, 2).join(" ")}...` : name;
   };
+  const [bundling, setBundling] = useState([]);
+
+  useEffect(() => {
+    const fetchBundling = async () => {
+      try {
+        const response = await axios.get("http://127.0.0.1:8000/api/produk-bundlings", {
+        });
+        setBundling(response.data.bundlings);
+        console.log(response.data.bundlings);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+    fetchBundling();
+  }, []);
 
   return (
     <div className="custom-grid">
