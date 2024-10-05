@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Table, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-
 import Loading from "../../components/Loading/LoadingTable"; // Import komponen Loading
 
 const BundlingTable = ({ products, handleDeleteBundling }) => {
