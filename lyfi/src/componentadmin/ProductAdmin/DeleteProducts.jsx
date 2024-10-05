@@ -5,7 +5,10 @@ const DeleteProducts = ({ onConfirm, onCancel, productName }) => {
     <div className="delete-modal">
       <div className="delete-modal-content">
         <h4>Hapus Produk</h4>
-        <p>Apakah Anda yakin ingin menghapus produk <strong>{productName}</strong>?</p>
+        <p>
+          Apakah Anda yakin ingin menghapus produk{" "}
+          <strong>{productName}</strong>?
+        </p>
         <div className="delete-modal-actions">
           <button className="btn btn-danger" onClick={onConfirm}>
             Hapus
