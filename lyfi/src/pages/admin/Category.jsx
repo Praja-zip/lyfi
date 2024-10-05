@@ -9,7 +9,7 @@ import DeleteCategory from "../../componentadmin/CategoryAdmin/DeleteCategory";
 const Category = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [allCategories, setAllCategories] = useState([]);
-  const [deleteCategory, setDeleteCategory] = useState({ show: false, allCategories: null });
+  const [deleteCategory, setDeleteCategory] = useState({ show: false, category: null });
   const token = localStorage.getItem("token");
 
   const toggleSidebar = () => {
@@ -39,9 +39,18 @@ const Category = () => {
       });
       console.log("Category deleted:", response.data);
       setAllCategories(allCategories.filter((category) => category.id !== id));
+      setDeleteCategory({ show: false, category: null });
     } catch (error) {
       console.error("Error deleting category:", error);
     }
+  };
+
+  const openDeleteModal = (category) => {
+    setDeleteCategory({ show: true, category });
+  };
+
+  const closeDeleteModal = () => {
+    setDeleteCategory({ show: false, category: null });
   };
 
   return (
@@ -57,17 +66,20 @@ const Category = () => {
           <div className="container-tableproduct mt-2">
             <CategoryTable
               categories={allCategories}
-              handleDeleteCategory={(category) =>
-                setDeleteCategory({ show: true, allCategories: category })
-              }
+              handleDeleteCategory={openDeleteModal}
             />
           </div>
         </div>
       </div>
-      
+      {deleteCategory.show && (
+        <DeleteCategory
+          categoryName={deleteCategory.category.nama_kategori}
+          onConfirm={() => handleDeleteCategory(deleteCategory.category.id)}
+          onCancel={closeDeleteModal}
+        />
+      )}
     </div>
-    
-);
+  );
 };
 
 export default Category;
