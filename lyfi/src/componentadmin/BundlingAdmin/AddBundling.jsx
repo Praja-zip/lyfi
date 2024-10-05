@@ -19,9 +19,8 @@ const AddBundling = ({
   shopeeLink,
   tokopediaLink,
   setSelectedFiles,
-  selectedFiles
+  selectedFiles,
 }) => {
-  
   const [fotoPreview, setFotoPreview] = useState([]);
   const [showNotification, setShowNotification] = useState(false); // Notifikasi
 
