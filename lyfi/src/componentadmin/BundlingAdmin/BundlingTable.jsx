@@ -77,13 +77,13 @@ const BundlingTable = ({ products, handleDeleteBundling }) => {
                       <i className="fa-regular fa-pen-to-square"></i>
                     </Button>{" "}
                   </Link>
-                  <Button className="button-aksi" size="sm">
-                           className="button-aksi" size="sm"
+                  <Button
+                  className="button-aksi"
+                  size="sm"
                   onClick={() => handleDeleteBundling(product)}
                 >
                   <i className="fa-solid fa-trash"></i>
-                    <i className="fa-solid fa-trash"></i>
-                  </Button>
+                </Button>
                 </td>
               </tr>
             ))
