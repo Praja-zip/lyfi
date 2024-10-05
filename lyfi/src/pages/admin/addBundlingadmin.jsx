@@ -75,7 +75,7 @@ const AddBundlingAdmin = () => {
         }
       );
       // console.log("Bundling created:", response.data);
-      navigate("/admin");
+      navigate("/admin/bundlingadmin");
       
       // Reset form after success
       setNamaBundle("");

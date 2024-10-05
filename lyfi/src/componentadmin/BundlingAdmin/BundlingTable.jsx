@@ -8,15 +8,19 @@ const BundlingTable = ({ products, handleDeleteBundling }) => {
   const [itemsPerPage] = useState(5);
   const [loading, setLoading] = useState(true); // State untuk loading
 
+  // Mengatur loading state ketika products berubah
   useEffect(() => {
-    // Simulasi untuk loading dan set loading ke false setelah data products tersedia
-    if (products && products.length > 0) {
+    // Mengaktifkan loading saat memulai pemuatan data
+    setLoading(true);
+    // Simulasi pemuatan data produk bundling
+    const loadData = async () => {
+      await new Promise((resolve) => setTimeout(resolve, 500)); // Simulasi delay 500ms
       setLoading(false);
-    } else {
-      setLoading(false); // Pastikan loading berakhir walaupun data kosong
-    }
+    };
+    loadData();
   }, [products]);
 
+  // Memastikan products ada sebelum slicing
   const currentItems =
     products?.slice(
       (currentPage - 1) * itemsPerPage,
@@ -33,7 +37,11 @@ const BundlingTable = ({ products, handleDeleteBundling }) => {
 
   return (
     <div>
-      <Table responsive className="custom-table table-responsive" style={{ borderRadius: "20px" }}>
+      <Table
+        responsive
+        className="custom-table table-responsive"
+        style={{ borderRadius: "20px" }}
+      >
         <thead>
           <tr>
             <th className="text-center">Nama Bundling</th>
@@ -65,7 +73,7 @@ const BundlingTable = ({ products, handleDeleteBundling }) => {
                 </td>
                 <td className="text-center">
                   <img
-                    src={`http://127.0.0.1:8000/storage/${product.foto_bundle[0]}`}
+                    src={`http://127.0.0.1:8000/${product.foto_bundle[0]}`}
                     alt={product.nama_bundle}
                     style={{ width: "80px", height: "80px" }}
                   />
@@ -74,15 +82,15 @@ const BundlingTable = ({ products, handleDeleteBundling }) => {
                   <Link to={`/admin/editbundling/${product.id}`}>
                     <Button className="button-aksi" size="sm">
                       <i className="fa-regular fa-pen-to-square"></i>
-                    </Button>{" "}
+                    </Button>
                   </Link>
                   <Button
-                  className="button-aksi"
-                  size="sm"
-                  onClick={() => handleDeleteBundling(product)}
-                >
-                  <i className="fa-solid fa-trash"></i>
-                </Button>
+                    className="button-aksi"
+                    size="sm"
+                    onClick={() => handleDeleteBundling(product)}
+                  >
+                    <i className="fa-solid fa-trash"></i>
+                  </Button>
                 </td>
               </tr>
             ))
@@ -95,7 +103,6 @@ const BundlingTable = ({ products, handleDeleteBundling }) => {
           )}
         </tbody>
       </Table>
-
 
       {/* Pagination */}
       {products.length > 0 && (

@@ -3,6 +3,7 @@ import Sidebar from "../../componentadmin/sidebar";
 import EditBundling from "../../componentadmin/BundlingAdmin/EditBundling";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
+import Loading from "../../components/Loading/Loading"; // Import komponen Loading
 
 const EditBundlingAdmin = () => {
   const token = localStorage.getItem("token");
@@ -11,15 +12,13 @@ const EditBundlingAdmin = () => {
   const [namaBundle, setNamaBundle] = useState("");
   const [hargaBundle, setHargaBundle] = useState("");
   const [detailBundle, setDetailBundle] = useState("");
-  const [foto, setFoto] = useState(null);
   const [fotoPreview, setFotoPreview] = useState([]);
   const [produk, setProduk] = useState([]);
   const [tokopediaLink, setTokopediaLink] = useState("");
   const [shopeeLink, setShopeeLink] = useState("");
-  const [bundling, setBundling] = useState(null);
+  const [loading, setLoading] = useState(true); // State untuk loading
   const { id } = useParams();
   const navigate = useNavigate();
-
 
   const handleFileChange = (event) => {
     const files = Array.from(event.target.files); // Konversi file list ke array
@@ -37,24 +36,20 @@ const EditBundlingAdmin = () => {
 
   const uploadBundling = async () => {
     const formData = new FormData();
-    formData.append('_method', 'PUT');
+    formData.append("_method", "PUT");
     formData.append("nama_bundle", namaBundle);
     formData.append("harga_bundle", hargaBundle);
     formData.append("detail_bundle", detailBundle);
     formData.append("redirect[0]", tokopediaLink);
     formData.append("redirect[1]", shopeeLink);
-    
+
     fotoPreview.forEach((file, index) => {
-      formData.append(`foto_bundle[]`, file); // Notice the `[]` to indicate an array
-  });
+      formData.append(`foto_bundle[]`, file); // Lampirkan file foto bundle
+    });
 
     produk.forEach((prod, index) => {
       formData.append(`pilih_produk[${index}]`, prod);
     });
-
-    for (let pair of formData.entries()) {
-      console.log(`${pair[0]}: ${pair[1]}`);
-  }
 
     try {
       const response = await axios.post(
@@ -82,34 +77,41 @@ const EditBundlingAdmin = () => {
         return;
       }
       try {
-        const response = await axios.get("http://127.0.0.1:8000/api/master-products", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const response = await axios.get(
+          "http://127.0.0.1:8000/api/master-products",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         setAllProduct(response.data.data);
       } catch (error) {
         console.error("Error fetching products:", error);
       }
     };
-    
+
     const fetchBundling = async () => {
       if (!token) {
         console.error("No token available");
         return;
       }
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/produk-bundlings/${id}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const response = await axios.get(
+          `http://127.0.0.1:8000/api/produk-bundlings/${id}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         const bundlingData = response.data.bundling;
         setNamaBundle(bundlingData.nama_bundle);
         setHargaBundle(bundlingData.harga_bundle);
         setDetailBundle(bundlingData.detail_bundle);
-        // setFotoPreview(bundlingData.foto_bundle);
         setProduk(bundlingData.produk.map((prod) => prod.id));
         setTokopediaLink(bundlingData.redirect[0]);
         setShopeeLink(bundlingData.redirect[1]);
+        setLoading(false); // Set loading ke false setelah data bundling berhasil diambil
       } catch (error) {
         console.error("Error fetching bundling:", error);
+        setLoading(false); // Set loading ke false jika terjadi error
       }
     };
 
@@ -118,33 +120,46 @@ const EditBundlingAdmin = () => {
   }, [id, token]);
 
   return (
-    <div className="dashboardadmin">
-      <Sidebar isOpen={isSidebarOpen} toggleSidebar={() => setSidebarOpen(!isSidebarOpen)} />
-      <div className={`content ${isSidebarOpen ? "content-open" : "content-closed"}`}>
-        <div className="main-content">
-          <EditBundling
-            handleSubmit={uploadBundling}
-            produk={produk}
-            setProduk={setProduk}
-            namaBundle={namaBundle}
-            hargaBundle={hargaBundle}
-            detailBundle={detailBundle}
-            allProducts={allProduct}
-            handleFotoChange={handleFileChange}
-            fotoPreview={fotoPreview}
-            handleProdukChange={handleProdukChange}
-            setNamaBundle={setNamaBundle}
-            setDetailBundle={setDetailBundle}
-            setHargaBundle={setHargaBundle}
-            setTokopediaLink={setTokopediaLink}
-            setShopeeLink={setShopeeLink}
-            shopeeLink={ shopeeLink }
-            tokopediaLink={ tokopediaLink }
-            setFotoPreview={setFotoPreview}
+    <>
+      {loading ? (
+        <Loading /> // Tampilkan loading ketika data masih diambil
+      ) : (
+        <div className="dashboardadmin">
+          <Sidebar
+            isOpen={isSidebarOpen}
+            toggleSidebar={() => setSidebarOpen(!isSidebarOpen)}
           />
+          <div
+            className={`content ${
+              isSidebarOpen ? "content-open" : "content-closed"
+            }`}
+          >
+            <div className="main-content">
+              <EditBundling
+                handleSubmit={uploadBundling}
+                produk={produk}
+                setProduk={setProduk}
+                namaBundle={namaBundle}
+                hargaBundle={hargaBundle}
+                detailBundle={detailBundle}
+                allProducts={allProduct}
+                handleFotoChange={handleFileChange}
+                fotoPreview={fotoPreview}
+                handleProdukChange={handleProdukChange}
+                setNamaBundle={setNamaBundle}
+                setDetailBundle={setDetailBundle}
+                setHargaBundle={setHargaBundle}
+                setTokopediaLink={setTokopediaLink}
+                setShopeeLink={setShopeeLink}
+                shopeeLink={shopeeLink}
+                tokopediaLink={tokopediaLink}
+                setFotoPreview={setFotoPreview}
+              />
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 
