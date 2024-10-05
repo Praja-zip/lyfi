@@ -1,67 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import logo from "./../../assets/LandingPage/produk.png";
-import logo2 from "./../../assets/LandingPage/about.png";
-import logo3 from "./../../assets/LandingPage/girl.png";
 import { Link } from "react-router-dom";
 import axios from "axios";
-
-const products = [
-  {
-    id: 1,
-    name: "Scarlett Whitening Facial Wash",
-    price: "Rp 100.000,-",
-    category: "Face Wash",
-    image: logo,
-  },
-  {
-    id: 2,
-    name: "Scarlett Whitening Toner",
-    price: "Rp 110.000,-",
-    category: "Toner",
-    image: logo3,
-  },
-  {
-    id: 3,
-    name: "Scarlett Whitening Serum",
-    price: "Rp 120.000,-",
-    category: "Serum",
-    image: logo,
-  },
-  {
-    id: 5,
-    name: "Scarlett Whitening Serum",
-    price: "Rp 120.000,-",
-    category: "Serum",
-    image: logo2,
-  },
-  {
-    id: 4,
-    name: "Scarlett Whitening Lip Balm",
-    price: "Rp 120.000,-",
-    category: "Lip Balm",
-    image: logo,
-  },
-  {
-    id: 4,
-    name: "Scarlett Whitening Lip Balm",
-    price: "Rp 120.000,-",
-    category: "Lip Balm",
-    image: logo,
-  },
-  // Tambahkan produk lainnya sesuai kebutuhan
-];
-
-const categories = [
-  "All",
-  ...new Set(products.map((product) => product.category)),
-];
-
-
 
 const ProductList = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [allProducts, setAllProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
   const token = localStorage.getItem("token");
 
   useEffect(() => {
@@ -72,22 +17,20 @@ const ProductList = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log(response.data.data)
         setAllProducts(response.data.data);
+
+        // Set kategori dari produk
+        const fetchedCategories = [
+          "All",
+          ...new Set(response.data.data.map((product) => product.kategori[0])),
+        ];
+        setCategories(fetchedCategories);
       } catch (error) {
         console.error("Error fetching products:", error);
       }
     };
     fetchProducts();
   }, [token]);
-
-  // const truncateText = (text, numWords) => {
-  //   const words = text.split(" ");
-  //   if (words.length > numWords) {
-  //     return words.slice(0, numWords).join(" ") + "...";
-  //   }
-  //   return text;
-  // };
 
   const getShortName = (name) => {
     const words = name.split(" ");
@@ -96,8 +39,8 @@ const ProductList = () => {
 
   const filteredProducts =
     selectedCategory === "All"
-      ? products
-      : products.filter((product) => product.category === selectedCategory);
+      ? allProducts
+      : allProducts.filter((product) => product.kategori[0] === selectedCategory);
 
   return (
     <div className="container ">
@@ -118,11 +61,12 @@ const ProductList = () => {
 
       {/* Product Grid */}
       <div className="custom-grid">
-        {allProducts.map((product) => (
+        {filteredProducts.map((product) => (
           <div key={product.id} className="custom-container-product">
             <img 
-            src={`http://127.0.0.1:8000/storage/${product.foto_produk}`} 
-            alt={product.nama_produk} />
+              src={`http://127.0.0.1:8000/${product.foto_produk[0]}`} 
+              alt={product.nama_produk} 
+            />
             <div className="custom-card-body">
               <h3> {product.kategori[0]}</h3>
               <p className="nama-product">{getShortName(product?.nama_produk || "...", 2)}</p>

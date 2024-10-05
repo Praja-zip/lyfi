@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import tokped from "./../../assets/Bundling/tokped.png";
 import shopee from "./../../assets/Bundling/shopee.png";
 
-const DetailProduct = ({ products }) => {
+const DetailProduct = ({ product }) => {
   const copyLink = () => {
     navigator.clipboard
       .writeText(window.location.href)
@@ -18,9 +18,9 @@ const DetailProduct = ({ products }) => {
     <>
       <div className="info-detail-product">
         <div className="judul-Info">
-          <h1 className="text-start">{ products.nama_produk }</h1>
+          <h1 className="text-start">{product?.nama_produk || "Nama Produk Tidak Tersedia"}</h1>
           <p className="text-start">
-            { products.detail_produk }
+            {product?.detail_produk || "Detail produk tidak tersedia"}
           </p>
         </div>
         <div className="accordion" id="accordionPanelsStayOpenExample">
@@ -43,10 +43,7 @@ const DetailProduct = ({ products }) => {
             >
               <div className="accordion-body">
                 <p className="text-start">
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Soluta, fugiat! Inventore quia, at velit quo aspernatur cum
-                  labore rem exercitationem numquam voluptas perferendis itaque
-                  nulla.
+                  {product?.detail_produk || "Tidak ada detail produk"}
                 </p>
               </div>
             </div>
@@ -70,7 +67,7 @@ const DetailProduct = ({ products }) => {
             >
               <div className="accordion-body">
                 <p className="text-start">
-                  { products.bahan_produk }
+                  {product?.bahan_produk || "Bahan produk tidak tersedia"}
                 </p>
               </div>
             </div>
@@ -94,23 +91,28 @@ const DetailProduct = ({ products }) => {
             >
               <div className="accordion-body">
                 <p className="text-start">
-                  { products.cara_pemakaian }
+                  {product?.cara_pemakaian || "Cara pemakaian tidak tersedia"}
                 </p>
               </div>
             </div>
           </div>
         </div>
         <div className="price-info mt-5 text-start">
-          <p className="fs-3 fw-light">Rp.{ products.harga_produk }</p>
+          <p className="fs-3 fw-light">Rp. {product?.harga_produk || "0"}</p>
           <p className="fw-semibold text-secondary">Tersedia di</p>
           <div className="checkout-product">
-            <a href={products.redirect} className="tokopedia">
-              <img src={tokped} alt="" /> Tokopedia
+          {product.redirect && product.redirect[0] && (
+            <a href={products.redirect[0]} className="tokopedia">
+              <img src={tokped} alt="Tokopedia" /> Tokopedia
             </a>
-            <a href="" className="ms-2 shopee">
-              <img src={shopee} alt="" /> Shopee
+          )}
+          {product.redirect && product.redirect[1] && (
+            <a href={products.redirect[1]} className="ms-2 shopee">
+              <img src={shopee} alt="Shopee" /> Shopee
             </a>
-          </div>
+          )}
+        </div>
+
         </div>
         <hr className="mt-5" />
         <p className="bagikan-produk">
@@ -122,7 +124,7 @@ const DetailProduct = ({ products }) => {
               style={{ cursor: "pointer" }}
             ></i>
             <i className="fa-brands fa-instagram me-3"></i>
-            <i className="fa-brands fa-whatsapp "></i>
+            <i className="fa-brands fa-whatsapp"></i>
           </span>
         </p>
       </div>
