@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Table, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import Loading from "../../components/Loading/LoadingTable";
 
-import Loading from "../../components/Loading/LoadingTable";// Import Loading
-
-const CategoryTable = ({ categories }) => {
+const CategoryTable = ({ categories, handleDeleteCategory }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simulasikan loading dan set loading ke false jika categories telah terisi
     if (categories && categories.length > 0) {
       setLoading(false);
     }
@@ -16,13 +14,11 @@ const CategoryTable = ({ categories }) => {
 
   return (
     <div>
-      {/* Tabel Produk */}
       <Table
         responsive
         className="custom-table table-responsive mt-5"
         style={{ borderRadius: "20px" }}
       >
-
         <thead>
           <tr>
             <th className="text-center">Nama Kategori</th>
@@ -33,7 +29,7 @@ const CategoryTable = ({ categories }) => {
           {loading ? (
             <tr>
               <td colSpan="2" className="text-center">
-                <Loading /> {/* Tampilkan komponen Loading */}
+                <Loading />
               </td>
             </tr>
           ) : categories.length > 0 ? (
@@ -48,8 +44,11 @@ const CategoryTable = ({ categories }) => {
                       <i className="fa-regular fa-pen-to-square"></i>
                     </Button>{" "}
                   </Link>
-                  <Button className="button-aksi" size="sm">
-
+                  <Button
+                    className="button-aksi"
+                    size="sm"
+                    onClick={() => handleDeleteCategory(catItem)}
+                  >
                     <i className="fa-solid fa-trash"></i>
                   </Button>
                 </td>
@@ -59,7 +58,6 @@ const CategoryTable = ({ categories }) => {
             <tr>
               <td colSpan="2" className="text-center text-light">
                 Tidak ada kategori yang tersedia.
-
               </td>
             </tr>
           )}
