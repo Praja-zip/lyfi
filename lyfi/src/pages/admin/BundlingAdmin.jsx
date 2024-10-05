@@ -9,6 +9,8 @@ import DeleteBundling from "../../componentadmin/BundlingAdmin/DeleteBundling";
 const BundlingAdmin = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [allBundlings, setAllBundlings] = useState([]);
+  const [showNotification, setShowNotification] = useState(false);
+  const [message, setMessage] = useState("");
   const [deleteBundling, setDeleteBundling] = useState({
     show: false,
     bundling: null,
@@ -40,6 +42,9 @@ const BundlingAdmin = () => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
+      setMessage("Bundling berhasil dihapus");
+      setShowNotification(true);
+      console.log("Product deleted:", response.data);
       setAllBundlings(allBundlings.filter((bundling) => bundling.id !== id));
     } catch (error) {
       console.error("Error deleting bundling:", error);
@@ -65,6 +70,12 @@ const BundlingAdmin = () => {
       >
         <div className="main-content">
           <Header />
+          {showNotification && (
+            <div className="notification-popup">
+              <p className="notification-message">{message}</p>
+            </div>
+          )}
+          
           <div className="container-productadmin">
             <Link to="/admin/addbundlingadmin" className="next-page-product">
               <i class="fa-solid fa-plus me-2"></i>Create Bundling
