@@ -41,7 +41,7 @@ Route::middleware('admin.auth')->group(function () {
 Route::middleware('admin.auth')->group(function () {
     Route::post('produk-bundlings', [ProdukBundlingController::class, 'store'])->name('produk-bundlings.store');
     Route::put('produk-bundlings/{id}', [ProdukBundlingController::class, 'update'])->name('produk-bundlings.update');    
-    Route::delete('produk-bundlings/{produk-bundling}', [ProdukBundlingController::class, 'destroy'])->name('produk-bundlings.destroy');
+    Route::delete('produk-bundlings/{id}', [ProdukBundlingController::class, 'destroy'])->name('produk-bundlings.destroy');
 });
     Route::get('produk-bundlings', [ProdukBundlingController::class, 'index'])->name('produk-bundlings.index');
     Route::get('produk-bundlings/{id}', [ProdukBundlingController::class, 'show'])->name('produk-bundlings.show');

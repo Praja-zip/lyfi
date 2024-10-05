@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Table, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+
 import Loading from "../../components/Loading/LoadingTable"; // Import komponen Loading
 
-const BundlingTable = ({ products }) => {
+const BundlingTable = ({ products, handleDeleteBundling }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
   const [loading, setLoading] = useState(true); // State untuk loading
@@ -33,12 +34,7 @@ const BundlingTable = ({ products }) => {
 
   return (
     <div>
-      {/* Tabel Produk */}
-      <Table
-        responsive
-        className="custom-table table-responsive"
-        style={{ borderRadius: "20px" }}
-      >
+      <Table responsive className="custom-table table-responsive" style={{ borderRadius: "20px" }}>
         <thead>
           <tr>
             <th className="text-center">Nama Bundling</th>
@@ -82,6 +78,10 @@ const BundlingTable = ({ products }) => {
                     </Button>{" "}
                   </Link>
                   <Button className="button-aksi" size="sm">
+                           className="button-aksi" size="sm"
+                  onClick={() => handleDeleteBundling(product)}
+                >
+                  <i className="fa-solid fa-trash"></i>
                     <i className="fa-solid fa-trash"></i>
                   </Button>
                 </td>
@@ -96,6 +96,7 @@ const BundlingTable = ({ products }) => {
           )}
         </tbody>
       </Table>
+
 
       {/* Pagination */}
       {products.length > 0 && (
