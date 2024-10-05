@@ -16,16 +16,15 @@ const AddProduct = ({
   selectedFiles,
   setSelectedFiles,
   setSelectedCategory,
-  handleFileChange
+  handleFileChange,
 }) => {
   const [showNotification, setShowNotification] = useState(false);
   const [message, setMessage] = useState("");
 
   // Define the selectedCategory state
-  
 
   // Map categories to the format expected by react-select
-  const categoryOptions = allCategories.map(category => ({
+  const categoryOptions = allCategories.map((category) => ({
     value: category.id,
     label: category.nama_kategori,
   }));
@@ -65,23 +64,23 @@ const AddProduct = ({
   //   // Panggil handleSubmit yang sudah ada
   //   handleSubmit();
 
-    // Reset form values setelah submit
-    // handleInputChange.setNamaProduk("");
-    // handleInputChange.setHargaProduk("");
-    // handleInputChange.setDetailProduk("");
-    // handleInputChange.setCaraPemakaian("");
-    // handleInputChange.setBahanProduk("");
-    // handleInputChange.setRedirect("");
-    // setSelectedCategory(null); // Reset dropdown kategori
-    // setSelectedFiles([]); // Kosongkan file yang dipilih
+  // Reset form values setelah submit
+  // handleInputChange.setNamaProduk("");
+  // handleInputChange.setHargaProduk("");
+  // handleInputChange.setDetailProduk("");
+  // handleInputChange.setCaraPemakaian("");
+  // handleInputChange.setBahanProduk("");
+  // handleInputChange.setRedirect("");
+  // setSelectedCategory(null); // Reset dropdown kategori
+  // setSelectedFiles([]); // Kosongkan file yang dipilih
 
-    // // Tampilkan notifikasi jika diperlukan, lalu sembunyikan setelah 3 detik
-    // setMessage("Produk berhasil ditambahkan");
-    // setShowNotification(true);
+  // // Tampilkan notifikasi jika diperlukan, lalu sembunyikan setelah 3 detik
+  // setMessage("Produk berhasil ditambahkan");
+  // setShowNotification(true);
 
-    // setTimeout(() => {
-    //   setShowNotification(false);
-    // }, 3000);
+  // setTimeout(() => {
+  //   setShowNotification(false);
+  // }, 3000);
   // };
 
   const handleCloseError = () => {

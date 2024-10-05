@@ -16,8 +16,8 @@ const AddCategoriesAdmin = () => {
     setSidebarOpen(!isSidebarOpen);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent default form submission
+  const handleSubmit =  () => {
+     // Prevent default form submission
     if (!nama_kategori.trim()) {
       setError("Category name cannot be empty.");
       return;
@@ -31,7 +31,7 @@ const AddCategoriesAdmin = () => {
     setSuccess(false); // Reset success state
 
     try {
-      const response = await axios.post(
+      const response = axios.post(
         `http://127.0.0.1:8000/api/kategoris`,
         item,
         {

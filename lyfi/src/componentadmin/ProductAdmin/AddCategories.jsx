@@ -5,14 +5,16 @@ const AddCategories = ({ category, setCategory, handleSubmit }) => {
   const [showNotification, setShowNotification] = useState(false);
   const [message, setMessage] = useState("");
 
-  const onSubmit = () => {
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    await handleSubmit();
     console.log("Submit button clicked");
     console.log("Category value:", category);
 
     // Langsung memunculkan notifikasi tanpa handleSubmit
     setMessage("Kategori berhasil ditambahkan!");
     setShowNotification(true);
-    setCategory("")
+    setCategory("");
     // Sembunyikan notifikasi setelah 3 detik
     setTimeout(() => {
       setShowNotification(false);
@@ -46,7 +48,7 @@ const AddCategories = ({ category, setCategory, handleSubmit }) => {
 
       <button
         className="addproduct-save d-flex justify-content-center align-items-center"
-        onClick={handleSubmit}
+        onClick={onSubmit} // Ganti dengan onSubmit untuk langsung memunculkan notifikasi
       >
         <i className="fa-regular fa-floppy-disk me-2"></i>{" "}
         <span className="d-none d-md-block">Save Changes</span>
