@@ -83,7 +83,7 @@ const Product = () => {
               style={{ width: "18rem", margin: "0 1rem" }} // Adjust margin to ensure space around each card
             >
               <img
-                src={`http://127.0.0.1:8000/storage/images/${product.foto_produk}`}
+                src={`http://127.0.0.1:8000/${product.foto_produk[0]}`}
                 className="card-img-top"
                 alt={product.nama_produk}
               />

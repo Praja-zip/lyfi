@@ -133,11 +133,19 @@ public function show($id)
         $product = Master_product::findOrFail($id); // Menggunakan findOrFail untuk menangani ID yang tidak ditemukan
         return response()->json([
             'success' => true,
-            'data' => $product,
-            'kategori' => $product->kategoris->map(function ($kategori) {
-                return $kategori->nama_kategori;
-            }),
+            'data' => [
+                'id' => $product->id,
+                'nama_produk' => $product->nama_produk,
+                'harga_produk' => $product->harga_produk,
+                'redirect' => json_decode($product->redirect),
+                'foto_produk' => json_decode($product->foto_produk), // Decode jika formatnya JSON
+                'detail_produk' => $product->detail_produk,
+                'kategori' => $product->kategoris->map(function ($kategori) {
+                    return $kategori->nama_kategori;
+                }), // Mengambil nama kategori
+            ]
         ]);
+
     } catch (\Exception $e) {
         return response()->json([
             'success' => false,

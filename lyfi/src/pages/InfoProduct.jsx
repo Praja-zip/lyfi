@@ -19,8 +19,9 @@ const InfoProduct = () => {
     detail_produk: "",
     bahan_produk: "",
     cara_pemakaian: "",
-    kategori: "", // Updated to a single category
+    kategori: "",
     redirect: "",
+    foto_produk: [], // Tambahkan default foto_produk sebagai array kosong
   });
 
   useEffect(() => {
@@ -36,26 +37,13 @@ const InfoProduct = () => {
         setProduct(response.data.data);
       } catch (error) {
         console.error("Error fetching product:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchProduct();
   }, [id, token]);
-
-  useEffect(() => {
-    const handlePageLoad = () => {
-      setLoading(false);
-    };
-    if (document.readyState === "complete") {
-      setLoading(false);
-    } else {
-      window.addEventListener("load", handlePageLoad);
-    }
-
-    return () => {
-      window.removeEventListener("load", handlePageLoad);
-    };
-  }, []);
 
   return (
     <>
@@ -70,7 +58,7 @@ const InfoProduct = () => {
                 <ImageProduct product={product} />
               </div>
               <div className="col">
-                <DetailProduct products={product} />
+                <DetailProduct product={product} />
               </div>
             </div>
           </div>
