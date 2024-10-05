@@ -13,6 +13,8 @@ import DeleteProducts from "../../componentadmin/ProductAdmin/DeleteProducts";
 const ProductAdmin = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [allProducts, setAllProducts] = useState([]);
+  const [showNotification, setShowNotification] = useState(false);
+  const [message, setMessage] = useState("");
   const token = localStorage.getItem("token");
   const [deleteComponent, setDeleteProducts] = useState({
     show: false,
@@ -33,6 +35,8 @@ const ProductAdmin = () => {
           },
         }
       );
+      setMessage("Produk berhasil dihapus");
+      setShowNotification(true);
       console.log("Product deleted:", response.data);
       setAllProducts(allProducts.filter((product) => product.id !== id));
     } catch (error) {
@@ -95,6 +99,11 @@ const ProductAdmin = () => {
             >
               <div className="main-content">
                 <Header />
+                {showNotification && (
+                    <div className="notification-popup">
+                      <p className="notification-message">{message}</p>
+                    </div>
+                  )}
 
                 <div className="container-productadmin d-flex">
                   <Link
