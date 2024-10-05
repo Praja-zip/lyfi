@@ -30,7 +30,7 @@ class ProdukBundlingController extends Controller
 
         // Mengembalikan respon JSON dengan data produk yang telah dipaginate
         return response()->json([
-             'data' => $produk_bundlings->map(function ($bundling) {
+             'bundlings' => $produk_bundlings->map(function ($bundling) {
                 // Decode JSON pada kolom array yang disimpan
                 return [
                     'id' => $bundling->id,

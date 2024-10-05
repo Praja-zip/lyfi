@@ -75,11 +75,6 @@ const EditBundlingAdmin = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await uploadBundling();
-  };
-
   useEffect(() => {
     const fetchProducts = async () => {
       if (!token) {

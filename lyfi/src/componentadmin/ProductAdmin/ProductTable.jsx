@@ -14,10 +14,6 @@ const ProductTable = ({ allProducts,  handleDeleteProduct, setDeleteProducts }) 
     currentPage * itemsPerPage
   ) || [];
 
-  const handleProduct = () => {
-    setDeleteProducts(true);
-  }
-
   const totalPages = Math.ceil(allProducts?.length / itemsPerPage) || 1;
 
   const handlePageChange = (pageNumber) => {

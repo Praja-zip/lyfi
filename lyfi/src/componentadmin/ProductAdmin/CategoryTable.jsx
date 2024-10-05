@@ -1,16 +1,11 @@
 import React from "react";
 import { Table, Button } from "react-bootstrap";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const CategoryTable = ({ categories }) => {
+const CategoryTable = ({ categories, handleDeleteCategory }) => {
   return (
     <div>
-      {/* Tabel Produk */}
-      <Table
-        responsive
-        className="custom-table table-responsive"
-        style={{ borderRadius: "20px" }}
-      >
+      <Table responsive className="custom-table table-responsive" style={{ borderRadius: "20px" }}>
         <thead>
           <tr>
             <th className="text-center">Nama Kategori</th>
@@ -27,7 +22,7 @@ const CategoryTable = ({ categories }) => {
                     <i className="fa-regular fa-pen-to-square"></i>
                   </Button>{" "}
                 </Link>
-                <Button className="button-aksi" size="sm">
+                <Button className="button-aksi" size="sm" onClick={() => handleDeleteCategory(catItem)}>
                   <i className="fa-solid fa-trash"></i>
                 </Button>
               </td>
