@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./login.css";
+import { Link, useLocation } from "react-router-dom";
 
 const LoginPage = ({
   email,
@@ -40,11 +41,11 @@ const LoginPage = ({
           <form onSubmit={handleSubmit}>
             <div className="input-container row">
               <label htmlFor="email" className="input-label">
-                Email
+                Username
               </label>
               <input
                 type="email"
-                placeholder="Email"
+                placeholder="Username"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="input-field"
@@ -67,7 +68,9 @@ const LoginPage = ({
               />
               <span className="input-highlight"></span>
             </div>
-
+            <Link className="login-back m-3" to="./../">
+              Kembali
+            </Link>
             <button type="submit" className="login-footer">
               Kirim
             </button>

@@ -20,8 +20,8 @@ const AddProduct = ({
 }) => {
   const [showNotification, setShowNotification] = useState(false);
   const [message, setMessage] = useState("");
-
-  // Define the selectedCategory state
+  const [notification, setNotification] = useState(""); // State for notifications
+  const [showUploadNotification, setShowUploadNotification] = useState(false); // State for upload notification
 
   // Map categories to the format expected by react-select
   const categoryOptions = allCategories.map((category) => ({
@@ -34,9 +34,6 @@ const AddProduct = ({
     setSelectedCategory(selectedOption);
   };
 
-  const [notification, setNotification] = useState(""); // State for notifications
-
-  // Handle file removal
   // Handle file removal
   const handleRemoveFile = (index, e) => {
     e.preventDefault(); // Prevent form submit when removing file
@@ -54,37 +51,32 @@ const AddProduct = ({
       const timeoutId = setTimeout(() => {
         setNotification("");
       }, 3000);
-
-      return () => clearTimeout(timeoutId); // Clean up the timeout when the component unmounts or notification changes
+      return () => clearTimeout(timeoutId); // Clean up the timeout
     }
   }, [notification]);
 
-  // const handleFormSubmit = () => {
-
-  //   // Panggil handleSubmit yang sudah ada
-  //   handleSubmit();
-
-  // Reset form values setelah submit
-  // handleInputChange.setNamaProduk("");
-  // handleInputChange.setHargaProduk("");
-  // handleInputChange.setDetailProduk("");
-  // handleInputChange.setCaraPemakaian("");
-  // handleInputChange.setBahanProduk("");
-  // handleInputChange.setRedirect("");
-  // setSelectedCategory(null); // Reset dropdown kategori
-  // setSelectedFiles([]); // Kosongkan file yang dipilih
-
-  // // Tampilkan notifikasi jika diperlukan, lalu sembunyikan setelah 3 detik
-  // setMessage("Produk berhasil ditambahkan");
-  // setShowNotification(true);
-
-  // setTimeout(() => {
-  //   setShowNotification(false);
-  // }, 3000);
-  // };
-
   const handleCloseError = () => {
     setShowNotification(false); // Hide the error popup when close button is clicked
+  };
+
+  const handleFileChangeWithLimit = (e) => {
+    const files = Array.from(e.target.files);
+
+    // Jika sudah ada 4 foto, beri notifikasi dan jangan tambahkan file baru
+    if (selectedFiles.length + files.length > 4) {
+      setShowUploadNotification(true); // Show upload notification
+      setMessage("Maksimal hanya 4 foto yang dapat ditambahkan.");
+      return;
+    }
+
+    // Gabungkan file yang ada dengan file baru
+    const newFiles = [...selectedFiles, ...files];
+    setSelectedFiles(newFiles);
+  };
+
+  // Handle closing the upload notification
+  const handleCloseUploadNotification = () => {
+    setShowUploadNotification(false);
   };
 
   return (
@@ -99,6 +91,19 @@ const AddProduct = ({
           <div className="notification-popup d-flex">
             <p className="notification-message">{message}</p>
             <button className="close-btn ms-4" onClick={handleCloseError}>
+              &times;
+            </button>
+          </div>
+        )}
+
+        {/* Upload Notification */}
+        {showUploadNotification && (
+          <div className="notification-popup d-flex">
+            <p className="notification-message">{message}</p>
+            <button
+              className="close-btn ms-4"
+              onClick={handleCloseUploadNotification}
+            >
               &times;
             </button>
           </div>
@@ -186,93 +191,76 @@ const AddProduct = ({
         </div>
 
         <div className="form-addproduct">
-          {/* Notification area */}
-          {notification && (
-            <div
+          <div className="addproduct-input row">
+            <label htmlFor="" className="d-block">
+              Foto Produk:
+            </label>
+            <p>Maksimal 4 Foto!</p>
+            <label
+              htmlFor="file-input"
               style={{
-                marginBottom: "10px",
-                padding: "10px",
-                background: "#d4edda",
-                color: "#155724",
-                borderRadius: "5px",
+                cursor: "pointer",
+                background: "rgb(150, 138, 80)",
+                padding: "1rem",
+                color: "white",
+                borderRadius: "10px",
+                width: "20%",
+                marginLeft: "1rem",
+                marginBottom: "1rem",
               }}
             >
-              {notification}
-            </div>
-          )}
+              Pilih File
+              <input
+                id="file-input"
+                type="file"
+                multiple
+                onChange={handleFileChangeWithLimit} // Ganti fungsi ini
+                style={{ display: "none" }}
+              />
+            </label>
+            <p>Total foto dipilih: {selectedFiles.length}</p>
+          </div>
 
-          <div className="addproduct-input row">
-            {/* File input and total file count */}
-            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-              <label htmlFor="" className="d-block">
-                Foto Produk:
-              </label>
-              <label
-                htmlFor="file-input"
-                style={{
-                  cursor: "pointer",
-                  background: "rgb(150, 138, 80)",
-                  padding: "0.5rem",
-                  color: "white",
-                  borderRadius: "10px",
-                }}
-              >
-                Pilih File
-                <input
-                  id="file-input"
-                  type="file"
-                  multiple
-                  onChange={handleFileChange}
-                  style={{ display: "none" }}
-                />
-              </label>
-              <p>Total foto dipilih: {selectedFiles.length}</p>
-            </div>
-
-            {/* File preview section */}
-            <div
-              className="file-preview-container"
-              style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}
-            >
-              {selectedFiles.map((file, index) => (
-                <div
-                  key={index}
-                  style={{ position: "relative", width: "150px" }}
+          {/* File preview section */}
+          <div
+            className="file-preview-container"
+            style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}
+          >
+            {selectedFiles.map((file, index) => (
+              <div key={index} style={{ position: "relative", width: "150px" }}>
+                <button
+                  type="button"
+                  onClick={(e) => handleRemoveFile(index, e)}
+                  style={{
+                    position: "absolute",
+                    top: "5px",
+                    right: "5px",
+                    background: "red",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "50%",
+                    width: "20px",
+                    height: "20px",
+                    cursor: "pointer",
+                  }}
                 >
-                  <button
-                    type="button" // Ensure this is a button, not submit
-                    onClick={(e) => handleRemoveFile(index, e)}
+                  X
+                </button>
+                {file.type.startsWith("image") ? (
+                  <img
+                    src={URL.createObjectURL(file)}
+                    alt={file.name}
                     style={{
-                      position: "absolute",
-                      top: "5px",
-                      right: "5px",
-                      background: "red",
-                      color: "white",
-                      border: "none",
-                      borderRadius: "50%",
-                      width: "20px",
-                      height: "20px",
-                      cursor: "pointer",
+                      width: "100%",
+                      height: "auto",
+                      borderRadius: "10px",
                     }}
-                  >
-                    X
-                  </button>
-                  {file.type.startsWith("image") ? (
-                    <img
-                      src={URL.createObjectURL(file)}
-                      alt={file.name}
-                      style={{
-                        width: "100%",
-                        height: "auto",
-                        borderRadius: "10px",
-                      }}
-                    />
-                  ) : (
-                    <p>{file.name}</p>
-                  )}
-                </div>
-              ))}
-            </div>
+                  />
+                ) : (
+                  <p>{file.name}</p>
+                )}
+              </div>
+            ))}
           </div>
         </div>
 

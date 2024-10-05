@@ -59,17 +59,7 @@ const Navbar = () => {
               </Link>
             </li>
           </ul>
-          <form className="d-flex" role="search">
-            <input
-              className="form me-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <button className="" type="submit">
-              <i className="fa-solid fa-magnifying-glass"></i>
-            </button>
-          </form>
+          
         </div>
       </div>
     </nav>

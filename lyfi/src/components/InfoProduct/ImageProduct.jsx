@@ -23,7 +23,7 @@ const ImageProduct = ({ product }) => {
             <img
               key={index}
               src={`http://127.0.0.1:8000/${image}`}
-              className="w-25 w-md-50 mb-2 image-small-detail"
+              className=" image-small-detail"
               alt={`Small ${index + 1}`}
               onClick={() => handleImageClick(image)}
             />

@@ -18,7 +18,9 @@ const DetailProduct = ({ product }) => {
     <>
       <div className="info-detail-product">
         <div className="judul-Info">
-          <h1 className="text-start">{product?.nama_produk || "Nama Produk Tidak Tersedia"}</h1>
+          <h1 className="text-start">
+            {product?.nama_produk || "Nama Produk Tidak Tersedia"}
+          </h1>
           <p className="text-start">
             {product?.detail_produk || "Detail produk tidak tersedia"}
           </p>
@@ -98,36 +100,43 @@ const DetailProduct = ({ product }) => {
           </div>
         </div>
         <div className="price-info mt-5 text-start">
-          <p className="fs-3 fw-light">Rp. {product?.harga_produk || "0"}</p>
+          <p className="fs-3 fw-light">
+            {" "}
+            {product?.harga_produk
+              ? new Intl.NumberFormat("id-ID", {
+                  style: "currency",
+                  currency: "IDR",
+                }).format(product.harga_produk)
+              : "0"}
+          </p>
           <p className="fw-semibold text-secondary">Tersedia di</p>
           <div className="checkout-product">
-          {product.redirect && product.redirect[0] && (
-            <a href={products.redirect[0]} className="tokopedia">
-              <img src={tokped} alt="Tokopedia" /> Tokopedia
-            </a>
-          )}
-          {product.redirect && product.redirect[1] && (
-            <a href={products.redirect[1]} className="ms-2 shopee">
-              <img src={shopee} alt="Shopee" /> Shopee
-            </a>
-          )}
+            {product.redirect && product.redirect[0] && (
+              <a href={product.redirect[0]} className="tokopedia">
+                <img src={tokped} alt="Tokopedia" /> Tokopedia
+              </a>
+            )}
+            {product.redirect && product.redirect[1] && (
+              <a href={product.redirect[1]} className="ms-2 shopee">
+                <img src={shopee} alt="Shopee" /> Shopee
+              </a>
+            )}
+          </div>
         </div>
-
-        </div>
-        <hr className="mt-5" />
-        <p className="bagikan-produk">
-          Bagikan Produk ini
-          <span>
-            <i
-              className="fa-solid fa-share-nodes me-3"
-              onClick={copyLink}
-              style={{ cursor: "pointer" }}
-            ></i>
-            <i className="fa-brands fa-instagram me-3"></i>
-            <i className="fa-brands fa-whatsapp"></i>
-          </span>
-        </p>
       </div>
+      <hr className="mt-5" />
+      <p className="bagikan-produk">
+        Bagikan Produk ini
+        <span>
+          <i
+            className="fa-solid fa-share-nodes me-3"
+            onClick={copyLink}
+            style={{ cursor: "pointer" }}
+          ></i>
+          <i className="fa-brands fa-instagram me-3"></i>
+          <i className="fa-brands fa-whatsapp"></i>
+        </span>
+      </p>
     </>
   );
 };
