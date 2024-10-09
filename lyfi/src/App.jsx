@@ -33,7 +33,7 @@ function App() {
           <Route path="/product" element={<Product />} />
           <Route path="/infoproduct/:id" element={<InfoProduct />} />
           <Route path="/bundling" element={<Bundling />} />
-          <Route path="/infobundling" element={<InfoBundling />} />
+          <Route path="/infobundling/:id" element={<InfoBundling />} />
           <Route path="/admin" element={<DashboardAdmin />} />
           <Route path="/admin/addproductadmin" element={<AddProductAdmin />} />
           <Route

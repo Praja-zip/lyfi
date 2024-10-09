@@ -1,28 +1,41 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios"; // Pastikan axios diimpor
 import Navbar from "../components/Navbar";
 import Footer from "../components/LandingPage/Footer";
-import ImageProduct from "../components/InfoProduct/ImageProduct";
 import DetailProduct from "../components/InfoProduct/DetailBundling";
 import Product from "../components/LandingPage/Product";
 import Loading from "../components/Loading/Loading";
+import { useParams } from "react-router-dom";
+import ImageBundling from "../components/infoBundling/ImageBundling";
 
 const InfoBundling = () => {
+  const { id } = useParams();
+  console.log("ini adlaah bundling", id)
   const [loading, setLoading] = useState(true);
+  const [bundling, setBundling] = useState({}); 
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
-    const handlePageLoad = () => {
-      setLoading(false);
+    const fetchBundling = async () => {
+      try {
+        const response = await axios.get(
+          `http://127.0.0.1:8000/api/produk-bundlings/${id}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        console.log(response.data); // Gunakan 'data' sesuai dengan respons dari server
+        setBundling(response.data);
+      } catch (error) {
+        console.error("Error fetching product:", error);
+      } finally {
+        setLoading(false);
+      }
     };
-    if (document.readyState === "complete") {
-      setLoading(false);
-    } else {
-      window.addEventListener("load", handlePageLoad);
-    }
 
-    return () => {
-      window.removeEventListener("load", handlePageLoad);
-    };
-  }, []);
+    fetchBundling();
+  }, [id]);
+
   return (
     <>
       {loading ? (
@@ -33,18 +46,19 @@ const InfoBundling = () => {
           <div className="container-info-product text-center">
             <div className="row">
               <div className="col">
-                <ImageProduct />
+                {/* <ImageBundling product={bundling} /> */}
               </div>
               <div className="col">
-                <DetailProduct />
+                {/* <DetailProduct bundling={bundling} /> */}
               </div>
             </div>
           </div>
-          <Product />
+          {/* <Product /> */}
           <Footer />
         </>
       )}
     </>
   );
 };
+
 export default InfoBundling;

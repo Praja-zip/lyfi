@@ -3,22 +3,9 @@ import { Table, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Loading from "../../components/Loading/LoadingTable"; // Import komponen Loading
 
-const BundlingTable = ({ products, handleDeleteBundling }) => {
+const BundlingTable = ({ products, handleDeleteBundling, loading }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
-  const [loading, setLoading] = useState(true); // State untuk loading
-
-  // Mengatur loading state ketika products berubah
-  useEffect(() => {
-    // Mengaktifkan loading saat memulai pemuatan data
-    setLoading(true);
-    // Simulasi pemuatan data produk bundling
-    const loadData = async () => {
-      await new Promise((resolve) => setTimeout(resolve, 500)); // Simulasi delay 500ms
-      setLoading(false);
-    };
-    loadData();
-  }, [products]);
 
   // Memastikan products ada sebelum slicing
   const currentItems =

@@ -14,6 +14,7 @@ const BundlingAdmin = () => {
     bundling: null,
   });
   const token = localStorage.getItem("token");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchBundling = async () => {
@@ -25,8 +26,11 @@ const BundlingAdmin = () => {
           }
         );
         setAllBundlings(response.data.bundlings);
+        setLoading(false);
+        console.log(response.data);
       } catch (error) {
         console.error("Error fetching products:", error);
+        setLoading(false);
       }
     };
     fetchBundling();
@@ -72,6 +76,7 @@ const BundlingAdmin = () => {
           </div>
           <div className="container-tableproduct mt-2">
             <BundlingTable
+              loading={loading}
               products={allBundlings}
               handleDeleteBundling={(bundling) =>
                 setDeleteBundling({ show: true, bundling })

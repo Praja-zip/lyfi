@@ -122,16 +122,24 @@ class ProdukBundlingController extends Controller
      */
     public function show($id)
     {
-        $produk_bundling = Produk_bundling::find($id);
-
-        if (!$produk_bundling) {
-            return response()->json([
-                'message' => 'Produk bundling tidak ditemukan.'
-            ], 404);
-        }
-
+        $bundling = Produk_bundling::findOrFail($id);
         return response()->json([
-            'bundling' => $produk_bundling
+            'success' => true,
+            'bundling' => [
+                'id' => $bundling->id,
+                'nama_bundle' => $bundling->nama_bundle,
+                'harga_bundle' => $bundling->harga_bundle,
+                'redirect' => $bundling->redirect,
+                'detail_bundle' => $bundling->detail_bundle,
+                'foto_bundle' => json_decode($bundling->foto_bundle),
+                'products' => $bundling->products->map(function ($product) {
+                        return [
+                            'id' => $product->id,
+                            'nama_produk' => $product->nama_produk,
+                            // Tambahkan informasi produk lainnya jika perlu
+                        ];
+                    }),
+            ]
         ]);
     }
 
@@ -254,6 +262,8 @@ class ProdukBundlingController extends Controller
             }
         }
     }
+    Master_produk_bundling::where('id_produk_bundling', $bundling->id)->delete();
+
 
     // Hapus bundling dari database
     $bundling->delete();
