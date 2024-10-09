@@ -60,15 +60,15 @@ const ProductList = () => {
 
   return (
     <div className="custom-grid">
-      {products.map((product) => (
-        <div key={product.id} className="custom-container-product">
-          <img src={product.image} alt={product.name} />
+      {bundling.map((bundle) => (
+        <div key={bundle.id} className="custom-container-product">
+          <img src={`http://127.0.0.1:8000/${bundle.foto_bundle[0]}`} alt={bundle.nama_bundle} />
           <div className="custom-card-body">
-            <h3>{product.category}</h3>
-            <p className="nama-product">{getShortName(product.name)}</p>
-            <p>{product.price}</p>
+            <h3>{bundle.nama_bundle}</h3>
+            <p className="nama-product">{getShortName(bundle.nama_bundle)}</p>
+            <p>{bundle.harga_bundle}</p>
           </div>
-          <Link to="/InfoBundling" className="custom-detail-produk" href="">
+          <Link to={`/infobundling/${bundle.id}`} className="custom-detail-produk" href="">
             <div className="custom-card-footer">Lihat Produk</div>
           </Link>
         </div>

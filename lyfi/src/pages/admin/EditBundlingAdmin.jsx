@@ -16,7 +16,8 @@ const EditBundlingAdmin = () => {
   const [produk, setProduk] = useState([]);
   const [tokopediaLink, setTokopediaLink] = useState("");
   const [shopeeLink, setShopeeLink] = useState("");
-  const [loading, setLoading] = useState(true); // State untuk loading
+  
+  const [loading, setLoading] = useState(true);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -102,10 +103,19 @@ const EditBundlingAdmin = () => {
           }
         );
         const bundlingData = response.data.bundling;
+        console.log(response.data.bundling)
         setNamaBundle(bundlingData.nama_bundle);
         setHargaBundle(bundlingData.harga_bundle);
         setDetailBundle(bundlingData.detail_bundle);
-        setProduk(bundlingData.produk.map((prod) => prod.id));
+
+        const productIds = bundlingData.products.map((prod) => String(prod.id));
+        setProduk(productIds);
+        
+        // const selected = allProduct.filter((product) =>
+        //   productIds.includes(String(product.id))
+        // );
+        // setSelectedProducts(productIds);
+
         setTokopediaLink(bundlingData.redirect[0]);
         setShopeeLink(bundlingData.redirect[1]);
         setLoading(false); // Set loading ke false setelah data bundling berhasil diambil
@@ -154,6 +164,7 @@ const EditBundlingAdmin = () => {
                 shopeeLink={shopeeLink}
                 tokopediaLink={tokopediaLink}
                 setFotoPreview={setFotoPreview}
+                
               />
             </div>
           </div>

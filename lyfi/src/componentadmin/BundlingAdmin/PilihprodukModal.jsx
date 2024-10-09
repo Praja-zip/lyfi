@@ -7,9 +7,10 @@ const PilihProdukModal = ({
   handleProdukChange,
   produk,
   setProduk,
+
 }) => {
   const [show, setShow] = useState(false);
-  const [selectedProducts, setSelectedProducts] = useState([]); // State untuk menyimpan produk yang dipilih
+  const [selectedProducts, setSelectedProducts] = useState([]);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);

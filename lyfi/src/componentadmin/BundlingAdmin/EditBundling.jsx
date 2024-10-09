@@ -20,7 +20,9 @@ const EditBundling = ({
   handleFotoChange,
   tokopediaLink,
   shopeeLink,
-  setFotoPreview
+  setFotoPreview,
+  setSelectedProducts,
+  selectedProducts
 }) => {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [showNotification, setShowNotification] = useState(false); 
@@ -106,6 +108,8 @@ const EditBundling = ({
               handleProdukChange={handleProdukChange}
               produk={produk}
               setProduk={setProduk}
+              setSelectedProducts={setSelectedProducts}
+              selectedProducts={selectedProducts}
             />
           </div>
         </div>
