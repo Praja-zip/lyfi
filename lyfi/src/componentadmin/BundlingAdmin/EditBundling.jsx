@@ -22,11 +22,15 @@ const EditBundling = ({
   shopeeLink,
   setFotoPreview,
   setSelectedProducts,
-  selectedProducts
+  selectedProducts,
+  fotoBundle,
+  setFotoBundle
 }) => {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [showNotification, setShowNotification] = useState(false); 
-
+  const handleRemoveServerFoto = (index) => {
+    setFotoBundle((prevFiles) => prevFiles.filter((_, i) => i !== index));
+  };
 
   const handleRemoveFile = (index, e) => {
     e.preventDefault();
@@ -153,60 +157,94 @@ const EditBundling = ({
             </label>
             
               <div className="image-preview mt-4 d-flex flex-wrap">
-  {fotoPreview.map((preview, index) => (
-    <div key={index} className="position-relative me-3 mb-3">
-      
-      <button
-        type="button"
-        onClick={() => handleRemoveFile(index)}
-        style={{
-          position: "absolute",
-          top: "5px",
-          right: "5px",
-          background: "red",
-          color: "white",
-          border: "none",
-          borderRadius: "50%",
-          width: "20px",
-          height: "20px",
-          cursor: "pointer",
-        }}
-      >
-        X
-      </button>
-       {preview.type.startsWith("image") ? (
-        <img
-            src={URL.createObjectURL(preview)}
-            alt={preview.name}
-            style={{
-                width: "100%",
-                borderRadius: "10px",
-                height: "150px",
-                objectFit: "cover",
+              {fotoBundle.map((foto, index) => (
+            <div key={index} className="position-relative me-3 mb-3">
+              <button
+                type="button"
+                onClick={() => handleRemoveServerFoto(index)} // Hapus foto dari server
+                style={{
+                  position: "absolute",
+                  top: "5px",
+                  right: "5px",
+                  background: "red",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "50%",
+                  width: "20px",
+                  height: "20px",
+                  cursor: "pointer",
+                }}
+              >
+                X
+              </button>
+              <img
+                src={`http://127.0.0.1:8000/${foto}`} // Menampilkan foto dari server
+                alt={`Foto Bundle ${index}`}
+                style={{
+                  width: "100%",
+                  borderRadius: "10px",
+                  height: "150px",
+                  objectFit: "cover",
+                }}
+              />
+            </div>
+          ))}
+              
 
-            }}
-        />
-    ) : (
-        <p>{preview.name}</p>
-    )}
-    </div>
-  ))}
-</div>
+            {fotoPreview.map((preview, index) => (
+              <div key={index} className="position-relative me-3 mb-3">
+                
+                <button
+                  type="button"
+                  onClick={() => handleRemoveFile(index)}
+                  style={{
+                    position: "absolute",
+                    top: "5px",
+                    right: "5px",
+                    background: "red",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "50%",
+                    width: "20px",
+                    height: "20px",
+                    cursor: "pointer",
+                  }}
+                >
+                  X
+                </button>
+                {preview.type.startsWith("image") ? (
+                  <img
+                      src={URL.createObjectURL(preview)}
+                      alt={preview.name}
+                      style={{
+                          width: "100%",
+                          borderRadius: "10px",
+                          height: "150px",
+                          objectFit: "cover",
+
+                      }}
+                  />
+              ) : (
+                  <p>{preview.name}</p>
+              )}
+              </div>
+            ))}
+          </div>
           </div>
         </div>
         <button
-          onClick={handleFormSubmit}
-          className="addproduct-save d-flex justify-content-center align-items-center"
-        >
-          <i className="fa-regular fa-floppy-disk me-2"></i>{" "}
-          <span className="d-none d-md-block">Save Changes</span>
+            onClick={handleFormSubmit}
+            className="addproduct-save d-flex justify-content-center align-items-center"
+          >
+            <i className="fa-regular fa-floppy-disk me-2"></i>{" "}
+            <span className="d-none d-md-block">Save Changes</span>
         </button>
-        <Link to="/admin/bundlingadmin">
-          <button className="addproduct-back d-flex justify-content-center align-items-center">
-            <i className="fa-solid fa-arrow-left me-2"></i>{" "}
-            <span className="d-none d-md-block">Back</span>
-          </button>
-        </Link>
+          <Link to="/admin/bundlingadmin">
+            <button className="addproduct-back d-flex justify-content-center align-items-center">
+              <i className="fa-solid fa-arrow-left me-2"></i>{" "}
+              <span className="d-none d-md-block">Back</span>
+            </button>
+          </Link>
       </div>
     </>
   );

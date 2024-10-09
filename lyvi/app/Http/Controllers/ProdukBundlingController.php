@@ -170,6 +170,7 @@ class ProdukBundlingController extends Controller
             'detail_bundle' => 'required',
             'foto_bundle' => 'nullable|array',
             'foto_bundle.*' => 'file|mimes:jpg,jpeg,png',
+            'existing_foto_bundle' => 'nullable|array',
             'pilih_produk' => 'required|array',
             'redirect' => 'required',
         ]);
@@ -198,27 +199,22 @@ class ProdukBundlingController extends Controller
         // Input data yang akan diperbarui
         $input = $request->all();
     
+        $existingFotoBundle = $request->input('existing_foto_bundle', []);
+        $currentFotoBundle = $produk_bundling->foto_bundle;
+
+        $updatedFotoBundle = is_array($currentFotoBundle) ? $currentFotoBundle : [];
+        $updatedFotoBundle = array_merge($updatedFotoBundle, $existingFotoBundle);
+
+
         // Jika ada gambar yang diunggah, simpan gambar baru
         if ($request->hasFile('foto_bundle')) {
-            if ($produk_bundling->foto_bundle) {
-                foreach (json_decode($produk_bundling->foto_bundle) as $oldImage) {
-                    if (Storage::disk('public')->exists($oldImage)) {
-                        Storage::disk('public')->delete($oldImage);
-                    }
-                }
-            }
-            
-
-            $uploadedImages = [];
-            foreach ($request->file('foto_bundle') as $gambar) {
-                $nama_gambar = time() . rand(1, 9) . '.' . $gambar->getClientOriginalExtension();
-                $gambar->storeAs('public/images', $nama_gambar); // Penyimpanan di 'public/images'
-                $uploadedImages[] = 'images/' . $nama_gambar;
-            }
-        
-            // Simpan array gambar sebagai JSON
-            $input['foto_bundle'] = json_encode($uploadedImages);
+        foreach ($request->file('foto_bundle') as $file) {
+            // Simpan setiap file baru ke dalam storage
+            $path = $file->store('foto_bundlings', 'public');
+            $updatedFotoBundle[] = $path; // Tambahkan path foto baru ke array
         }
+    }
+    $produk_bundling->foto_bundle = json_encode($updatedFotoBundle);
         
     
         // Jika ada redirect, simpan dalam bentuk array

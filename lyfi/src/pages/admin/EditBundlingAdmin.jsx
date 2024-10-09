@@ -3,7 +3,8 @@ import Sidebar from "../../componentadmin/sidebar";
 import EditBundling from "../../componentadmin/BundlingAdmin/EditBundling";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
-import Loading from "../../components/Loading/Loading"; // Import komponen Loading
+import Loading from "../../components/Loading/Loading";
+
 
 const EditBundlingAdmin = () => {
   const token = localStorage.getItem("token");
@@ -16,6 +17,8 @@ const EditBundlingAdmin = () => {
   const [produk, setProduk] = useState([]);
   const [tokopediaLink, setTokopediaLink] = useState("");
   const [shopeeLink, setShopeeLink] = useState("");
+  const [fotoBundle, setFotoBundle] = useState([]);
+
   
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
@@ -45,7 +48,12 @@ const EditBundlingAdmin = () => {
     formData.append("redirect[1]", shopeeLink);
 
     fotoPreview.forEach((file, index) => {
-      formData.append(`foto_bundle[]`, file); // Lampirkan file foto bundle
+      formData.append(`foto_bundle[]`, file); // Lampirkan file baru dari device
+    });
+  
+    // Kirimkan nama atau URL dari foto yang sudah ada di server, tanpa mengupload ulang
+    fotoBundle.forEach((foto, index) => {
+      formData.append(`existing_foto_bundle[]`, foto); // Nama file/URL foto yang sudah ada
     });
 
     produk.forEach((prod, index) => {
@@ -116,6 +124,8 @@ const EditBundlingAdmin = () => {
         // );
         // setSelectedProducts(productIds);
 
+        setFotoBundle(bundlingData.foto_bundle);
+
         setTokopediaLink(bundlingData.redirect[0]);
         setShopeeLink(bundlingData.redirect[1]);
         setLoading(false); // Set loading ke false setelah data bundling berhasil diambil
@@ -164,7 +174,8 @@ const EditBundlingAdmin = () => {
                 shopeeLink={shopeeLink}
                 tokopediaLink={tokopediaLink}
                 setFotoPreview={setFotoPreview}
-                
+                fotoBundle={fotoBundle}
+                setFotoBundle={setFotoBundle}
               />
             </div>
           </div>
