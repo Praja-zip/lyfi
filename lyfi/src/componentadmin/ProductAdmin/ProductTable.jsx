@@ -50,7 +50,7 @@ const ProductTable = ({
             <th className="text-center">Nama Produk</th>
             <th className="text-center">Harga Produk</th>
             <th className="text-center">Detail Produk</th>
-            <th className="text-center">Foto Produk</th>
+            <th className="text-center">Foto Produkk</th>
             <th className="text-center">Aksi</th>
           </tr>
         </thead>
