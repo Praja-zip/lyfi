@@ -1,24 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import axios from "axios";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const DoughnutChart = () => {
-  const totalProducts = 500; // Jumlah total produk
-  const chartData = [
-    { label: "Facewash", value: 120 },
-    { label: "Serum", value: 180 },
-    { label: "Moisturizer", value: 100 },
-    { label: "Sunscreen", value: 100 },
-  ];
+  const [categoryData, setCategoryData] = useState([]);
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    const fecthChart = async () => {
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/chartdata`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        setCategoryData(response.data.categories);
+        console.log(response.data.categories)
+      } catch (error) {
+        console.log("Error Fetching Data", error);
+      }
+    };
+    fecthChart();
+  }, [])
+  
+  const totalProducts = categoryData.reduce((acc, item) => acc + item.total_produk, 0);
 
   const data = {
-    labels: chartData.map((item) => item.label),
+    labels: categoryData.map((item) => item.nama_kategori),
     datasets: [
       {
-        data: chartData.map((item) => (item.value / totalProducts) * 100),
-        backgroundColor: ["#4caf50", "#009688", "#f44336", "#000000"],
+        data: categoryData.map((item) => item.total_produk),
+        backgroundColor: ["#FAF7F0", "#D8D2C2", "#B17457", "#4A4947",
+           "#705C53", "#B7B7B7", "#EDDFE0", "#493628", "#AB886D"],
         borderWidth: 2,
       },
     ],
@@ -33,10 +49,10 @@ const DoughnutChart = () => {
         </div>
         <div className="divider"></div> {/* Garis pembatas */}
         <div className="custom-legend">
-          {chartData.map((item, index) => (
+          {categoryData.map((item, index) => (
             <div className="legend-item" key={index}>
-              <span>{`${item.label} ${(
-                (item.value / totalProducts) *
+              <span>{`${item.nama_kategori} ${(
+                (item.total_produk / totalProducts) *
                 100
               ).toFixed(2)}%`}</span>
             </div>

@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Master_product;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Storage;
 use App\Models\Produk_bundling;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 
 class MasterProductController extends Controller
@@ -53,9 +54,25 @@ public function count(){
     $produk = Master_product::count();
     $bundling = Produk_bundling::count();
 
+   
+
+
     return response()->json([
+        
         'total_produk' => $produk,   
         'total_bundling' => $bundling, 
+    ]);
+}
+
+public function chartdata(){
+    $categories = DB::table('produk_kategoris')
+    ->join('kategoris', 'produk_kategoris.id_kategori', '=', 'kategoris.id')
+    ->select('kategoris.nama_kategori', DB::raw('count(produk_kategoris.id_produk) as total_produk'))
+    ->groupBy('kategoris.nama_kategori')
+    ->get();
+
+    return response()->json([
+        'categories' => $categories,
     ]);
 }
 

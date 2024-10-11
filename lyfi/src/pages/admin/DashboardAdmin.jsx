@@ -24,8 +24,7 @@ const DashboardAdmin = () => {
           
         });
         setProduk(response.data.total_produk);
-        setBundling(response.data.total_bundling)
-        console.log(response.data.total_bundling);
+        setBundling(response.data.total_bundling);
       } catch (error) {
         console.error("Error fetching categories:", error);
       }
@@ -83,7 +82,7 @@ const DashboardAdmin = () => {
         <div className="main-content">
           <Header />
           <Dashboard produk={ produk } bundling={ bundling } />
-          <DoughnutChart />
+          <DoughnutChart/>
         </div>
       </div>
     </div>
