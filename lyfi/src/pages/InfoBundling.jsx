@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios"; // Pastikan axios diimpor
+import axios, { Axios } from "axios"; // Pastikan axios diimpor
 import Navbar from "../components/Navbar";
 import Footer from "../components/LandingPage/Footer";
 import DetailProduct from "../components/InfoProduct/DetailBundling";
@@ -24,7 +24,7 @@ const InfoBundling = () => {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
-        console.log(response.data.bundling); // Gunakan 'data' sesuai dengan respons dari server
+        console.log("ini dari info bundling",response.data.bundling); // Gunakan 'data' sesuai dengan respons dari server
         setBundling(response.data.bundling);
       } catch (error) {
         console.error("Error fetching product:", error);

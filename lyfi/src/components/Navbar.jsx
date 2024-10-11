@@ -18,18 +18,72 @@ const Navbar = () => {
           <img src={Logo} alt="Logo" />
         </a>
         <button
-          className="navbar-toggler border-none"
+          className="navbar-toggler"
           type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasNavbar"
+          aria-controls="offcanvasNavbar"
         >
-          <span className="navbar-toggler-icon "></span>
+          <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
+
+        {/* Offcanvas menu */}
+        <div
+          className="offcanvas offcanvas-end"
+          tabIndex="-1"
+          id="offcanvasNavbar"
+          aria-labelledby="offcanvasNavbarLabel"
+        >
+          <div className="offcanvas-header">
+            <h5 className="offcanvas-title" id="offcanvasNavbarLabel">
+              Menu
+            </h5>
+            <button
+              type="button"
+              className="btn-close"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div className="offcanvas-body">
+            <ul className="offcanvas-nav">
+              <li
+                className={`offcanvas-item ${
+                  activeNav === "/" ? "active" : ""
+                }`}
+                onClick={() => handleNavClick("/")}
+              >
+                <Link to="/" className="offcanvas-link">
+                  Home
+                </Link>
+              </li>
+              <li
+                className={`offcanvas-item ${
+                  activeNav === "/Product" ? "active" : ""
+                }`}
+                onClick={() => handleNavClick("/Product")}
+              >
+                <Link to="/Product" className="offcanvas-link ">
+                  Product
+                </Link>
+              </li>
+              <li
+                className={`offcanvas-item ${
+                  activeNav === "/Bundling" ? "active" : ""
+                }`}
+                onClick={() => handleNavClick("/Bundling")}
+              >
+                <Link to="/Bundling" className="offcanvas-link">
+                  Bundling
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Navbar content */}
+        <div className="collapse navbar-collapse justify-content-center">
+          <ul className="navbar-nav">
             <li
               className={`nav-item me-5 ${activeNav === "/" ? "active" : ""}`}
               onClick={() => handleNavClick("/")}
@@ -59,17 +113,6 @@ const Navbar = () => {
               </Link>
             </li>
           </ul>
-          <form className="d-flex" role="search">
-            <input
-              className="form me-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <button className="" type="submit">
-              <i className="fa-solid fa-magnifying-glass"></i>
-            </button>
-          </form>
         </div>
       </div>
     </nav>

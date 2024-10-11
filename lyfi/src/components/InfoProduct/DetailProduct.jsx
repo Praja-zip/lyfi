@@ -1,24 +1,44 @@
-import React from "react";
+import React, { useState } from "react"; // Mengimpor useState
 import tokped from "./../../assets/Bundling/tokped.png";
 import shopee from "./../../assets/Bundling/shopee.png";
 
 const DetailProduct = ({ product }) => {
+  const [showNotification, setShowNotification] = useState(false);
+  const [message, setMessage] = useState("");
+
   const copyLink = () => {
     navigator.clipboard
       .writeText(window.location.href)
       .then(() => {
-        alert("Tautan telah disalin ke clipboard!");
+        setMessage("Tautan berhasil disalin");
+        setShowNotification(true);
+        // Menyembunyikan notifikasi setelah 2 detik
+        setTimeout(() => {
+          setShowNotification(false);
+        }, 2000);
       })
       .catch((err) => {
-        console.error("Gagal menyalin tautan: ", err);
+        setMessage("Tautan gagal disalin");
+        setShowNotification(true);
+        // Menyembunyikan notifikasi setelah 2 detik
+        setTimeout(() => {
+          setShowNotification(false);
+        }, 2000);
       });
   };
 
   return (
     <>
       <div className="info-detail-product">
+        {showNotification && (
+          <div className="notification-popup">
+            <p className="notification-message">{message}</p>
+          </div>
+        )}
         <div className="judul-Info">
-          <h1 className="text-start">{product?.nama_produk || "Nama Produk Tidak Tersedia"}</h1>
+          <h1 className="text-start">
+            {product?.nama_produk || "Nama Produk Tidak Tersedia"}
+          </h1>
           <p className="text-start">
             {product?.detail_produk || "Detail produk tidak tersedia"}
           </p>
@@ -98,21 +118,25 @@ const DetailProduct = ({ product }) => {
           </div>
         </div>
         <div className="price-info mt-5 text-start">
-          <p className="fs-3 fw-light">Rp. {product?.harga_produk || "0"}</p>
+          <p className="fs-3 fw-light">
+            {new Intl.NumberFormat("id-ID", {
+              style: "currency",
+              currency: "IDR",
+            }).format(product?.harga_produk || 0)}
+          </p>
           <p className="fw-semibold text-secondary">Tersedia di</p>
           <div className="checkout-product">
-          {product.redirect && product.redirect[0] && (
-            <a href={product.redirect[0]} className="tokopedia">
-              <img src={tokped} alt="Tokopedia" /> Tokopedia
-            </a>
-          )}
-          {product.redirect && product.redirect[1] && (
-            <a href={product.redirect[1]} className="ms-2 shopee">
-              <img src={shopee} alt="Shopee" /> Shopee
-            </a>
-          )}
-        </div>
-
+            {product.redirect && product.redirect[0] && (
+              <a href={product.redirect[0]} className="tokopedia">
+                <img src={tokped} alt="Tokopedia" /> Tokopedia
+              </a>
+            )}
+            {product.redirect && product.redirect[1] && (
+              <a href={product.redirect[1]} className="ms-2 shopee">
+                <img src={shopee} alt="Shopee" /> Shopee
+              </a>
+            )}
+          </div>
         </div>
         <hr className="mt-5" />
         <p className="bagikan-produk">
