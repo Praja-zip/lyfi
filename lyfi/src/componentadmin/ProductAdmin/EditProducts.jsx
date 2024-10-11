@@ -10,7 +10,9 @@ const EditProducts = ({
   handleFileChange,
   handleSubmit,
   setSelectedFiles,
-  selectedFiles
+  selectedFiles,
+  selectedCategory,
+  setSelectedCategory
 }) => {
   const [showNotification, setShowNotification] = useState(false);
   const [message, setMessage] = useState("");
@@ -27,7 +29,9 @@ const EditProducts = ({
     option.value === product.kategori
   );
   
-
+  const handleDropdownChange = (selectedOption) => {
+    setSelectedCategory(selectedOption); // Simpan opsi terpilih ke state
+  };
   
   const [notification, setNotification] = useState("");
 
@@ -161,10 +165,8 @@ const EditProducts = ({
             <label htmlFor="kategori">Kategori Produk :</label>
             <Select
               options={categoryOptions}
-              onChange={(selected) => handleInputChange({
-                target: { name: "kategori", value: selected ? selected.value : "" }
-              })}
-              value={categoryOptions.find(option => option.value === product.kategori.id)} // Sesuaikan dengan ID kategori
+              onChange={handleDropdownChange} 
+              value={selectedCategory}  // Sesuaikan dengan ID kategori
               placeholder="Pilih Kategori"
               className="custom-select"
             />
@@ -214,43 +216,7 @@ const EditProducts = ({
               <p>Total foto dipilih: {selectedFiles.length}</p>
           </div>
 
-          <div className="file-preview-container" style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
-              {selectedFiles.map((file, index) => (
-                  <div key={index} style={{ position: "relative", width: "150px" }}>
-                      <button
-                          type="button"
-                          onClick={() => handleRemoveFile(index)}
-                          style={{
-                              position: "absolute",
-                              top: "5px",
-                              right: "5px",
-                              background: "red",
-                              color: "white",
-                              border: "none",
-                              borderRadius: "50%",
-                              width: "20px",
-                              height: "20px",
-                              cursor: "pointer",
-                          }}
-                      >
-                          X
-                      </button>
-                      {file.type.startsWith("image") ? (
-                          <img
-                              src={URL.createObjectURL(file)}
-                              alt={file.name}
-                              style={{
-                                  width: "100%",
-                                  height: "auto",
-                                  borderRadius: "10px",
-                              }}
-                          />
-                      ) : (
-                          <p>{file.name}</p>
-                      )}
-                  </div>
-              ))}
-          </div>
+          c
       </div>
 
 

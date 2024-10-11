@@ -180,7 +180,7 @@ const AddProduct = ({
               options={categoryOptions}
               onChange={handleDropdownChange}
               placeholder="Select value"
-              className="custom-select" // Tambahkan prefix untuk styling yang lebih mudah
+              className="custom-select" 
             />
           </div>
         </div>

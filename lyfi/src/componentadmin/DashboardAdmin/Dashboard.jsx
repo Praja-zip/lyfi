@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import shop from "./../../assets/icon/cart.png";
 import kubik from "./../../assets/icon/kubik.png";
 import user from "./../../assets/icon/user.png";
+import { Link } from "react-router-dom";
 
 const Dashboard = ({ produk, bundling }) => {
   const [showNotification, setShowNotification] = useState(false);
@@ -53,13 +54,13 @@ const Dashboard = ({ produk, bundling }) => {
                   </div>
                 </div>
               </div>
-              <a
-                href="#"
+              <Link
+                to={`/admin/productadmin`}
                 className="card-link-text"
                 onClick={() => handleNotification("Viewing more products")}
               >
                 <div className="card-footer">selengkapnya →</div>
-              </a>
+              </Link>
             </div>
           </div>
           <div className="col">
@@ -83,13 +84,13 @@ const Dashboard = ({ produk, bundling }) => {
                   </div>
                 </div>
               </div>
-              <a
-                href="#"
+              <Link
+                to={`/admin/bundlingadmin`}
                 className="card-link-text"
                 onClick={() => handleNotification("Viewing bundling details")}
               >
                 <div className="card-footer">selengkapnya →</div>
-              </a>
+              </Link>
             </div>
           </div>
           <div className="col">

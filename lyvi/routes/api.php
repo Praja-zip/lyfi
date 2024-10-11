@@ -31,6 +31,7 @@ Route::middleware('admin.auth')->group(function () {
     Route::post('master-products', [MasterProductController::class, 'store'])->name('master-products.store');
     Route::put('master-products/{id}', [MasterProductController::class, 'update'])->name('master-products.update');    
     Route::delete('master-products/{id}', [MasterProductController::class, 'destroy'])->name('master-products.destroy');
+    Route::get('chartdata', [MasterProductController::class, 'chartdata']);
     Route::get('count-products', [HitungProdukController::class, 'countProducts']);
 });
     Route::get('master-products/{id}', [MasterProductController::class, 'show'])->name('master-products.show');

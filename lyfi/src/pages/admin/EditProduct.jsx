@@ -18,9 +18,9 @@ const EditProduct = () => {
     detail_produk: "",
     bahan_produk: "",
     cara_pemakaian: "",
-    kategori: "",
     redirect: "",
   });
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const [foto_produk, setFotoProduk] = useState([]);
   const [allCategories, setAllCategories] = useState([]);
   const token = localStorage.getItem("token");
@@ -50,8 +50,13 @@ const EditProduct = () => {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
-        setProduct(response.data.data);
-        console.log(response.data.data)
+        const productData = response.data.data;
+        setProduct(productData);
+        setSelectedCategory({
+          value: productData.kategori[0].id, // Asumsi kategori adalah array
+          label: productData.kategori[0].nama_kategori,
+        });
+        console.log(response.data.data);
         setLoading(false); // Set loading ke false setelah data produk berhasil diambil
       } catch (error) {
         console.error("Error fetching product:", error);
@@ -100,7 +105,7 @@ const EditProduct = () => {
     formData.append("detail_produk", product.detail_produk);
     formData.append("bahan_produk", product.bahan_produk);
     formData.append("cara_pemakaian", product.cara_pemakaian);
-    formData.append("kategori", product.kategori);
+    formData.append("kategori", selectedCategory ? selectedCategory.value : "");
     formData.append("redirect", product.redirect);
 
     selectedFiles.forEach((file) => {
@@ -153,6 +158,8 @@ const EditProduct = () => {
                 handleSubmit={uploadProduct}
                 setSelectedFiles={setSelectedFiles}
                 selectedFiles={selectedFiles}
+                setSelectedCategory={setSelectedCategory}
+                selectedCategory={ selectedCategory } 
               />
             </div>
           </div>
