@@ -1,6 +1,9 @@
 .image-small-detail {
   border-radius: 5px;
   transition: border 0.3s ease;
+  width: 5rem;
+  height: 5rem;
+  object-fit: cover;
 }
 
 .image-small-detail:hover:active {
@@ -12,11 +15,16 @@
   border-radius: 10px;
   transition: border 0s ease;
 }
+.image-big-detail {
+  border-radius: 5px;
+  transition: border 0.3s ease;
+  height: 30rem;
+  object-fit: cover; /* Menjaga rasio gambar */
+}
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .image-small {
-    align-items: center;
   }
 
   .image-big {
@@ -85,10 +93,23 @@
 }
 
 /* BUNDLING */
+/* Sembunyikan scrollbar di Chrome, Safari, dan Opera */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Sembunyikan scrollbar di IE, Edge, dan Firefox */
+.hide-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
 .info-detail-bundling .isi-product-card img {
   width: 120px;
+  height: 120px;
   border: 1px solid rgb(150, 138, 80);
   border-radius: 5px;
+  object-fit: cover;
 }
 .info-detail-bundling .isi-product-card .information-bundling {
   gap: 0px;
@@ -120,6 +141,45 @@
   border: 1px solid rgb(255, 255, 255);
   background-color: black;
 }
+.scroll-up-button {
+  display: block;
+  background-color: none;
+  border: 1px solid black;
+  color: black;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+}
+
+.scroll-up-button:hover {
+  border: 1px solid black;
+}
+.scroll-down-button {
+  display: block;
+  background-color: none;
+  border: 1px solid black;
+  color: black;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+}
+
+.scroll-down-button:hover {
+  border: 1px solid black;
+}
+
 @media (max-width: 430px) {
   .info-detail-bundling
     .isi-product-card

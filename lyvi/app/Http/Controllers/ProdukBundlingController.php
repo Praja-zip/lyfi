@@ -129,7 +129,7 @@ class ProdukBundlingController extends Controller
                 'id' => $bundling->id,
                 'nama_bundle' => $bundling->nama_bundle,
                 'harga_bundle' => $bundling->harga_bundle,
-                'redirect' => json_decode($bundling->redirect),
+                'redirect' => $bundling->redirect,
                 'detail_bundle' => $bundling->detail_bundle,
                 'foto_bundle' => json_decode($bundling->foto_bundle),
                 'products' => $bundling->products->map(function ($product) {

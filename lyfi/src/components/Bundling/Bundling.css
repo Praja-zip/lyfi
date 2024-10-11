@@ -1,22 +1,13 @@
-.image-background-bundling {
-  content: "";
-  width: 100%;
-  left: 0;
-  margin-top: -5rem;
-  position: absolute;
-  pointer-events: none;
-  object-fit: cover;
-}
+
 .custom-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* Empat kolom untuk layar besar */
-  gap: 10px; /* Jarak antar card */
-  max-width: 1200px;
-  width: 100%;
+
   margin: 5rem auto;
 }
 
 .custom-container-product {
+  width: 100%;
   border: none;
   border-radius: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bayangan untuk kesan lebih menonjol */
@@ -83,22 +74,19 @@
 @media (max-width: 768px) {
   .custom-grid {
     grid-template-columns: repeat(2, 1fr);
-    margin: 1rem; /* Dua kolom untuk layar kecil */
+    
+    /* Dua kolom untuk layar kecil */
   }
-  .custom-container-product {
-    width: 20rem;
-  }
+
 }
 @media (max-width: 430px) {
   .custom-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    padding: 0 15px;
-    margin-left: -0.1rem;
+  
   }
 
   .custom-container-product {
-    width: 190px;
+   
     min-height: 250px;
     max-height: 250px;
     margin: 0; /* Center the cards */
@@ -141,16 +129,11 @@
 @media (max-width: 415px) {
   .custom-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    padding: 0 20px;
-    margin-left: -0.9rem;
   }
 
   .custom-container-product {
-    width: 170px;
-    min-height: 250px;
-    max-height: 250px;
-    margin: 0;
+   
+
     margin-left: 0rem; /* Center the cards */
   }
 
@@ -191,30 +174,22 @@
 @media (max-width: 375px) {
   .custom-grid {
     gap: 20px;
-    padding: 0 15px;
-    margin-left: -0.2rem;
   }
 
   .custom-container-product {
-    width: 160px;
+/* Center the cards */
+  }
+}
+@media (max-width: 350px) {
+  .custom-grid {
+    gap: 20px;
+
+  .custom-container-product {
+
     min-height: 250px;
     max-height: 250px;
     margin: 0;
     margin-left: 0rem; /* Center the cards */
   }
 }
-@media (max-width: 350px) {
-  .custom-grid {
-    gap: 20px;
-    padding: 0 10px;
-    margin-left: -0rem;
-  }
-
-  .custom-container-product {
-    width: 140px;
-    min-height: 250px;
-    max-height: 250px;
-    margin: 0;
-    margin-left: 0rem; /* Center the cards */
-  }
 }

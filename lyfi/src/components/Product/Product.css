@@ -76,13 +76,13 @@
 }
 
 .button-category {
-  width: 100px; /* Set lebar tombol menjadi 100px */
+  width: auto; /* Set lebar tombol menjadi 100px */
   text-align: center;
   margin-right: 10px; /* Ruang antara tombol */
   white-space: nowrap; /* Mencegah teks melengkung ke baris berikutnya */
   border: none; /* Menghilangkan border default tombol */
   font-size: 0.9rem;
-  padding: 0.5rem 0rem; 
+  padding: 0.5rem 1rem;
   transition: background-color 0.3s ease;
 }
 
@@ -105,22 +105,13 @@
 
 .custom-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsif */
+  grid-template-columns: repeat(4, 1fr); /* Responsif */
   gap: 20px;
   margin-top: 20px;
+  margin: 0 auto;
+  justify-content: center;
 }
 
-.custom-container-product {
-  border: 1px solid black;
-  border-radius: 20px;
-  min-height: 400px;
-  max-height: 400px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  text-align: center;
-  overflow: hidden;
-}
 
 .custom-container-product img {
   width: 100%;

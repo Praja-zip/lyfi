@@ -17,12 +17,12 @@ const ImageBundling = ({ product }) => {
   return (
     <div className="container text-center">
       <div className="row justify-content-start align-items-center flex-column flex-md-row">
-        <div className="col-12 col-md-4 image-small d-flex flex-row flex-md-column align-items-center align-items-md-end mb-3 mb-md-0">
+        <div className="col-12 col-md-4 image-small justify-content-center d-flex flex-row flex-md-column align-items-center align-items-md-end mb-3 mb-md-0">
           {product.foto_bundle && product.foto_bundle.map((image, index) => (
             <img
               key={index}
               src={`http://127.0.0.1:8000/${image}`}
-              className="w-25 w-md-50 mb-2 image-small-detail"
+              className=" mb-2 ms-2 image-small-detail"
               alt={`Small ${index + 1}`}
               onClick={() => handleImageClick(image)}
             />
@@ -30,7 +30,7 @@ const ImageBundling = ({ product }) => {
         </div>
         <div className="col-12 col-md-8 image-big">
           {selectedImage ? (
-            <img src={selectedImage} className="w-100" alt="Big" />
+            <img src={selectedImage} className="w-100 image-big-detail" alt="Big" />
           ) : (
             <p>No image available</p>
           )}
