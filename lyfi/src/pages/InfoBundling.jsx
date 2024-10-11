@@ -24,8 +24,8 @@ const InfoBundling = () => {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
-        console.log(response.data); // Gunakan 'data' sesuai dengan respons dari server
-        setBundling(response.data);
+        console.log(response.data.bundling); // Gunakan 'data' sesuai dengan respons dari server
+        setBundling(response.data.bundling);
       } catch (error) {
         console.error("Error fetching product:", error);
       } finally {
@@ -46,10 +46,10 @@ const InfoBundling = () => {
           <div className="container-info-product text-center">
             <div className="row">
               <div className="col">
-                {/* <ImageBundling product={bundling} /> */}
+                <ImageBundling product={bundling} />
               </div>
               <div className="col">
-                {/* <DetailProduct bundling={bundling} /> */}
+                <DetailProduct bundling={bundling} />
               </div>
             </div>
           </div>

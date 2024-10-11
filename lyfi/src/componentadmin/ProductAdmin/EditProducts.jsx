@@ -164,7 +164,7 @@ const EditProducts = ({
               onChange={(selected) => handleInputChange({
                 target: { name: "kategori", value: selected ? selected.value : "" }
               })}
-              value={categoryOptions.find(option => option.value === product.kategori)} // Sesuaikan dengan ID kategori
+              value={categoryOptions.find(option => option.value === product.kategori.id)} // Sesuaikan dengan ID kategori
               placeholder="Pilih Kategori"
               className="custom-select"
             />

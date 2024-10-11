@@ -102,12 +102,12 @@ const DetailProduct = ({ product }) => {
           <p className="fw-semibold text-secondary">Tersedia di</p>
           <div className="checkout-product">
           {product.redirect && product.redirect[0] && (
-            <a href={products.redirect[0]} className="tokopedia">
+            <a href={product.redirect[0]} className="tokopedia">
               <img src={tokped} alt="Tokopedia" /> Tokopedia
             </a>
           )}
           {product.redirect && product.redirect[1] && (
-            <a href={products.redirect[1]} className="ms-2 shopee">
+            <a href={product.redirect[1]} className="ms-2 shopee">
               <img src={shopee} alt="Shopee" /> Shopee
             </a>
           )}

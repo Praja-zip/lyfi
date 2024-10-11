@@ -60,6 +60,9 @@ const EditBundlingAdmin = () => {
       formData.append(`pilih_produk[${index}]`, prod);
     });
 
+    console.log([...formData]);
+    console.log(tokopediaLink)
+
     try {
       const response = await axios.post(
         `http://127.0.0.1:8000/api/produk-bundlings/${id}`,

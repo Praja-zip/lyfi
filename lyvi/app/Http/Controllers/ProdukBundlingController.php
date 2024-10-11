@@ -129,13 +129,15 @@ class ProdukBundlingController extends Controller
                 'id' => $bundling->id,
                 'nama_bundle' => $bundling->nama_bundle,
                 'harga_bundle' => $bundling->harga_bundle,
-                'redirect' => $bundling->redirect,
+                'redirect' => json_decode($bundling->redirect),
                 'detail_bundle' => $bundling->detail_bundle,
                 'foto_bundle' => json_decode($bundling->foto_bundle),
                 'products' => $bundling->products->map(function ($product) {
                         return [
                             'id' => $product->id,
                             'nama_produk' => $product->nama_produk,
+                            'harga' => $product->harga_produk,
+                            'foto_produk' => json_decode($product->foto_produk),
                             // Tambahkan informasi produk lainnya jika perlu
                         ];
                     }),
@@ -161,7 +163,7 @@ class ProdukBundlingController extends Controller
      * @param  \App\Models\Produk_bundling  $produk_bundling
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+   public function update(Request $request, $id)
     {
         // Validasi input
         $validator = Validator::make($request->all(), [
@@ -172,67 +174,83 @@ class ProdukBundlingController extends Controller
             'foto_bundle.*' => 'file|mimes:jpg,jpeg,png',
             'existing_foto_bundle' => 'nullable|array',
             'pilih_produk' => 'required|array',
-            'redirect' => 'required',
+            'redirect' => 'required|array',
         ]);
-    
+
         if ($validator->fails()) {
             return response()->json(
                 $validator->errors(),
                 422
             );
         }
-    
+
         // Cari produk bundling berdasarkan ID
         $produk_bundling = Produk_bundling::findOrFail($id);
-    
+
         // Validasi setiap ID produk dalam 'pilih_produk'
         $produkIds = $request->input('pilih_produk');
         $invalidProdukIds = array_diff($produkIds, Master_product::pluck('id')->toArray());
-    
+
         if (!empty($invalidProdukIds)) {
             return response()->json([
                 'error' => 'Beberapa produk ID tidak valid.',
                 'invalid_ids' => $invalidProdukIds
             ], 422);
         }
-    
+
         // Input data yang akan diperbarui
         $input = $request->all();
-    
+
+        // Mengambil foto yang sudah ada dari request
         $existingFotoBundle = $request->input('existing_foto_bundle', []);
-        $currentFotoBundle = $produk_bundling->foto_bundle;
+        $currentFotoBundle = $produk_bundling->foto_bundle ? json_decode($produk_bundling->foto_bundle, true) : [];
 
-        $updatedFotoBundle = is_array($currentFotoBundle) ? $currentFotoBundle : [];
-        $updatedFotoBundle = array_merge($updatedFotoBundle, $existingFotoBundle);
-
+        // Gabungkan foto yang ada dengan yang sudah ada
+        $updatedFotoBundle = array_merge($currentFotoBundle, $existingFotoBundle);
 
         // Jika ada gambar yang diunggah, simpan gambar baru
         if ($request->hasFile('foto_bundle')) {
-        foreach ($request->file('foto_bundle') as $file) {
-            // Simpan setiap file baru ke dalam storage
-            $path = $file->store('foto_bundlings', 'public');
-            $updatedFotoBundle[] = $path; // Tambahkan path foto baru ke array
+            // Hapus gambar yang sudah ada di server
+            if ($produk_bundling->foto_bundle) {
+                foreach ($currentFotoBundle as $oldImage) {
+                    if (Storage::disk('public')->exists($oldImage)) {
+                        Storage::disk('public')->delete($oldImage);
+                    }
+                }
+            }
+
+            $uploadedImages = [];
+            foreach ($request->file('foto_bundle') as $gambar) {
+                $nama_gambar = time() . rand(1, 9) . '.' . $gambar->getClientOriginalExtension();
+                $gambar->storeAs('public/images', $nama_gambar); // Penyimpanan di 'public/images'
+                $uploadedImages[] = 'images/' . $nama_gambar; // Simpan path ke array
+            }
+
+            // Gabungkan gambar yang diupload dengan gambar yang ada
+            $updatedFotoBundle = array_merge($updatedFotoBundle, $uploadedImages);
         }
-    }
-    $produk_bundling->foto_bundle = json_encode($updatedFotoBundle);
-        
-    
-        // Jika ada redirect, simpan dalam bentuk array
+
+        // Simpan array foto_bundle sebagai JSON
+        $input['foto_bundle'] = json_encode($updatedFotoBundle);
+
+        // Simpan redirect dalam bentuk JSON
         if (isset($input['redirect'])) {
-            $input['redirect'] = json_encode($request->input('redirect'));
+            $input['redirect'] = json_encode($input['redirect']);
         }
-    
+
         // Update produk bundling
         $produk_bundling->update($input);
-    
+
         // Sinkronisasi produk yang dipilih ke dalam tabel pivot 'master_produk_bundlings'
         $produk_bundling->products()->sync($produkIds);
-    
+
         return response()->json([
             'message' => 'success',
             'data' => $produk_bundling->load('products') // Mengambil produk bundling dengan daftar produk terkait
         ]);
     }
+
+
     
 
     /**

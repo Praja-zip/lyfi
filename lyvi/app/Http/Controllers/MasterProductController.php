@@ -137,11 +137,16 @@ public function show($id)
                 'id' => $product->id,
                 'nama_produk' => $product->nama_produk,
                 'harga_produk' => $product->harga_produk,
-                'redirect' => json_decode($product->redirect),
+                'bahan_produk' => $product->bahan_produk,
+                'redirect' => $product->redirect,
+                'cara_pemakaian' => $product->cara_pemakaian,
                 'foto_produk' => json_decode($product->foto_produk), // Decode jika formatnya JSON
                 'detail_produk' => $product->detail_produk,
                 'kategori' => $product->kategoris->map(function ($kategori) {
-                    return $kategori->nama_kategori;
+                    return [
+                        'id' => $kategori->id,
+                        'nama_kategori' => $kategori->nama_kategori,
+                    ];
                 }), // Mengambil nama kategori
             ]
         ]);
