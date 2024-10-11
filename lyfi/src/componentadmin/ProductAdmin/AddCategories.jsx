@@ -12,7 +12,7 @@ const AddCategories = ({ category, setCategory, handleSubmit }) => {
     console.log("Category value:", category);
 
     // Langsung memunculkan notifikasi tanpa handleSubmit
-    setMessage("Kategori berhasil ditambahkan!");
+    setMessage("Kategori berhasil ditambahkan!!");
     setShowNotification(true);
     setCategory("");
     // Sembunyikan notifikasi setelah 3 detik

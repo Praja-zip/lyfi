@@ -26,7 +26,7 @@ const DetailBundling = ({ bundling }) => {
         <div className="isi-product-card d-flex mt-3">
           {/* Gunakan gambar pertama dari foto_bundle jika ada */}
           <img
-            src={bundling.products.foto_produk?.length > 0 ? `http://127.0.0.1:8000/${bundling.products[0].foto_produk[0]}` : "/fallback-image.png"}
+            src={bundling.products[0].foto_produk?.length > 0 ? `http://127.0.0.1:8000/${bundling.products[0].foto_produk[0]}` : "/fallback-image.png"}
             alt="Product"
           />
           <div className="information-bundling">

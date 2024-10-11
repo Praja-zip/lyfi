@@ -73,8 +73,6 @@ const AddCategoriesAdmin = () => {
             handleSubmit={handleSubmit}
             loading={loading}
           />
-          {error && <p className="error-message">{error}</p>}
-          {success && <p className="success-message">Category added successfully!</p>}
         </div>
       </div>
     </div>
