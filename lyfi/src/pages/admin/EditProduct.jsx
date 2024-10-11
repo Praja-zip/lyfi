@@ -51,6 +51,7 @@ const EditProduct = () => {
           }
         );
         setProduct(response.data.data);
+        console.log(response.data.data)
         setLoading(false); // Set loading ke false setelah data produk berhasil diambil
       } catch (error) {
         console.error("Error fetching product:", error);
@@ -105,6 +106,8 @@ const EditProduct = () => {
     selectedFiles.forEach((file) => {
       formData.append(`foto_produk[]`, file); // Lampirkan foto produk
     });
+
+    console.log([...formData]);
 
     try {
       await axios.post(
