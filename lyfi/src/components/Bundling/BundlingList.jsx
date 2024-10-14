@@ -34,17 +34,21 @@ const ProductList = () => {
   }
 
   return (
-    <div className="custom-grid" style={{width: "70%"}}>
+    <div className="custom-grid" style={{ width: "70%" }}>
       {bundling.map((bundle) => (
-        <div key={bundle.id} className="custom-container-product" >
+        <div key={bundle.id} className="custom-container-product">
           <img
             src={`http://127.0.0.1:8000/${bundle.foto_bundle[0]}`}
             alt={bundle.nama_bundle}
           />
           <div className="custom-card-body">
-            <h3>{bundle.nama_bundle}</h3>
             <p className="nama-product">{getShortName(bundle.nama_bundle)}</p>
-            <p>{bundle.harga_bundle}</p>
+            <p>
+              {new Intl.NumberFormat("id-ID", {
+                style: "currency",
+                currency: "IDR",
+              }).format(bundle?.harga_bundle || 0)}
+            </p>
           </div>
           <Link
             to={`/infobundling/${bundle.id}`}

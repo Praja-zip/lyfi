@@ -1,4 +1,3 @@
-
 .custom-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* Empat kolom untuk layar besar */
@@ -74,19 +73,16 @@
 @media (max-width: 768px) {
   .custom-grid {
     grid-template-columns: repeat(2, 1fr);
-    
+
     /* Dua kolom untuk layar kecil */
   }
-
 }
 @media (max-width: 430px) {
   .custom-grid {
     grid-template-columns: repeat(2, 1fr);
-  
   }
 
   .custom-container-product {
-   
     min-height: 250px;
     max-height: 250px;
     margin: 0; /* Center the cards */
@@ -132,8 +128,6 @@
   }
 
   .custom-container-product {
-   
-
     margin-left: 0rem; /* Center the cards */
   }
 
@@ -177,19 +171,18 @@
   }
 
   .custom-container-product {
-/* Center the cards */
+    /* Center the cards */
   }
 }
 @media (max-width: 350px) {
   .custom-grid {
     gap: 20px;
 
-  .custom-container-product {
-
-    min-height: 250px;
-    max-height: 250px;
-    margin: 0;
-    margin-left: 0rem; /* Center the cards */
+    .custom-container-product {
+      min-height: 250px;
+      max-height: 250px;
+      margin: 0;
+      margin-left: 0rem; /* Center the cards */
+    }
   }
-}
 }

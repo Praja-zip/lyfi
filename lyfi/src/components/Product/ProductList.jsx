@@ -85,7 +85,12 @@ const ProductList = () => {
               <p className="nama-product">
                 {getShortName(product?.nama_produk || "...", 2)}
               </p>
-              <p>{product.harga_produk}</p>
+              <p>
+                {new Intl.NumberFormat("id-ID", {
+                  style: "currency",
+                  currency: "IDR",
+                }).format(product?.harga_produk || 0)}
+              </p>
             </div>
             <Link
               to={`/infoproduct/${product.id}`}
