@@ -18,6 +18,7 @@ const EditBundlingAdmin = () => {
   const [tokopediaLink, setTokopediaLink] = useState("");
   const [shopeeLink, setShopeeLink] = useState("");
   const [fotoBundle, setFotoBundle] = useState([]);
+  const [fotoBundleFromServer, setFotoBundleFromServer] = useState([]);
 
   
   const [loading, setLoading] = useState(true);
@@ -52,9 +53,10 @@ const EditBundlingAdmin = () => {
     });
   
     // Kirimkan nama atau URL dari foto yang sudah ada di server, tanpa mengupload ulang
-    fotoBundle.forEach((foto, index) => {
+    fotoBundleFromServer.forEach((foto, index) => {
       formData.append(`existing_foto_bundle[]`, foto); // Nama file/URL foto yang sudah ada
     });
+  
 
     produk.forEach((prod, index) => {
       formData.append(`pilih_produk[${index}]`, prod);
@@ -118,6 +120,7 @@ const EditBundlingAdmin = () => {
         setNamaBundle(bundlingData.nama_bundle);
         setHargaBundle(bundlingData.harga_bundle);
         setDetailBundle(bundlingData.detail_bundle);
+        setFotoBundleFromServer(bundlingData.foto_bundle);
 
         const productIds = bundlingData.products.map((prod) => String(prod.id));
         setProduk(productIds);
@@ -179,6 +182,8 @@ const EditBundlingAdmin = () => {
                 setFotoPreview={setFotoPreview}
                 fotoBundle={fotoBundle}
                 setFotoBundle={setFotoBundle}
+                setFotoBundleFromServer={ setFotoBundleFromServer }
+                fotoBundleFromServer={ fotoBundleFromServer }
               />
             </div>
           </div>
