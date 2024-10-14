@@ -22,10 +22,20 @@ const AddBundling = ({
   selectedFiles,
 }) => {
   const [fotoPreview, setFotoPreview] = useState([]);
-  const [showNotification, setShowNotification] = useState(false); // Notifikasi
+  const [showNotification, setShowNotification] = useState(false); // Notifikasi batas foto
 
   const handleFotoChange = (e) => {
     const files = Array.from(e.target.files);
+
+    // Cek jumlah foto setelah ditambahkan
+    if (selectedFiles.length + files.length > 4) {
+      setShowNotification(true);
+      setTimeout(() => {
+        setShowNotification(false); // Sembunyikan notifikasi setelah 3 detik
+      }, 3000);
+      return; // Hentikan proses penambahan jika sudah melebihi batas
+    }
+
     setSelectedFiles((prevFiles) => [...prevFiles, ...files]);
     const newPreview = files.map((file) => URL.createObjectURL(file));
     setFotoPreview((prevPreview) => [...prevPreview, ...newPreview]);
@@ -43,12 +53,6 @@ const AddBundling = ({
     e.preventDefault();
     handleSubmit(); // Memanggil fungsi submit yang sudah ada
 
-    // Tampilkan notifikasi setelah submit
-    setShowNotification(true);
-    setTimeout(() => {
-      setShowNotification(false); // Notifikasi hilang setelah beberapa detik
-    }, 3000); // Durasi notifikasi 3 detik
-
     // Reset semua state setelah submit
     setNamaBundle("");
     setHargaBundle("");
@@ -56,21 +60,18 @@ const AddBundling = ({
     setProduk([]); // Reset produk
     setSelectedFiles([]); // Hapus file yang sudah diupload
     setFotoPreview([]); // Reset preview foto
-    setTokopediaLinkLocal("");
-    setShopeeLinkLocal("");
+    setTokopediaLink("");
+    setShopeeLink("");
   };
 
   return (
     <>
       <div className="addproduct text-start mt-5">
-        {showNotification && (
-          <div className="alert alert-success" role="alert">
-            Bundling berhasil ditambahkan!
-          </div>
-        )}
         <div className="header-addproduct">
           <h1>Buat Bundling</h1>
         </div>
+
+        {/* Form nama bundling */}
         <div className="form-addproduct">
           <div className="addproduct-input row">
             <label htmlFor="addproduct">Nama Bundling :</label>
@@ -82,6 +83,8 @@ const AddBundling = ({
             />
           </div>
         </div>
+
+        {/* Form harga bundling */}
         <div className="form-addproduct">
           <div className="addproduct-input row">
             <label htmlFor="addproduct">Harga Bundling :</label>
@@ -93,6 +96,8 @@ const AddBundling = ({
             />
           </div>
         </div>
+
+        {/* Form detail bundling */}
         <div className="form-addproduct">
           <div className="addproduct-input row">
             <label htmlFor="addproduct">Detail Bundling :</label>
@@ -101,10 +106,11 @@ const AddBundling = ({
               placeholder="Your Answer"
               value={detailBundle}
               onChange={(e) => setDetailBundle(e.target.value)}
-              required
             />
           </div>
         </div>
+
+        {/* Form pilih produk */}
         <div className="form-addproduct">
           <div className="addproduct-input row">
             <label htmlFor="addproduct">Pilih Produk :</label>
@@ -116,6 +122,8 @@ const AddBundling = ({
             />
           </div>
         </div>
+
+        {/* Link Tokopedia dan Shopee */}
         <div className="form-addproduct">
           <div className="addproduct-input row">
             <label htmlFor="addproduct">Link Bundling :</label>
@@ -135,7 +143,16 @@ const AddBundling = ({
             </div>
           </div>
         </div>
+
+        {/* Notifikasi batas foto */}
+
+        {/* Form upload foto bundling */}
         <div className="form-addproduct">
+        {showNotification && (
+          <div className="alert alert-danger" role="alert">
+            Maksimal hanya 4 foto yang dapat diunggah!
+          </div>
+        )}
           <div className="addproduct-input row">
             <label htmlFor="addproduct">Foto Bundling :</label>
             <label htmlFor="file" className="custum-file-upload mt-4 ms-4">
@@ -154,6 +171,8 @@ const AddBundling = ({
                 onChange={handleFotoChange}
               />
             </label>
+
+            {/* Preview foto */}
             {fotoPreview.length > 0 && (
               <div className="image-preview mt-4 d-flex flex-wrap">
                 {fotoPreview.map((preview, index) => (
@@ -183,16 +202,18 @@ const AddBundling = ({
             )}
           </div>
         </div>
+
+        {/* Tombol simpan dan kembali */}
         <button
-          onClick={handleSubmit}
+          onClick={handleFormSubmit}
           className="addproduct-save d-flex justify-content-center align-items-center"
         >
-          <i className="fa-regular fa-floppy-disk me-2"></i>{" "}
+          <i className="fa-regular fa-floppy-disk me-2"></i>
           <span className="d-none d-md-block">Save Changes</span>
         </button>
         <Link to="/admin/bundlingadmin">
           <button className="addproduct-back d-flex justify-content-center align-items-center">
-            <i className="fa-solid fa-arrow-left me-2"></i>{" "}
+            <i className="fa-solid fa-arrow-left me-2"></i>
             <span className="d-none d-md-block">Back</span>
           </button>
         </Link>

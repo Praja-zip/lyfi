@@ -29,14 +29,15 @@ const Navbar = () => {
 
         {/* Offcanvas menu */}
         <div
-          className="offcanvas offcanvas-end"
+          className="offcanvas offcanvas-start "
           tabIndex="-1"
           id="offcanvasNavbar"
           aria-labelledby="offcanvasNavbarLabel"
+          style={{ width: "90%" }}
         >
           <div className="offcanvas-header">
             <h5 className="offcanvas-title" id="offcanvasNavbarLabel">
-              Menu
+              <img src={Logo} alt="Logo" />
             </h5>
             <button
               type="button"
@@ -54,7 +55,9 @@ const Navbar = () => {
                 onClick={() => handleNavClick("/")}
               >
                 <Link to="/" className="offcanvas-link">
-                  Home
+                  <button>
+                    <i className="fa-solid fa-home me-2"></i> <span>Home</span>
+                  </button>
                 </Link>
               </li>
               <li
@@ -64,7 +67,9 @@ const Navbar = () => {
                 onClick={() => handleNavClick("/Product")}
               >
                 <Link to="/Product" className="offcanvas-link ">
-                  Product
+                  <button>
+                    <i className="fa-solid fa-shopping-cart me-2"></i> <span>Product</span>
+                  </button>
                 </Link>
               </li>
               <li
@@ -74,7 +79,10 @@ const Navbar = () => {
                 onClick={() => handleNavClick("/Bundling")}
               >
                 <Link to="/Bundling" className="offcanvas-link">
-                  Bundling
+                  <button>
+                    <i className="fa-solid fa-tags me-2"></i>{" "}
+                    <span>Bundling</span>
+                  </button>
                 </Link>
               </li>
             </ul>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./login.css";
+import logo from "./../../assets/logo.png";
 
 const LoginPage = ({
   email,
@@ -32,19 +33,22 @@ const LoginPage = ({
         </div>
       )}
       <div className="login">
-        <div className="login-header">
-          <h1>Lyfi Login</h1>
+        <div className="login-header d-flex">
+          <div className="back">
+            <i className="fa-solid fa-home me-2"></i>
+          </div>
+          <img src={logo} style={{ width: "8rem", margin: "0 auto" }} alt="" />
         </div>
 
         <div className="group">
           <form onSubmit={handleSubmit}>
             <div className="input-container row">
               <label htmlFor="email" className="input-label">
-                Email
+                Username
               </label>
               <input
                 type="email"
-                placeholder="Email"
+                placeholder="Username"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="input-field"
