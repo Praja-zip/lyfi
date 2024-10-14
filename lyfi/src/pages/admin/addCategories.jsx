@@ -4,6 +4,7 @@ import "./../../componentadmin/Admin.css";
 import Sidebar from "./../../componentadmin/sidebar";
 import AddCategories from "./../../componentadmin/ProductAdmin/AddCategories";
 import "./../../componentadmin/ProductAdmin/AddProduct.css";
+import { useNavigate } from "react-router-dom";
 
 const AddCategoriesAdmin = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -11,6 +12,7 @@ const AddCategoriesAdmin = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
+  const navigate = useNavigate();
 
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
@@ -47,6 +49,9 @@ const AddCategoriesAdmin = () => {
       setSuccess(true); // Show success feedback
       setCategory(""); // Clear the input field
     } catch (error) {
+      if (error.status === 401){
+        navigate('/login');
+      }
       setError(
         error.response ? error.response.data.message : error.message
       );

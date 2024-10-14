@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const DoughnutChart = () => {
   const [categoryData, setCategoryData] = useState([]);
   const token = localStorage.getItem("token");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fecthChart = async () => {
@@ -21,6 +23,9 @@ const DoughnutChart = () => {
         console.log(response.data.categories)
       } catch (error) {
         console.log("Error Fetching Data", error);
+        if (error.status === 401){
+          navigate('/login');
+        }
       }
     };
     fecthChart();

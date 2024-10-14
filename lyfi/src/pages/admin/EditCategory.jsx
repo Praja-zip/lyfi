@@ -11,6 +11,7 @@ const EditCategoriesAdmin = () => {
   const [nama_kategori, setCategory] = useState("");
   const { id } = useParams();
   const token = localStorage.getItem("token");
+  const navigate = useNavigate();
 
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
@@ -25,6 +26,9 @@ const EditCategoriesAdmin = () => {
         setCategory(response.data.data.nama_kategori);
         console.log(response.data.data.nama_kategori);
       } catch (error) {
+        if (error.status === 401){
+          navigate('/login');
+        }
         console.error("Error fetching categories:", error);
       }
     };
@@ -52,6 +56,9 @@ const EditCategoriesAdmin = () => {
       console.log(response.data);
       window.location.reload(); // Refresh halaman setelah sukses
     } catch (error) {
+      if (error.status === 401){
+        navigate('/login');
+      }
       console.error(
         "Error:",
         error.response ? error.response.data : error.message

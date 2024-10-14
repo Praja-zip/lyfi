@@ -27,6 +27,9 @@ const DashboardAdmin = () => {
         setBundling(response.data.total_bundling);
       } catch (error) {
         console.error("Error fetching categories:", error);
+        if (error.status === 401){
+          navigate('/login');
+        }
       }
     };
     fetchCategories();
