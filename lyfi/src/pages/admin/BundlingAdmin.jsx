@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "./../../componentadmin/sidebar";
 import Header from "../../componentadmin/ProductAdmin/Header";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import BundlingTable from "../../componentadmin/BundlingAdmin/BundlingTable";
 import axios from "axios";
 import DeleteBundling from "../../componentadmin/BundlingAdmin/DeleteBundling";
@@ -17,6 +17,7 @@ const BundlingAdmin = () => {
   });
   const token = localStorage.getItem("token");
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchBundling = async () => {
@@ -31,6 +32,9 @@ const BundlingAdmin = () => {
         setLoading(false);
         console.log(response.data);
       } catch (error) {
+        if (error.status === 401){
+          navigate('/login');
+        }
         console.error("Error fetching products:", error);
         setLoading(false);
       }
@@ -51,6 +55,9 @@ const BundlingAdmin = () => {
       console.log("Product deleted:", response.data);
       setAllBundlings(allBundlings.filter((bundling) => bundling.id !== id));
     } catch (error) {
+      if (error.status === 401){
+        navigate('/login');
+      }
       console.error("Error deleting bundling:", error);
     }
   };
