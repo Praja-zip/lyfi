@@ -24,6 +24,7 @@ const EditProduct = () => {
   const [foto_produk, setFotoProduk] = useState([]);
   const [allCategories, setAllCategories] = useState([]);
   const token = localStorage.getItem("token");
+  const [fotoProductFromServer, setFotoProductFromServer] = useState([]);
   const [loading, setLoading] = useState(true); // Tetap loading sampai data produk berhasil didapat
 
   // Handle screen resize
@@ -52,6 +53,7 @@ const EditProduct = () => {
         );
         const productData = response.data.data;
         setProduct(productData);
+        setFotoProductFromServer(productData.foto_produk);
         setSelectedCategory({
           value: productData.kategori[0].id, // Asumsi kategori adalah array
           label: productData.kategori[0].nama_kategori,
@@ -59,7 +61,7 @@ const EditProduct = () => {
         console.log(response.data.data);
         setLoading(false); // Set loading ke false setelah data produk berhasil diambil
       } catch (error) {
-        if (error.status === 401){
+        if (error.status === 401 || error.message === "Unauthorized"){
           navigate('/login');
         }
         console.error("Error fetching product:", error);
@@ -115,6 +117,10 @@ const EditProduct = () => {
       formData.append(`foto_produk[]`, file); // Lampirkan foto produk
     });
 
+    fotoProductFromServer.forEach((foto, index) => {
+      formData.append(`existing_foto_bundle[]`, foto); // Nama file/URL foto yang sudah ada
+    });
+
     console.log([...formData]);
 
     try {
@@ -130,6 +136,9 @@ const EditProduct = () => {
       );
       navigate("/admin/productadmin");
     } catch (error) {
+      if (error.status === 401 || error.message === "Unauthorized"){
+        navigate('/login');
+      }
       console.error("Error updating product:", error.response.data);
     }
   };
@@ -163,6 +172,8 @@ const EditProduct = () => {
                 selectedFiles={selectedFiles}
                 setSelectedCategory={setSelectedCategory}
                 selectedCategory={ selectedCategory } 
+                setFotoProductFromServer={ setFotoProductFromServer }
+                fotoProductFromServer={ fotoProductFromServer }
               />
             </div>
           </div>

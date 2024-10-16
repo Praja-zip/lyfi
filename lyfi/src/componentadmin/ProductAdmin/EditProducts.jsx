@@ -12,7 +12,9 @@ const EditProducts = ({
   setSelectedFiles,
   selectedFiles,
   selectedCategory,
-  setSelectedCategory
+  setSelectedCategory,
+  setFotoProductFromServer,
+  fotoProductFromServer
 }) => {
   const [showNotification, setShowNotification] = useState(false);
   const [message, setMessage] = useState("");
@@ -39,6 +41,9 @@ const EditProducts = ({
     setSelectedFiles((prevFiles) => prevFiles.filter((_, i) => i !== index)); // Hapus file berdasarkan index
   };
 
+  const handleRemoveServerFoto = (index) => {
+    setFotoProductFromServer((prevFiles) => prevFiles.filter((_, i) => i !== index));
+  };
   
   
 
@@ -214,9 +219,86 @@ const EditProducts = ({
                   />
               </label>
               <p>Total foto dipilih: {selectedFiles.length}</p>
+
+              <div className="image-preview mt-4 d-flex flex-wrap">
+              {fotoProductFromServer.map((foto, index) => (
+            <div key={index} className="position-relative me-3 mb-3">
+              <button
+                type="button"
+                onClick={() => handleRemoveServerFoto(index)} // Hapus foto dari server
+                style={{
+                  position: "absolute",
+                  top: "5px",
+                  right: "5px",
+                  background: "red",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "50%",
+                  width: "20px",
+                  height: "20px",
+                  cursor: "pointer",
+                }}
+              >
+                X
+              </button>
+              <img
+                src={`http://127.0.0.1:8000/${foto}`} // Menampilkan foto dari server
+                alt={`Foto Bundle ${index}`}
+                style={{
+                  width: "100%",
+                  borderRadius: "10px",
+                  height: "150px",
+                  objectFit: "cover",
+                }}
+              />
+            </div>
+          ))}
+
+              
+
+            {selectedFiles.map((preview, index) => (
+              <div key={index} className="position-relative me-3 mb-3">
+                
+                <button
+                  type="button"
+                  onClick={() => handleRemoveFile(index)}
+                  style={{
+                    position: "absolute",
+                    top: "5px",
+                    right: "5px",
+                    background: "red",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "50%",
+                    width: "20px",
+                    height: "20px",
+                    cursor: "pointer",
+                  }}
+                >
+                  X
+                </button>
+                {preview.type.startsWith("image") ? (
+                  <img
+                      src={URL.createObjectURL(preview)}
+                      alt={preview.name}
+                      style={{
+                          width: "100%",
+                          borderRadius: "10px",
+                          height: "150px",
+                          objectFit: "cover",
+
+                      }}
+                  />
+              ) : (
+                  <p>{preview.name}</p>
+              )}
+              </div>
+            ))}
           </div>
 
-          c
+          </div>
+
+          
       </div>
 
 
