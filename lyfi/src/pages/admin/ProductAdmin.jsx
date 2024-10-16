@@ -10,10 +10,6 @@ import axios from "axios";
 import Loading from "../../components/Loading/Loading";
 import DeleteProducts from "../../componentadmin/ProductAdmin/DeleteProducts";
 const ProductAdmin = () => {
-<<<<<<< HEAD
-=======
-  
->>>>>>> 98c4d66a849d5a75922f2bee33dbb63d4aa75403
   const navigate = useNavigate();
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [allProducts, setAllProducts] = useState([]);

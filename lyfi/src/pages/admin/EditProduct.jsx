@@ -61,11 +61,8 @@ const EditProduct = () => {
         console.log(response.data.data);
         setLoading(false); // Set loading ke false setelah data produk berhasil diambil
       } catch (error) {
-<<<<<<< HEAD
-        if (error.status === 401){
-=======
+
         if (error.status === 401 || error.message === "Unauthorized"){
->>>>>>> 98c4d66a849d5a75922f2bee33dbb63d4aa75403
           navigate('/login');
         }
         console.error("Error fetching product:", error);
