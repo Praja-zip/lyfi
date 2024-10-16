@@ -67,7 +67,7 @@ const BundlingTable = ({ products, handleDeleteBundling, loading }) => {
                     </Button>
                   </Link>
                   <Button
-                    className="button-aksi"
+                    className="button-aksi m-1"
                     size="sm"
                     onClick={() => handleDeleteBundling(product)}
                   >

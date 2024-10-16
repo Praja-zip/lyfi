@@ -54,7 +54,11 @@ const EditBundlingAdmin = () => {
   
     // Kirimkan nama atau URL dari foto yang sudah ada di server, tanpa mengupload ulang
     fotoBundleFromServer.forEach((foto, index) => {
+<<<<<<< HEAD
       formData.append(`existing_foto_bundle[]`, foto); // Nama file/URL foto yang sudah ada
+=======
+      formData.append(`existing_foto_produk[]`, foto); // Nama file/URL foto yang sudah ada
+>>>>>>> 98c4d66a849d5a75922f2bee33dbb63d4aa75403
     });
   
 

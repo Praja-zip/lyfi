@@ -15,15 +15,17 @@ const DashboardAdmin = () => {
   const [bundling, setBundling] = useState("");
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
-
-  console.log('Token:', token)
   useEffect(() => {
     const fetchCategories = async () => {
       try {
         const response = await axios.get(`http://127.0.0.1:8000/api/count`, {
           headers: {
             'Authorization': `Bearer ${token}`
+<<<<<<< HEAD
           }
+=======
+          }  
+>>>>>>> 98c4d66a849d5a75922f2bee33dbb63d4aa75403
         });
         setProduk(response.data.total_produk);
         setBundling(response.data.total_bundling);
@@ -36,25 +38,7 @@ const DashboardAdmin = () => {
     };
     fetchCategories();
     
-  }, [ ]);
-
-  const fetchData = async () => {
-    const token = localStorage.getItem("token"); // Ambil token dari localStorage
-  
-    try {
-      const response = await axios.post('http://127.0.0.1:8000/api/me', {}, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-      setUser(response.data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      if (error.response && error.response.status === 401) {
-        navigate('/login');
-      }
-    }
-  }  
+  }, [ token]);
 
 
   const logoutHandler = async () => {

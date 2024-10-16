@@ -10,6 +10,10 @@ import axios from "axios";
 import Loading from "../../components/Loading/Loading";
 import DeleteProducts from "../../componentadmin/ProductAdmin/DeleteProducts";
 const ProductAdmin = () => {
+<<<<<<< HEAD
+=======
+  
+>>>>>>> 98c4d66a849d5a75922f2bee33dbb63d4aa75403
   const navigate = useNavigate();
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [allProducts, setAllProducts] = useState([]);
@@ -44,6 +48,9 @@ const ProductAdmin = () => {
         navigate('/login');
       }
       console.error("Error deleting product:", error);
+      console.log("error nih", error.response.data.message);
+      setMessage(error.response.data.message)
+      setShowNotification(true);
     }
   };
   const [loading, setLoading] = useState(true);

@@ -81,10 +81,10 @@ const ProductTable = ({
                     style={{ width: "80px", height: "80px" }}
                   />
                 </td>
-                <td className="text-center" style={{ width: "20%" }}>
-                  <Link to={`/admin/editproduct/${product.id}`}>
+                <td className="text-center" style={{ width: "20%", textDecoration: "none" }}>
+                  <Link to={`/admin/editproduct/${product.id}`} className="text-decoration-none">
                     <Button className="button-aksi" size="sm">
-                      <i className="fa-regular fa-pen-to-square"></i>
+                      <i className="fa-regular fa-pen-to-square text-decoration-none"></i>
                     </Button>{" "}
                   </Link>
                   <Button

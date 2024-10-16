@@ -20,8 +20,8 @@ const AddProduct = ({
 }) => {
   const [showNotification, setShowNotification] = useState(false);
   const [message, setMessage] = useState("");
-
-  // Define the selectedCategory state
+  const [notification, setNotification] = useState(""); // State for notifications
+  const maxFiles = 4; // Maksimal file yang bisa diupload
 
   // Map categories to the format expected by react-select
   const categoryOptions = allCategories.map((category) => ({
@@ -34,9 +34,6 @@ const AddProduct = ({
     setSelectedCategory(selectedOption);
   };
 
-  const [notification, setNotification] = useState(""); // State for notifications
-
-  // Handle file removal
   // Handle file removal
   const handleRemoveFile = (index, e) => {
     e.preventDefault(); // Prevent form submit when removing file
@@ -59,29 +56,16 @@ const AddProduct = ({
     }
   }, [notification]);
 
-  // const handleFormSubmit = () => {
+  // Handle file addition with limit of 4 files
+  const handleFileChangeWithLimit = (e) => {
+    const files = Array.from(e.target.files);
+    if (selectedFiles.length + files.length > maxFiles) {
+      setNotification(`Maksimal hanya bisa menambahkan ${maxFiles} foto.`);
+      return; // Prevent adding files if it exceeds the limit
+    }
 
-  //   // Panggil handleSubmit yang sudah ada
-  //   handleSubmit();
-
-  // Reset form values setelah submit
-  // handleInputChange.setNamaProduk("");
-  // handleInputChange.setHargaProduk("");
-  // handleInputChange.setDetailProduk("");
-  // handleInputChange.setCaraPemakaian("");
-  // handleInputChange.setBahanProduk("");
-  // handleInputChange.setRedirect("");
-  // setSelectedCategory(null); // Reset dropdown kategori
-  // setSelectedFiles([]); // Kosongkan file yang dipilih
-
-  // // Tampilkan notifikasi jika diperlukan, lalu sembunyikan setelah 3 detik
-  // setMessage("Produk berhasil ditambahkan");
-  // setShowNotification(true);
-
-  // setTimeout(() => {
-  //   setShowNotification(false);
-  // }, 3000);
-  // };
+    setSelectedFiles((prevFiles) => [...prevFiles, ...files]);
+  };
 
   const handleCloseError = () => {
     setShowNotification(false); // Hide the error popup when close button is clicked
@@ -97,7 +81,7 @@ const AddProduct = ({
         {/* Notifikasi */}
         {showNotification && (
           <div className="notification-popup d-flex">
-            <p className="notification-message">{message}</p>
+            <p className="alert alert-danger">{message}</p>
             <button className="close-btn ms-4" onClick={handleCloseError}>
               &times;
             </button>
@@ -192,7 +176,8 @@ const AddProduct = ({
               style={{
                 marginBottom: "10px",
                 padding: "10px",
-                background: "#d4edda",
+                background: "#ffcaca",
+                border : "1px solid #e65e5e",
                 color: "#155724",
                 borderRadius: "5px",
               }}
@@ -222,7 +207,7 @@ const AddProduct = ({
                   id="file-input"
                   type="file"
                   multiple
-                  onChange={handleFileChange}
+                  onChange={handleFileChangeWithLimit} // Use the new file change handler
                   style={{ display: "none" }}
                 />
               </label>
