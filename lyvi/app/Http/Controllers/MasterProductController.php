@@ -54,9 +54,6 @@ public function count(){
     $produk = Master_product::count();
     $bundling = Produk_bundling::count();
 
-   
-
-
     return response()->json([
         
         'total_produk' => $produk,   
@@ -88,54 +85,67 @@ public function update(Request $request, $id)
         'foto_produk.*' => 'nullable|file', // Mendukung array file
         'bahan_produk' => 'required|string',
         'cara_pemakaian' => 'required|string',
-        'kategori' => 'required|exists:kategoris,id', // Tidak lagi berupa array
-        'redirect' => 'required|url'
+        'kategori' => 'required|exists:kategoris,id', // Pastikan kategori valid
+        'redirect' => 'required|url',
+        'existing_foto_produk' => 'nullable|array',
     ]);
 
     if ($validator->fails()) {
         return response()->json($validator->errors(), 422);
     }
 
-    $master_product = Master_product::findOrFail($id); 
+    // Cari produk berdasarkan ID
+    $master_product = Master_product::findOrFail($id);
 
-    // Ambil semua input kecuali kategori
-    $input = $request->except('kategori', 'foto_produk');
-
-    // Proses setiap file gambar jika ada
-    if ($request->hasFile('foto_produk')) {
-        // Hapus gambar lama jika ada
-        if ($master_product->foto_produk) {
-            foreach (json_decode($master_product->foto_produk) as $oldImage) {
-                if (Storage::disk('public')->exists($oldImage)) {
-                    Storage::disk('public')->delete($oldImage);
-                }
-            }
+    // Ambil foto produk yang sudah ada
+    $currentFotoProduk = $master_product->foto_produk ? json_decode($master_product->foto_produk, true) : [];
+    
+    // Foto produk yang masih dipertahankan (dari existing_foto_produk)
+    $existingFotoProduk = $request->input('existing_foto_produk', []);
+    
+    // Hapus foto yang dihapus oleh user
+    $deletedImages = array_diff($currentFotoProduk, $existingFotoProduk);
+    foreach ($deletedImages as $oldImage) {
+        if (Storage::disk('public')->exists($oldImage)) {
+            Storage::disk('public')->delete($oldImage);
         }
+    }
 
-        // Simpan gambar baru
+    // Update foto produk
+    $updatedFotoProduk = $existingFotoProduk;
+
+    // Jika ada gambar baru yang diupload, proses dan tambahkan ke array
+    if ($request->hasFile('foto_produk')) {
         $uploadedImages = [];
         foreach ($request->file('foto_produk') as $gambar) {
             $nama_gambar = time() . rand(1, 9) . '.' . $gambar->getClientOriginalExtension();
-            Storage::disk('public')->put('images/' . $nama_gambar, file_get_contents($gambar));
-            $uploadedImages[] = 'storage/images/' . $nama_gambar;
+            $gambar->storeAs('public/images', $nama_gambar); // Penyimpanan di 'public/images'
+            $uploadedImages[] = 'images/' . $nama_gambar; // Simpan path gambar yang baru
         }
 
-        // Simpan nama file gambar baru sebagai array
-        $input['foto_produk'] = json_encode($uploadedImages); // Simpan array gambar sebagai JSON
+        // Gabungkan gambar baru dengan gambar yang ada
+        $updatedFotoProduk = array_merge($updatedFotoProduk, $uploadedImages);
     }
 
+    // Simpan array foto_produk sebagai JSON
+    $master_product->foto_produk = json_encode($updatedFotoProduk);
 
-    // Update data produk
+    // Ambil semua input kecuali kategori dan foto_produk
+    $input = $request->except('kategori', 'foto_produk');
+
+    // Update data produk lainnya
     $master_product->update($input);
 
-    // Sinkronisasi kategori
+    // Sinkronisasi kategori (jika relasinya belongsToMany)
     $master_product->kategoris()->sync([$request->input('kategori')]);
 
+    // Response jika berhasil
     return response()->json([
         'message' => 'Product updated successfully!',
         'data' => $master_product->load('kategoris')
     ], 200);
 }
+
 
 
 // public function update(Request $request, $id)
