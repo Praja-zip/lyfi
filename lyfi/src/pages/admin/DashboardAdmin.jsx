@@ -21,12 +21,17 @@ const DashboardAdmin = () => {
     const fetchCategories = async () => {
       try {
         const response = await axios.get(`http://127.0.0.1:8000/api/count`, {
-          
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
         });
         setProduk(response.data.total_produk);
         setBundling(response.data.total_bundling);
       } catch (error) {
         console.error("Error fetching categories:", error);
+        if (error.status === 401){
+          navigate('/login');
+        }
       }
     };
     fetchCategories();

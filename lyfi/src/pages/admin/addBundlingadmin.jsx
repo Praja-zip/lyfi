@@ -87,6 +87,9 @@ const AddBundlingAdmin = () => {
       setRedirect([]);
       
     } catch (error) {
+      if (error.status === 401){
+        navigate('/login');
+      }
       console.error("Error creating bundling:", error);
     }
   };

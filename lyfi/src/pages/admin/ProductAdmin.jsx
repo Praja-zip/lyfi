@@ -2,15 +2,15 @@ import React, { useState, useEffect } from "react";
 import "./../../componentadmin/Admin.css";
 import Sidebar from "./../../componentadmin/sidebar";
 import Header from "../../componentadmin/ProductAdmin/Header";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import foto from "./../../assets/LandingPage/about.png";
 import ProductTable from "../../componentadmin/ProductAdmin/ProductTable";
 import "./../../componentadmin/ProductAdmin/AddProduct.css";
 import axios from "axios";
 import Loading from "../../components/Loading/Loading";
 import DeleteProducts from "../../componentadmin/ProductAdmin/DeleteProducts";
-
 const ProductAdmin = () => {
+  const navigate = useNavigate();
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [allProducts, setAllProducts] = useState([]);
   const [showNotification, setShowNotification] = useState(false);
@@ -40,6 +40,9 @@ const ProductAdmin = () => {
       console.log("Product deleted:", response.data);
       setAllProducts(allProducts.filter((product) => product.id !== id));
     } catch (error) {
+      if (error.status === 401){
+        navigate('/login');
+      }
       console.error("Error deleting product:", error);
     }
   };
@@ -73,6 +76,9 @@ const ProductAdmin = () => {
         console.log(response);
         setAllProducts(response.data.data);
       } catch (error) {
+        if (error.status === 401){
+          navigate('/login');
+        }
         console.error("Error fetching products:", error);
       }
     };

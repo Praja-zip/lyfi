@@ -110,6 +110,10 @@ const AddProductAdmin = () => {
         }, 500);
       }
     } catch (error) {
+      if (error.status === 401){
+        navigate('/login');
+      }
+
       if (error.response) {
         console.log("Error Response:", error.response.data);
         console.log("Status:", error.response.status);
