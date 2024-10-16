@@ -1,64 +1,46 @@
 /* Navigation bar container */
 nav {
   background: transparent;
-  width: 70%; /* Ensure the navbar spans the full width */
+  width: 80%;
   margin: 0 auto;
-  padding: 10px 0; /* Add some padding to the top and bottom */
   position: sticky;
   top: 0;
+  left: 0;
   z-index: 40000;
 }
 
-/* Off-canvas customization */
-.offcanvas {
-  z-index: 50000; /* Ensure it's above other elements */
+/* Navigation items */
+.navbar-nav {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+  width: 100%;
+  position: relative; /* Needed for positioning the underline */
 }
-
-.offcanvas-body {
-  visibility: hidden;
-  opacity: 0;
-  transition: visibility 0s, opacity 0.3s ease-in-out;
-}
-
-.offcanvas.show .offcanvas-body {
-  visibility: visible;
-  opacity: 1;
-}
-
 .navbar-toggler {
   border: none !important;
-  box-shadow: none !important;
+  box-shadow: none !important; /* Menghapus shadow jika ada */
 }
 
-.navbar-brand {
-  margin-right: auto; /* Push the brand logo to the left */
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler:hover {
+  border: none !important;
+  box-shadow: none !important; /* Menghapus shadow jika ada */
 }
-
-/* Center the navbar content */
-.navbar-collapse {
-  display: flex;
-  justify-content: center; /* Center the content */
-  align-items: center; /* Align items vertically */
-  flex-grow: 1;
-}
-
-.navbar-nav {
-  display: flex; /* Ensure flex layout for the links */
-  justify-content: center; /* Center the navbar items */
-  align-items: center;
-}
-
+/* Individual nav items */
 .nav-item {
-  margin: 0 15px; /* Space between items */
+  margin: 0 15px;
+  position: relative;
 }
 
+/* Nav item links */
 .nav-item a {
   font-weight: 400;
   position: relative;
   z-index: 1;
-  padding-bottom: 5px;
+  padding-bottom: 5px; /* Add some space for the underline */
   transition: font-weight 0.3s;
-  color: #000; /* Default link color */
 }
 
 /* Underline effect */
@@ -75,31 +57,58 @@ nav {
     rgba(206, 187, 150, 1) 33%,
     rgba(173, 156, 123, 1) 71%,
     rgba(176, 158, 124, 1) 100%
-  );
-  transform: scaleX(0);
+  ); /* Brown underline color */
+  transform: scaleX(0); /* Start with no underline */
   transform-origin: right;
   transition: transform 0.3s ease-in-out;
 }
 
+/* When hovering over nav items */
 .nav-item:hover::after,
 .nav-item.active::after {
-  transform: scaleX(1);
+  transform: scaleX(1); /* Show underline on hover */
   transform-origin: left;
 }
 
+/* Active nav item */
 .nav-item.active a {
   font-weight: 500;
-  color: black;
+  color: black; /* Make the font slightly bolder */
 }
 
 button {
   background: none;
   border: none;
   box-shadow: none;
+  width: 10px;
 }
 
 button:hover {
   background: none;
   border: none;
   box-shadow: none;
+}
+.offcanvas-start {
+  width: 80%;
+}
+.offcanvas-nav {
+  list-style-type: none;
+}
+.offcanvas-nav button {
+  color: white;
+  text-decoration: none;
+  display: flex;
+  background-color: rgba(176, 158, 124);
+  width: 100%;
+  margin-top: 1rem;
+  margin-left: -2rem;
+  padding: 1rem;
+  border-radius: 15px;
+}
+.offcanvas-nav button:focus {
+  outline: none;
+  box-shadow: none;
+}
+.offcanvas-nav a {
+  text-decoration: none;
 }

@@ -59,6 +59,9 @@ const EditProduct = () => {
         console.log(response.data.data);
         setLoading(false); // Set loading ke false setelah data produk berhasil diambil
       } catch (error) {
+        if (error.status === 401){
+          navigate('/login');
+        }
         console.error("Error fetching product:", error);
         setLoading(false); // Nonaktifkan loading meskipun ada error
       }

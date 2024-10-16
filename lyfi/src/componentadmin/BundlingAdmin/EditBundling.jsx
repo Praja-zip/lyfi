@@ -24,13 +24,12 @@ const EditBundling = ({
   setSelectedProducts,
   selectedProducts,
   fotoBundle,
-  setFotoBundle
+  setFotoBundle,
+  setFotoBundleFromServer,
+  fotoBundleFromServer
 }) => {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [showNotification, setShowNotification] = useState(false); 
-  const handleRemoveServerFoto = (index) => {
-    setFotoBundle((prevFiles) => prevFiles.filter((_, i) => i !== index));
-  };
 
   const handleRemoveFile = (index, e) => {
     e.preventDefault();
@@ -38,6 +37,10 @@ const EditBundling = ({
     setSelectedFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
     setFotoPreview((prevPreview) => prevPreview.filter((_, i) => i !== index));
     console.log(`Foto ${fileName} berhasil dihapus`);
+  };
+
+  const handleRemoveServerFoto = (index) => {
+    setFotoBundleFromServer((prevFiles) => prevFiles.filter((_, i) => i !== index));
   };
 
   const handleFormSubmit = async (e) => {
@@ -157,7 +160,7 @@ const EditBundling = ({
             </label>
             
               <div className="image-preview mt-4 d-flex flex-wrap">
-              {fotoBundle.map((foto, index) => (
+              {fotoBundleFromServer.map((foto, index) => (
             <div key={index} className="position-relative me-3 mb-3">
               <button
                 type="button"
@@ -189,6 +192,7 @@ const EditBundling = ({
               />
             </div>
           ))}
+
               
 
             {fotoPreview.map((preview, index) => (

@@ -88,7 +88,7 @@
   .custom-container-product {
    
     min-height: 250px;
-    max-height: 250px;
+    max-height: 280px;
     margin: 0; /* Center the cards */
   }
 
@@ -154,8 +154,7 @@
     margin-bottom: 5px; /* Reduce margin */
   }
 
-  .custom-card-body p.nama-product {
-    font-size: 0rem; /* Adjust font size */
+  .custom-card-body p.nama-product { 
     margin: 0;
   }
 
@@ -187,7 +186,7 @@
   .custom-container-product {
 
     min-height: 250px;
-    max-height: 250px;
+    max-height: 280px;
     margin: 0;
     margin-left: 0rem; /* Center the cards */
   }

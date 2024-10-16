@@ -33,10 +33,11 @@ Route::middleware('admin.auth')->group(function () {
     Route::delete('master-products/{id}', [MasterProductController::class, 'destroy'])->name('master-products.destroy');
     Route::get('chartdata', [MasterProductController::class, 'chartdata']);
     Route::get('count-products', [HitungProdukController::class, 'countProducts']);
+    Route::get('count', [MasterProductController::class, 'count'])->name('master-products.count');
 });
     Route::get('master-products/{id}', [MasterProductController::class, 'show'])->name('master-products.show');
     Route::get('master-products', [MasterProductController::class, 'index'])->name('master-products.index');
-    Route::get('count', [MasterProductController::class, 'count'])->name('master-products.count');
+    
 
 //Produk Bundlings
 Route::middleware('admin.auth')->group(function () {
