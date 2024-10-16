@@ -41,7 +41,7 @@ const ProductList = () => {
 
   const getShortName = (name) => {
     const words = name.split(" ");
-    return words.length > 2 ? `${words.slice(0, 2).join(" ")}...` : name;
+    return words.length > 1 ? `${words.slice(0, 1).join(" ")}...` : name;
   };
 
   const filteredProducts =
@@ -81,7 +81,7 @@ const ProductList = () => {
               alt={product.nama_produk}
             />
             <div className="custom-card-body">
-              <h3>{product.kategori[0]}</h3>
+              <h3>{getShortName(product.kategori[0])}</h3>
               <p className="nama-product">
                 {getShortName(product?.nama_produk || "...", 2)}
               </p>

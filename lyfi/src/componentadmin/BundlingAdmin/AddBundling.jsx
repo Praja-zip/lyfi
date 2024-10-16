@@ -22,7 +22,7 @@ const AddBundling = ({
   selectedFiles,
 }) => {
   const [fotoPreview, setFotoPreview] = useState([]);
-  const [showNotification, setShowNotification] = useState(false); // Notifikasi
+  const [showNotification, setShowNotification] = useState(false);
 
   const handleFotoChange = (e) => {
     const files = Array.from(e.target.files);
@@ -41,13 +41,12 @@ const AddBundling = ({
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    handleSubmit(); // Memanggil fungsi submit yang sudah ada
+    handleSubmit(); 
 
-    // Tampilkan notifikasi setelah submit
     setShowNotification(true);
     setTimeout(() => {
-      setShowNotification(false); // Notifikasi hilang setelah beberapa detik
-    }, 3000); // Durasi notifikasi 3 detik
+      setShowNotification(false); 
+    }, 3000); 
 
     // Reset semua state setelah submit
     setNamaBundle("");

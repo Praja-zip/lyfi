@@ -7,12 +7,12 @@ import Loading from "../Loading/LoadingBlack"; // Impor komponen Loading
 const ProductList = () => {
   const getShortName = (name) => {
     const words = name.split(" ");
-    return words.length > 2 ? `${words.slice(0, 2).join(" ")}...` : name;
+    return words.length > 1 ? `${words.slice(0, 1).join(" ")}...` : name;
   };
 
   const [bundling, setBundling] = useState([]);
   const [loading, setLoading] = useState(true); // Tambahkan state untuk loading
-
+  
   useEffect(() => {
     const fetchBundling = async () => {
       try {
@@ -28,21 +28,20 @@ const ProductList = () => {
     };
     fetchBundling();
   }, []);
-
+  
   if (loading) {
     return <Loading />; // Tampilkan loading jika data sedang di-fetch
   }
-
+  
   return (
-    <div className="custom-grid" style={{width: "70%"}}>
+    <div className="custom-grid" style={{ width: "90%" }}>
       {bundling.map((bundle) => (
-        <div key={bundle.id} className="custom-container-product" >
+        <div key={bundle.id} className="custom-container-product">
           <img
             src={`http://127.0.0.1:8000/${bundle.foto_bundle[0]}`}
             alt={bundle.nama_bundle}
           />
           <div className="custom-card-body">
-            <h3>{bundle.nama_bundle}</h3>
             <p className="nama-product">{getShortName(bundle.nama_bundle)}</p>
             <p>{bundle.harga_bundle}</p>
           </div>
