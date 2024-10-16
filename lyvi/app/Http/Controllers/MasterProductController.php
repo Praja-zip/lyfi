@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Master_product;
+use App\Models\Master_produk_bundling;
 use App\Models\Produk_bundling;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -119,8 +120,8 @@ public function update(Request $request, $id)
         $uploadedImages = [];
         foreach ($request->file('foto_produk') as $gambar) {
             $nama_gambar = time() . rand(1, 9) . '.' . $gambar->getClientOriginalExtension();
-            $gambar->storeAs('public/images', $nama_gambar); // Penyimpanan di 'public/images'
-            $uploadedImages[] = 'images/' . $nama_gambar; // Simpan path gambar yang baru
+            Storage::disk('public')->put('images/' . $nama_gambar, file_get_contents($gambar)); 
+            $uploadedImages[] = 'storage/images/' . $nama_gambar; // Simpan path gambar yang baru
         }
 
         // Gabungkan gambar baru dengan gambar yang ada
@@ -253,45 +254,52 @@ public function show($id)
 }
 
 public function destroy($id)
-    {
-        try {
-            // Cari produk berdasarkan id
-            $product = Master_product::find($id);
-            if (!$product) {
-                return response()->json([
-                    'message' => 'Product not found'
-                ], 404);
-            }
-    
-            $photos = json_decode($product->foto_produk);
-    
-            // Hapus foto produk dari storage jika ada
-            if (!empty($photos)) {
-                foreach ($photos as $foto) {
-                    // Menghapus file dari storage
-                    if (Storage::exists($foto)) {
-                        Storage::delete($foto);
-                    }
-                }
-            }
-    
-            $product->delete();
-
-            // Kembalikan respon sukses
+{
+    try {
+        // Cari produk berdasarkan id
+        $product = Master_product::find($id);
+        if (!$product) {
             return response()->json([
-                'message' => 'Product deleted successfully'
-            ], 200);
-        } catch (\Exception $e) {
-            // Tangani kesalahan
-            return response()->json([
-                'message' => 'Error deleting product',
-                'error' => $e->getMessage()
-            ], 500);
+                'message' => 'Product not found'
+            ], 404);
         }
 
-        
-        
+        // Periksa apakah produk ini digunakan dalam tabel master_produk_bundlings
+        $isBundled = Master_produk_bundling::where('id_produk_master', $id)->exists();
 
+        if ($isBundled) {
+            return response()->json([
+                'message' => 'Tidak bisa mengahapus product, karena bagian dari bundling'
+            ], 400); // 400 Bad Request, karena logika ini merupakan client error
+        }
+
+        // Hapus foto produk dari storage jika ada
+        $photos = json_decode($product->foto_produk);
+        if (!empty($photos)) {
+            foreach ($photos as $foto) {
+                // Menghapus file dari storage
+                if (Storage::exists($foto)) {
+                    Storage::delete($foto);
+                }
+            }
+        }
+
+        // Hapus produk
+        $product->delete();
+
+        // Kembalikan respon sukses
+        return response()->json([
+            'message' => 'Product deleted successfully'
+        ], 200);
+
+    } catch (\Exception $e) {
+        // Tangani kesalahan
+        return response()->json([
+            'message' => 'Error deleting product',
+            'error' => $e->getMessage()
+        ], 500);
     }
+}
+
 
 }

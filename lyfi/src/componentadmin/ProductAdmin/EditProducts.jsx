@@ -243,7 +243,7 @@ const EditProducts = ({
               </button>
               <img
                 src={`http://127.0.0.1:8000/${foto}`} // Menampilkan foto dari server
-                alt={`Foto Bundle ${index}`}
+                alt={`Foto Produk ${index}`}
                 style={{
                   width: "100%",
                   borderRadius: "10px",
