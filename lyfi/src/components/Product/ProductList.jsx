@@ -39,11 +39,6 @@ const ProductList = () => {
     fetchProducts();
   }, [token]);
 
-  const getShortName = (name) => {
-    const words = name.split(" ");
-    return words.length > 1 ? `${words.slice(0, 1).join(" ")}...` : name;
-  };
-
   const filteredProducts =
     selectedCategory === "All"
       ? allProducts
@@ -56,7 +51,7 @@ const ProductList = () => {
   }
 
   return (
-    <div className="container ">
+    <div className="container">
       {/* Filter */}
       <div className="my-3 button-container d-flex justify-content-center">
         {categories.map((category, index) => (
@@ -81,11 +76,14 @@ const ProductList = () => {
               alt={product.nama_produk}
             />
             <div className="custom-card-body">
-              <h3>{getShortName(product.kategori[0])}</h3>
-              <p className="nama-product">
-                {getShortName(product?.nama_produk || "...", 2)}
+              <h3>{product.kategori[0] || "..."}</h3>
+              <p className="nama-product">{product?.nama_produk || "..."}</p>
+              <p>
+                {new Intl.NumberFormat("id-ID", {
+                  style: "currency",
+                  currency: "IDR",
+                }).format(product?.harga_produk || 0)}
               </p>
-              <p>{product.harga_produk}</p>
             </div>
             <Link
               to={`/infoproduct/${product.id}`}

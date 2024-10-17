@@ -8,6 +8,13 @@
   margin-top: -5rem;
   overflow: hidden;
 }
+.custom-card-body .nama-produk, h3 {
+  white-space: nowrap; /* Mencegah teks membungkus ke baris berikutnya */
+  overflow: hidden; /* Sembunyikan bagian teks yang berlebih */
+  text-overflow: ellipsis; /* Tambahkan titik-titik pada teks yang terpotong */
+  width: 100%; /* Atur lebar sesuai kebutuhan */
+  max-width: 100%; /* Pastikan tidak melebihi lebar kontainer */
+}
 
 .product-header {
   width: 100%;
@@ -111,7 +118,6 @@
   margin: 0 auto;
   justify-content: center;
 }
-
 
 .custom-container-product img {
   width: 100%;

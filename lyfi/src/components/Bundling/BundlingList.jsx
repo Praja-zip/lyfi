@@ -42,8 +42,11 @@ const ProductList = () => {
             alt={bundle.nama_bundle}
           />
           <div className="custom-card-body">
-            <p className="nama-product">{getShortName(bundle.nama_bundle)}</p>
-            <p>{bundle.harga_bundle}</p>
+            <p className="nama-product">{bundle.nama_bundle || "..."}</p>
+            {new Intl.NumberFormat("id-ID", {
+              style: "currency",
+              currency: "IDR",
+            }).format(bundle?.harga_bundle || 0)}
           </div>
           <Link
             to={`/infobundling/${bundle.id}`}

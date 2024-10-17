@@ -48,26 +48,45 @@ const BundlingTable = ({ products, handleDeleteBundling, loading }) => {
           ) : currentItems.length > 0 ? (
             currentItems.map((product, index) => (
               <tr key={index}>
-                <td className="text-center text-light">{product.nama_bundle}</td>
-                <td className="text-center text-light">{product.harga_bundle}</td>
+                <td className="text-center text-light">
+                  {product.nama_bundle}
+                </td>
+                <td className="text-center text-light">
+                  {new Intl.NumberFormat("id-ID", {
+                    style: "currency",
+                    currency: "IDR",
+                  }).format(product?.harga_bundle || 0)}
+                </td>
                 <td className="text-center text-light" style={{ width: "40%" }}>
-                  {product.detail_bundle.split(" ").slice(0, 5).join(" ") + "..."}
+                  {product.detail_bundle.split(" ").slice(0, 5).join(" ") +
+                    "..."}
                 </td>
                 <td className="text-center">
                   <img
                     src={`http://127.0.0.1:8000/${product.foto_bundle[0]}`}
                     alt={product.nama_bundle}
-                    style={{ width: "80px", height: "80px" }}
+                    style={{
+                      width: "80px",
+                      height: "80px",
+                      objectFit: "cover",
+                      borderRadius: "8px",
+                    }}
                   />
                 </td>
-                <td className="text-center" style={{ width: "20%" }}>
-                  <Link to={`/admin/editbundling/${product.id}`}>
-                    <Button className="button-aksi" size="sm">
+                <td className="text-center d-flex align-items-center justify-content-center" style={{ width: "100%", height: "6.5rem" }}>
+                  <Link
+                    to={`/admin/editbundling/${product.id}`}
+                    className="mx-1 text-decoration-none"
+                  >
+                    <Button
+                      className="button-aksi d-flex align-items-center justify-content-center"
+                      size="sm"
+                    >
                       <i className="fa-regular fa-pen-to-square"></i>
                     </Button>
                   </Link>
                   <Button
-                    className="button-aksi"
+                    className="button-aksi d-flex align-items-center justify-content-center"
                     size="sm"
                     onClick={() => handleDeleteBundling(product)}
                   >

@@ -9,8 +9,8 @@ import "./../../componentadmin/ProductAdmin/AddProduct.css";
 import axios from "axios";
 import Loading from "../../components/Loading/Loading";
 import DeleteProducts from "../../componentadmin/ProductAdmin/DeleteProducts";
+
 const ProductAdmin = () => {
-  
   const navigate = useNavigate();
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [allProducts, setAllProducts] = useState([]);
@@ -41,15 +41,27 @@ const ProductAdmin = () => {
       console.log("Product deleted:", response.data);
       setAllProducts(allProducts.filter((product) => product.id !== id));
     } catch (error) {
-      if (error.status === 401){
-        navigate('/login');
+      if (error.status === 401) {
+        navigate("/login");
       }
       console.error("Error deleting product:", error);
-      console.log("error nih", error.response.data.message);
-      setMessage(error.response.data.message)
+      console.log("error bro", error.response.data.message);
+      setMessage(error.response.data.message);
       setShowNotification(true);
     }
   };
+
+  // Effect untuk menghilangkan notifikasi setelah 3 detik
+  useEffect(() => {
+    if (showNotification) {
+      const timer = setTimeout(() => {
+        setShowNotification(false);
+      }, 3000); // Menghilangkan notifikasi setelah 3 detik
+
+      return () => clearTimeout(timer); // Bersihkan timer saat komponen di-unmount atau notifikasi berubah
+    }
+  }, [showNotification]);
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -66,6 +78,7 @@ const ProductAdmin = () => {
       window.removeEventListener("load", handlePageLoad);
     };
   }, []);
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -80,8 +93,8 @@ const ProductAdmin = () => {
         console.log(response);
         setAllProducts(response.data.data);
       } catch (error) {
-        if (error.status === 401){
-          navigate('/login');
+        if (error.status === 401) {
+          navigate("/login");
         }
         console.error("Error fetching products:", error);
       }
@@ -110,10 +123,10 @@ const ProductAdmin = () => {
               <div className="main-content">
                 <Header />
                 {showNotification && (
-                    <div className="notification-popup">
-                      <p className="notification-message">{message}</p>
-                    </div>
-                  )}
+                  <div className="w-50" style={{ margin: "0 auto" }}>
+                    <p className="alert alert-danger">{message}</p>
+                  </div>
+                )}
 
                 <div className="container-productadmin d-flex">
                   <Link

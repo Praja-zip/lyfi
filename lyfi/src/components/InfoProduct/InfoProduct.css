@@ -141,25 +141,7 @@
   border: 1px solid rgb(255, 255, 255);
   background-color: black;
 }
-.scroll-up-button {
-  display: block;
-  background-color: none;
-  border: 1px solid black;
-  color: black;
-  padding: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 3rem;
-  height: 3rem;
-  border-radius: 50%;
-}
-
-.scroll-up-button:hover {
-  border: 1px solid black;
-}
+.scroll-up-button,
 .scroll-down-button {
   display: block;
   background-color: none;
@@ -174,10 +156,20 @@
   width: 3rem;
   height: 3rem;
   border-radius: 50%;
+  transition: all 0.3s ease; /* Animasi smooth */
 }
 
+.scroll-up-button:hover,
 .scroll-down-button:hover {
-  border: 1px solid black;
+  background-color: black;
+  color: white;
+  transform: translateY(-5px); /* Animasi hover naik */
+}
+
+.scroll-up-button:active,
+.scroll-down-button:active {
+  transform: scale(0.95); /* Animasi klik mengecil */
+  transition: transform 0.1s ease; /* Kecepatan animasi klik */
 }
 
 @media (max-width: 430px) {
@@ -208,4 +200,203 @@
   .price-info a {
     font-size: 0.6rem;
   }
+}
+/* From Uiverse.io by Yaya12085 */
+.Btn-Facebook {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 45px;
+  height: 45px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition-duration: 0.3s;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+  background-color: rgb(150, 138, 80);;
+}
+
+/* plus sign */
+.sign-Facebook {
+  width: 100px;
+  transition-duration: 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+/* text */
+.text-Facebook {
+  position: absolute;
+  right: 0%;
+  width: 0%;
+  opacity: 0;
+  color: white;
+  font-size: 10px;
+  font-weight: 600;
+  transition-duration: 0.3s;
+}
+
+/* hover effect on button width */
+.Btn-Facebook:hover {
+  width: 170px;
+  border-radius: 40px;
+  transition-duration: 0.3s;
+  background-color: rgb(150, 138, 80);;
+}
+
+.Btn-Facebook:hover .sign-Facebook {
+  width: 30%;
+  transition-duration: 0.3s;
+  padding-left: 10px;
+}
+
+/* hover effect button's text */
+.Btn-Facebook:hover .text-Facebook {
+  opacity: 1;
+  width: 80%;
+  transition-duration: 0.3s;
+  padding-right: 10px;
+}
+
+/* button click effect */
+.Btn-Facebook:active {
+  transform: translate(2px, 2px);
+}
+.Btn-sharelink {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 45px;
+  height: 45px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition-duration: 0.3s;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+  background-color: rgb(150, 138, 80);
+}
+
+/* plus sign */
+.sign-sharelink {
+  width: 100px;
+  transition-duration: 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+/* text */
+.text-sharelink {
+  position: absolute;
+  right: 0%;
+  width: 0%;
+  opacity: 0;
+  color: white;
+  font-size: 10px;
+  font-weight: 600;
+  transition-duration: 0.3s;
+}
+
+/* hover effect on button width */
+.Btn-sharelink:hover {
+  width: 120px;
+  border-radius: 40px;
+  transition-duration: 0.3s;
+  background-color: rgb(150, 138, 80);
+}
+
+.Btn-sharelink:hover .sign-sharelink {
+  width: 30%;
+  transition-duration: 0.3s;
+  padding-left: 10px;
+}
+
+/* hover effect button's text */
+.Btn-sharelink:hover .text-sharelink {
+  opacity: 1;
+  width: 80%;
+  transition-duration: 0.3s;
+  padding-right: 10px;
+}
+
+/* button click effect */
+.Btn-sharelink:active {
+  transform: translate(2px, 2px);
+}
+.Btn-instagram {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 45px;
+  height: 45px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition-duration: 0.3s;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+  background-color: rgb(150, 138, 80);;
+}
+
+/* plus sign */
+.sign-instagram {
+  width: 100px;
+  transition-duration: 0.3s;
+  display: flex;
+  align-items: center;
+  color: white;
+  justify-content: center;
+}
+
+.sign-instagram svg {
+  width: 30px;
+}
+
+.sign-instagram svg path {
+  fill: white;
+}
+
+/* text */
+.text-instagram {
+  position: absolute;
+  right: 0%;
+  width: 0%;
+  opacity: 0;
+  color: white;
+  font-size: 10px;
+  font-weight: 600;
+  transition-duration: 0.3s;
+}
+
+/* hover effect on button width */
+.Btn-instagram:hover {
+  width: 150px;
+  border-radius: 40px;
+  transition-duration: 0.3s;
+  background-color: rgb(150, 138, 80);;
+}
+
+.Btn-instagram:hover .sign-instagram {
+  width: 30%;
+  transition-duration: 0.3s;
+  padding-left: 10px;
+}
+
+/* hover effect button's text */
+.Btn-instagram:hover .text-instagram {
+  opacity: 1;
+  width: 80%;
+  transition-duration: 0.3s;
+  padding-right: 10px;
+}
+
+/* button click effect */
+.Btn-instagram:active {
+  transform: translate(2px, 2px);
 }

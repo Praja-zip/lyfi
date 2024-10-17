@@ -87,7 +87,12 @@ const DetailBundling = ({ bundling }) => {
                   <p className="product-name fw-semibold">
                     {product.nama_produk}
                   </p>
-                  <p className="product-price">Rp.{product.harga}</p>
+                  <p className="product-price">
+                    {new Intl.NumberFormat("id-ID", {
+                      style: "currency",
+                      currency: "IDR",
+                    }).format(product?.harga || 0)}
+                  </p>
                   <Link
                     to={`/infoproduct/${product.id}`}
                     className="information-link mt-5"
@@ -147,13 +152,29 @@ const DetailBundling = ({ bundling }) => {
         <p className="bagikan-produk">
           Bagikan Produk ini
           <span>
-            <i
-              className="fa-solid fa-share-nodes me-3"
-              onClick={copyLink}
-              style={{ cursor: "pointer" }}
-            ></i>
-            <i className="fa-brands fa-instagram me-3"></i>
-            <i className="fa-brands fa-whatsapp"></i>
+            <div className="button-container-sosmed d-flex">
+              <button class="Btn-sharelink me-2" onClick={copyLink}>
+                <div class="sign-sharelink">
+                  <i class="fa-solid fa-share-nodes"></i>
+                </div>
+
+                <div class="text-sharelink">Salin Link</div>
+              </button>
+              <button class="Btn-instagram me-2">
+                <div class="sign-instagram">
+                  <i class="fa-brands fa-instagram"></i>
+                </div>
+
+                <div class="text-instagram">Kunjungi Kami</div>
+              </button>
+              <button class="Btn-Facebook">
+                <div class="sign-Facebook">
+                  <i class="fa-brands fa-whatsapp"></i>
+                </div>
+
+                <div class="text-Facebook">Kirim Pesan ke kami</div>
+              </button>
+            </div>
           </span>
         </p>
       </div>

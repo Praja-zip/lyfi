@@ -6,19 +6,25 @@ import axios from "axios";
 const Product = () => {
   const containerRef = useRef(null);
   const [allProducts, setAllProducts] = useState([]);
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     const fetchProduk = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:8000/api/master-products", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axios.get(
+          "http://127.0.0.1:8000/api/master-products",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         setAllProducts(response.data.data);
       } catch (error) {
-        console.error("Error fetching products:", error.response ? error.response.data.message : error.message);
+        console.error(
+          "Error fetching products:",
+          error.response ? error.response.data.message : error.message
+        );
       }
     };
     fetchProduk();
@@ -89,14 +95,25 @@ const Product = () => {
               />
               <div className="card-body mt-2">
                 <h5 className="text-muted fw-semibold">
-                  {truncateText(product?.kategori[0] || "Kategori Tidak Ditemukan", 2)}
+                  {truncateText(
+                    product?.kategori[0] || "Kategori Tidak Ditemukan",
+                    2
+                  )}
                 </h5>
-                <p className="card-title fs-5">{truncateText(product.nama_produk, 2)}</p>
+                <p className="card-title fs-5">
+                  {truncateText(product.nama_produk, 2)}
+                </p>
                 <p className="card-text mt-4">
-                  {product.harga_produk}
+                  {new Intl.NumberFormat("id-ID", {
+                    style: "currency",
+                    currency: "IDR",
+                  }).format(product?.harga_produk || 0)}
                 </p>
               </div>
-              <Link to={`/infoproduct/${product.id}`} className="custom-detail-produk">
+              <Link
+                to={`/infoproduct/${product.id}`}
+                className="custom-detail-produk"
+              >
                 <div className="custom-card-footer">Lihat Produk</div>
               </Link>
             </div>

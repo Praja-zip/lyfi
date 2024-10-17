@@ -156,7 +156,6 @@ const AddProduct = ({
             />
           </div>
         </div>
-
         <div className="form-addproduct">
           <div className="addproduct-input row">
             <label htmlFor="kategori">Kategori Produk :</label>
