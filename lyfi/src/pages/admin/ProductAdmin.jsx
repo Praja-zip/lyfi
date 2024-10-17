@@ -48,6 +48,10 @@ const ProductAdmin = () => {
       console.log("error nih", error.response.data.message);
       setMessage(error.response.data.message)
       setShowNotification(true);
+      setTimeout(() => {
+        setShowNotification(false);
+      }, 5000);
+
     }
   };
   const [loading, setLoading] = useState(true);
