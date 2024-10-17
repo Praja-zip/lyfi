@@ -36,7 +36,6 @@ const Dashboard = ({ produk, bundling }) => {
           <div className="col">
             <div
               className="dashboard-card card-custom mb-3"
-              style={{ maxWidth: "540px" }}
             >
               <div className="row g-0">
                 <div className="col-md-4 d-flex align-items-center justify-content-center">
@@ -66,7 +65,6 @@ const Dashboard = ({ produk, bundling }) => {
           <div className="col">
             <div
               className="dashboard-card card-custom mb-3"
-              style={{ maxWidth: "540px" }}
             >
               <div className="row g-0">
                 <div className="col-md-4 d-flex align-items-center justify-content-center">
@@ -96,7 +94,6 @@ const Dashboard = ({ produk, bundling }) => {
           <div className="col">
             <div
               className="dashboard-card card-custom mb-3"
-              style={{ maxWidth: "540px" }}
             >
               <div className="row g-0">
                 <div className="col-md-4 d-flex align-items-center justify-content-center">

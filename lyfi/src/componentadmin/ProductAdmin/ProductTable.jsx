@@ -20,14 +20,12 @@ const ProductTable = ({
     }
   }, [allProducts]);
 
-
   // Memastikan allProducts ada sebelum slicing
   const currentItems =
     allProducts?.slice(
       (currentPage - 1) * itemsPerPage,
       currentPage * itemsPerPage
     ) || [];
-
 
   const totalPages = Math.ceil(allProducts?.length / itemsPerPage) || 1;
 
@@ -68,7 +66,10 @@ const ProductTable = ({
                   {product.nama_produk}
                 </td>
                 <td className="text-center text-light">
-                  {product.harga_produk}
+                  {new Intl.NumberFormat("id-ID", {
+                    style: "currency",
+                    currency: "IDR",
+                  }).format(product?.harga_produk || 0)}
                 </td>
                 <td className="text-center text-light" style={{ width: "40%" }}>
                   {product.detail_produk.split(" ").slice(0, 5).join(" ") +
@@ -81,8 +82,14 @@ const ProductTable = ({
                     style={{ width: "80px", height: "80px" }}
                   />
                 </td>
-                <td className="text-center" style={{ width: "20%" }}>
-                  <Link to={`/admin/editproduct/${product.id}`}>
+                <td
+                  className="text-center d-flex align-items-center justify-content-center"
+                  style={{ width: "100%", height: "6.5rem" }}
+                >
+                  <Link
+                    to={`/admin/editproduct/${product.id}`}
+                    className="text-decoration-none mx-1"
+                  >
                     <Button className="button-aksi" size="sm">
                       <i className="fa-regular fa-pen-to-square"></i>
                     </Button>{" "}

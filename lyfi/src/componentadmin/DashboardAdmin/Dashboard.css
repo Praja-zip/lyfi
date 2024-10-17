@@ -126,7 +126,6 @@
   align-items: center;
   flex-direction: column;
   justify-content: center;
-
   background-color: #ffffff;
   border-radius: 50px 0; /* Border luar warna hitam */
   position: relative;
@@ -205,7 +204,7 @@
   .chart-legend-wrapper{
     display: flex;
     flex-direction: column;
-    width: 10%;
+    width: 100%;
 
   }
   .container-dashboard .card-text {

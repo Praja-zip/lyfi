@@ -23,9 +23,18 @@ const AddBundling = ({
 }) => {
   const [fotoPreview, setFotoPreview] = useState([]);
   const [showNotification, setShowNotification] = useState(false);
+  const [fileLimitNotification, setFileLimitNotification] = useState(false);
+  const maxFiles = 4; // Maximum number of files allowed
 
   const handleFotoChange = (e) => {
     const files = Array.from(e.target.files);
+    if (selectedFiles.length + files.length > maxFiles) {
+      setFileLimitNotification(true); // Show notification if file limit exceeded
+      setTimeout(() => {
+        setFileLimitNotification(false); // Hide after 3 seconds
+      }, 3000);
+      return;
+    }
     setSelectedFiles((prevFiles) => [...prevFiles, ...files]);
     const newPreview = files.map((file) => URL.createObjectURL(file));
     setFotoPreview((prevPreview) => [...prevPreview, ...newPreview]);
@@ -41,22 +50,22 @@ const AddBundling = ({
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    handleSubmit(); 
+    handleSubmit();
 
     setShowNotification(true);
     setTimeout(() => {
-      setShowNotification(false); 
-    }, 3000); 
+      setShowNotification(false);
+    }, 3000);
 
     // Reset semua state setelah submit
     setNamaBundle("");
     setHargaBundle("");
     setDetailBundle("");
-    setProduk([]); // Reset produk
-    setSelectedFiles([]); // Hapus file yang sudah diupload
-    setFotoPreview([]); // Reset preview foto
-    setTokopediaLinkLocal("");
-    setShopeeLinkLocal("");
+    setProduk([]);
+    setSelectedFiles([]);
+    setFotoPreview([]);
+    setTokopediaLink("");
+    setShopeeLink("");
   };
 
   return (
@@ -67,6 +76,7 @@ const AddBundling = ({
             Bundling berhasil ditambahkan!
           </div>
         )}
+
         <div className="header-addproduct">
           <h1>Buat Bundling</h1>
         </div>
@@ -135,6 +145,11 @@ const AddBundling = ({
           </div>
         </div>
         <div className="form-addproduct">
+          {fileLimitNotification && (
+            <div className="alert alert-danger" role="alert">
+              Anda hanya bisa menambahkan maksimal {maxFiles} file/foto.
+            </div>
+          )}
           <div className="addproduct-input row">
             <label htmlFor="addproduct">Foto Bundling :</label>
             <label htmlFor="file" className="custum-file-upload mt-4 ms-4">
@@ -183,7 +198,7 @@ const AddBundling = ({
           </div>
         </div>
         <button
-          onClick={handleSubmit}
+          onClick={handleFormSubmit}
           className="addproduct-save d-flex justify-content-center align-items-center"
         >
           <i className="fa-regular fa-floppy-disk me-2"></i>{" "}

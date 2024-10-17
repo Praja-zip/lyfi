@@ -2,6 +2,7 @@ import React from "react";
 import "./Footer.css";
 import logo from "./../../assets/LandingPage/logomerge.png";
 import "./LandingPage.css";
+import { Link, useLocation } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -18,48 +19,29 @@ const Footer = () => {
           </div>
           <div className="detail">
             <ul className="me-5">
-              <h5>Home</h5>
+              <h5>Our Pages</h5>
               <li>
-                <a href="">Our Product</a>
+                <Link to="/">Home</Link>
               </li>
               <li>
-                <a href="">About the Brand</a>
+                <Link to="/product">Product</Link>
               </li>
               <li>
-                <a href="">Top Categories</a>
-              </li>
-              <li>
-                <a href="">Question</a>
-              </li>
-            </ul>
-            <ul className="me-5">
-              <h5>Product</h5>
-              <li>
-                <a href="">Product</a>
-              </li>
-              <li>
-                <a href="">Product</a>
-              </li>
-              <li>
-                <a href="">Product</a>
-              </li>
-            </ul>
-            <ul className="me-5">
-              <h5>Discount</h5>
-              <li>
-                <a href="">Discount Today</a>
-              </li>
-              <li>
-                <a href="">Bundling</a>
-              </li>
-              <li>
-                <a href="">Voucher</a>
+                <Link to="/bundling">Bundling</Link>
               </li>
             </ul>
             <ul>
               <h5>Contact</h5>
               <li>
-                <a href=""></a>
+                <Link to="/"></Link>
+              </li>
+              <li>
+                <i class="fa-brands fa-instagram me-2"></i>
+                <Link to="/">Instagram</Link>
+              </li>
+              <li>
+                <i class="fa-brands fa-whatsapp me-2"></i>
+                <Link to="/">Whatsapp</Link>
               </li>
             </ul>
           </div>
