@@ -37,19 +37,7 @@ const DashboardAdmin = () => {
   }, [ token]);
 
 
-  const logoutHandler = async () => {
-    try {
-      await axios.post('http://127.0.0.1:8000/api/admin/logout', {}, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-      localStorage.removeItem("token");
-      navigate('/login');
-    } catch (error) {
-      console.error("Error logging out:", error);
-    }
-  }
+ 
 
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
@@ -57,7 +45,7 @@ const DashboardAdmin = () => {
 
   return (
     <div className="dashboardadmin">
-      <Sidebar logoutHandler={logoutHandler} isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+      <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       {!isSidebarOpen && (
         <a href="#" onClick={toggleSidebar} className="open-btn">
           ☰
