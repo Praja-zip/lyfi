@@ -1,8 +1,25 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "./../assets/LandingPage/LYFI.png";
+import axios from "axios";
+const Sidebar = ({ isOpen, toggleSidebar }) => {
+  const navigate = useNavigate();
+  const token = localStorage.getItem('token');
 
-const Sidebar = ({ isOpen, toggleSidebar, logoutHandler }) => {
+  const logoutHandler = async () => {
+    try {
+      await axios.post('http://127.0.0.1:8000/api/admin/logout', {}, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      localStorage.removeItem("token");
+      navigate('/login');
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
+  }
+
   return (
     <nav className={`sidebar ${isOpen ? "open" : "closed"}`}>
       {isOpen && (

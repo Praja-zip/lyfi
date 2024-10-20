@@ -118,7 +118,7 @@ const EditProduct = () => {
     });
 
     fotoProductFromServer.forEach((foto, index) => {
-      formData.append(`existing_foto_bundle[]`, foto); // Nama file/URL foto yang sudah ada
+      formData.append(`existing_foto_produk[]`, foto); // Nama file/URL foto yang sudah ada
     });
 
     console.log([...formData]);
