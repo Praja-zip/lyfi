@@ -4,7 +4,7 @@ import kubik from "./../../assets/icon/kubik.png";
 import user from "./../../assets/icon/user.png";
 import { Link } from "react-router-dom";
 
-const Dashboard = ({ produk, bundling }) => {
+const Dashboard = ({ produk, bundling, visitor }) => {
   const [showNotification, setShowNotification] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -106,7 +106,7 @@ const Dashboard = ({ produk, bundling }) => {
                 </div>
                 <div className="col-md-8 mt-3">
                   <div className="card-body">
-                    <h1 className="card-title">123</h1>
+                    <h1 className="card-title">{ visitor }</h1>
                     <p className="card-text">Total Visitor</p>
                   </div>
                 </div>
