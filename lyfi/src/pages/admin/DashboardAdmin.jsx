@@ -13,6 +13,7 @@ const DashboardAdmin = () => {
   const [user, setUser] = useState({});
   const [produk, setProduk] = useState("");
   const [bundling, setBundling] = useState("");
+  const [visitor, setVisitor] = useState("")
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
   useEffect(() => {
@@ -32,7 +33,26 @@ const DashboardAdmin = () => {
         }
       }
     };
+
+    const fetchVisitor = async () => {
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/visitor-stats`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }  
+        });
+        setVisitor(response.data.nonBotVisitors);
+        console.log(response.data.nonBotVisitors)
+      } catch (error) {
+        console.error("Error fetching visitor:", error);
+        if (error.status === 401){
+          navigate('/login');
+        }
+      }
+    };
+
     fetchCategories();
+    fetchVisitor()
     
   }, [ token]);
 
@@ -54,7 +74,7 @@ const DashboardAdmin = () => {
       <div className={`content ${isSidebarOpen ? "content-open" : "content-closed"}`}>
         <div className="main-content">
           <Header />
-          <Dashboard produk={ produk } bundling={ bundling } />
+          <Dashboard produk={ produk } bundling={ bundling } visitor={ visitor } />
           <DoughnutChart/>
         </div>
       </div>
