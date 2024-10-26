@@ -7,52 +7,36 @@ import "./Navbar.css";
 const Navbar = () => {
   const location = useLocation();
   const [activeNav, setActiveNav] = useState(location.pathname);
-  const [isOffcanvasOpen, setIsOffcanvasOpen] = useState(false); // State to track offcanvas visibility
   const navigate = useNavigate();
+
   const handleNavClick = (path) => {
     setActiveNav(path);
-  };
-
-  const handleRedirect = (e, path) => {
-    e.preventDefault(); // Mencegah reload halaman
-    navigate(path); // Redirect ke path yang diberikan
+    navigate(path);
   };
 
   useEffect(() => {
-    const offcanvasElement = document.getElementById("offcanvasExample");
-
-    const handleOpen = () => setIsOffcanvasOpen(true);
-    const handleClose = () => setIsOffcanvasOpen(false);
-
-    offcanvasElement.addEventListener("show.bs.offcanvas", handleOpen);
-    offcanvasElement.addEventListener("hide.bs.offcanvas", handleClose);
-
-    // Cleanup event listeners on component unmount
-    return () => {
-      offcanvasElement.removeEventListener("show.bs.offcanvas", handleOpen);
-      offcanvasElement.removeEventListener("hide.bs.offcanvas", handleClose);
-    };
-  }, []);
+    setActiveNav(location.pathname); // Update active nav on path change
+  }, [location.pathname]);
 
   return (
     <nav className="navbar navbar-expand-lg bg-transparent">
       <div className="container-fluid">
-        <a className="navbar-brand" href="../">
+        <a className="navbar-brand" href="/">
           <img src={Logo} alt="Logo" />
         </a>
         <button
-          className="navbar-toggler border-none"
+          className="navbar-toggler"
           type="button"
-          data-bs-toggle="offcanvas"
-          data-bs-target="#offcanvasExample"
-          aria-controls="offcanvasExample"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
             <li
               className={`nav-item me-5 ${activeNav === "/" ? "active" : ""}`}
@@ -84,55 +68,6 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-      </div>
-
-      {/* Offcanvas Element */}
-      <div
-        className="offcanvas offcanvas-start"
-        tabIndex="-1"
-        style={{ width: "80%" }}
-        id="offcanvasExample"
-        aria-labelledby="offcanvasExampleLabel"
-      >
-        <div className="offcanvas-header">
-          <h5 className="offcanvas-title" id="offcanvasExampleLabel">
-            <img src={Logo} alt="" />
-          </h5>
-          <button
-            type="button"
-            className="btn-close"
-            data-bs-dismiss="offcanvas"
-            aria-label="Close"
-          ></button>
-        </div>
-
-        {isOffcanvasOpen && (
-          <div className="offcanvas-body">
-            <ul className="offcanvas-link">
-              <li className="offcanvas-nav">
-                <a href="/" onClick={(e) => handleRedirect(e, "/")}>
-                  <button>
-                    <i className="fa-solid fa-home me-3"></i>Home
-                  </button>
-                </a>
-              </li>
-              <li className="offcanvas-nav">
-                <a href="/product" onClick={(e) => handleRedirect(e, "/product")}>
-                  <button>
-                    <i className="fa-solid fa-shopping-cart me-3"></i>Product
-                  </button>
-                </a>
-              </li>
-              <li className="offcanvas-nav">
-                <a href="/bundling" onClick={(e) => handleRedirect(e, "/bundling")}>
-                  <button>
-                    <i className="fa-solid fa-tags me-3"></i>Bundling
-                  </button>
-                </a>
-              </li>
-            </ul>
-          </div>
-        )}
       </div>
     </nav>
   );

@@ -10,7 +10,7 @@ footer {
   margin-top: auto;
 }
 footer .main {
-  width: 20%;
+  width: 40%;
   text-align: left;
 }
 footer .detail ul {
@@ -54,6 +54,10 @@ footer .detail ul li a {
   }
   .main img {
     margin-left: -2rem;
+  }
+  footer .main {
+    width: 30%;
+    text-align: left;
   }
 }
 
