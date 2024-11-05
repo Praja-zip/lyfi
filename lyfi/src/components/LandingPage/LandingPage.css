@@ -36,7 +36,7 @@
 
 .detail-home h1 {
   font-family: "Prata", serif;
-  font-size: 5rem;
+  font-size: 5vw;
   text-align: left;
   margin-left: 10rem;
 }
@@ -277,9 +277,10 @@
     margin-left: 0;
     display: inline;
   }
-  .container-about p {
+  .container-about .text p {
     width: 100%;
     margin: 0 auto;
+    font-size: 3vw;
   }
   .container-about {
     width: 90%;
@@ -300,9 +301,6 @@
   }
 }
 @media only screen and (max-width: 430px) {
-  .container-about .text p {
-    font-size: 0.8rem;
-  }
   .container-about img {
     width: 10rem;
   }
