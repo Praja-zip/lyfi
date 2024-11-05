@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Loading from "../../components/Loading/Loading";
-import userPhoto from "./../../assets/user.png";
+// import userPhoto from "./../../assets/user.png";
 
 const SettingProfile = () => {
     const [loading, setLoading] = useState(true);
