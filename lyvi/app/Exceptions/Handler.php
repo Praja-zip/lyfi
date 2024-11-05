@@ -47,4 +47,16 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    public function render($request, Throwable $exception)
+{
+    if ($exception instanceof \Illuminate\Http\Exceptions\ThrottleRequestsException) {
+        return response()->json([
+            'message' => 'Terlalu banyak permintaan, silakan coba beberapa saat lagi.',
+        ], 429);
+    }
+
+    return parent::render($request, $exception);
+}
+
 }
