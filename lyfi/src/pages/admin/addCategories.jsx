@@ -45,7 +45,6 @@ const AddCategoriesAdmin = () => {
         }
       );
 
-      console.log(response.data);
       setSuccess(true); // Show success feedback
       setCategory(""); // Clear the input field
     } catch (error) {

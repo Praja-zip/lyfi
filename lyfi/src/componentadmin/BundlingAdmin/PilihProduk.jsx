@@ -6,7 +6,6 @@ const PilihProduk = ({ allProducts,
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
 
-  console.log("ini dari table", allProducts);
 
   // Pastikan allproducts ada sebelum slicing
   const currentItems = allProducts?.slice(
@@ -15,7 +14,6 @@ const PilihProduk = ({ allProducts,
   ) || [];
 
   const totalPages = Math.ceil(allProducts?.length / itemsPerPage) || 1;
-  console.log(totalPages);
 
   const handlePageChange = (pageNumber) => {
     if (pageNumber > 0 && pageNumber <= totalPages) {

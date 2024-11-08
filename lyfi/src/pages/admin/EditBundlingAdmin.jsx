@@ -62,9 +62,6 @@ const EditBundlingAdmin = () => {
       formData.append(`pilih_produk[${index}]`, prod);
     });
 
-    console.log([...formData]);
-    console.log(tokopediaLink)
-
     try {
       const response = await axios.post(
         `http://127.0.0.1:8000/api/produk-bundlings/${id}`,
@@ -76,7 +73,7 @@ const EditBundlingAdmin = () => {
           },
         }
       );
-      console.log("Bundling updated:", response.data);
+      console.log("Bundling updated");
       // Redirect to the bundling list after success
       navigate("/admin/bundlingadmin");
     } catch (error) {
@@ -119,7 +116,6 @@ const EditBundlingAdmin = () => {
           }
         );
         const bundlingData = response.data.bundling;
-        console.log(response.data.bundling)
         setNamaBundle(bundlingData.nama_bundle);
         setHargaBundle(bundlingData.harga_bundle);
         setDetailBundle(bundlingData.detail_bundle);

@@ -48,9 +48,9 @@ const AddBundling = ({
     console.log(`Foto ${fileName} berhasil dihapus`);
   };
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    handleSubmit();
+    await handleSubmit();
 
     setShowNotification(true);
     setTimeout(() => {

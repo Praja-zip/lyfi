@@ -38,7 +38,7 @@ const ProductAdmin = () => {
       );
       setMessage("Produk berhasil dihapus");
       setShowNotification(true);
-      console.log("Product deleted:", response.data);
+      console.log("Product deleted");
       setAllProducts(allProducts.filter((product) => product.id !== id));
     } catch (error) {
       if (error.status === 401) {
@@ -90,7 +90,6 @@ const ProductAdmin = () => {
             },
           }
         );
-        console.log(response);
         setAllProducts(response.data.data);
       } catch (error) {
         if (error.status === 401) {

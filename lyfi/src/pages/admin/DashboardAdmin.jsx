@@ -41,8 +41,7 @@ const DashboardAdmin = () => {
             'Authorization': `Bearer ${token}`
           }  
         });
-        setVisitor(response.data.nonBotVisitors);
-        console.log(response.data.nonBotVisitors)
+        setVisitor(response.data.nonBotVisitors);  
       } catch (error) {
         console.error("Error fetching visitor:", error);
         if (error.status === 401){

@@ -30,7 +30,6 @@ const BundlingAdmin = () => {
         );
         setAllBundlings(response.data.bundlings);
         setLoading(false);
-        console.log(response.data);
       } catch (error) {
         if (error.status === 401){
           navigate('/login');
@@ -52,7 +51,7 @@ const BundlingAdmin = () => {
       );
       setMessage("Bundling berhasil dihapus");
       setShowNotification(true);
-      console.log("Product deleted:", response.data);
+      console.log("Product deleted");
       setAllBundlings(allBundlings.filter((bundling) => bundling.id !== id));
     } catch (error) {
       if (error.status === 401){

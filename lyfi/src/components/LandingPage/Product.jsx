@@ -30,7 +30,6 @@ const Product = () => {
     fetchProduk();
   }, [token]);
 
-  console.log(allProducts);
   const scrollLeft = () => {
     if (containerRef.current) {
       containerRef.current.scrollBy({

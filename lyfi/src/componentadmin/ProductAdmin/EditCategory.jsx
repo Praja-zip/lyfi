@@ -7,7 +7,6 @@ const EditCategories = ({ category, setCategory, handleSubmit }) => {
 
   const onSubmit = () => {
     console.log("Submit button clicked");
-    console.log("Category value:", category);
 
     handleSubmit(); 
 

@@ -74,7 +74,7 @@ const AddBundlingAdmin = () => {
           },
         }
       );
-      // console.log("Bundling created:", response.data);
+    
       navigate("/admin/bundlingadmin");
       
       // Reset form after success
@@ -94,10 +94,6 @@ const AddBundlingAdmin = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await uploadBundling();
-  };
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -119,7 +115,7 @@ const AddBundlingAdmin = () => {
       <div className={`content ${isSidebarOpen ? "content-open" : "content-closed"}`}>
         <div className="main-content">
           <AddBundling
-            handleSubmit={handleSubmit}
+            handleSubmit={ uploadBundling }
             produk={produk}
             setProduk={setProduk}
             namaBundle={namaBundle}

@@ -37,7 +37,7 @@ const Category = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("Category deleted:", response.data);
+      console.log("Category deleted");
       setAllCategories(allCategories.filter((category) => category.id !== id));
       setDeleteCategory({ show: false, category: null });
     } catch (error) {

@@ -24,7 +24,6 @@ const EditCategoriesAdmin = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
         setCategory(response.data.data.nama_kategori);
-        console.log(response.data.data.nama_kategori);
       } catch (error) {
         if (error.status === 401){
           navigate('/login');
@@ -38,7 +37,6 @@ const EditCategoriesAdmin = () => {
 
   const handleSubmit = async () => {
     const item = { nama_kategori }; // Data yang akan dikirim
-    console.log(item);
 
     try {
       const response = await axios.put( // Menggunakan PUT untuk update
@@ -53,7 +51,6 @@ const EditCategoriesAdmin = () => {
         }
       );
 
-      console.log(response.data);
       window.location.reload(); // Refresh halaman setelah sukses
     } catch (error) {
       if (error.status === 401){

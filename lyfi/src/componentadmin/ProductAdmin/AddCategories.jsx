@@ -9,7 +9,6 @@ const AddCategories = ({ category, setCategory, handleSubmit }) => {
     e.preventDefault();
     await handleSubmit();
     console.log("Submit button clicked");
-    console.log("Category value:", category);
 
     // Langsung memunculkan notifikasi tanpa handleSubmit
     setMessage("Kategori berhasil ditambahkan!!");

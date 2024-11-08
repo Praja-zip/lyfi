@@ -32,7 +32,6 @@ const Register = () => {
       }
 
       const data = await response.json();
-      console.log(data);
 
       // Store user info in localStorage
       localStorage.setItem("user-info", JSON.stringify(data));

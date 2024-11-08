@@ -20,9 +20,7 @@ const DoughnutChart = () => {
           }
         });
         setCategoryData(response.data.categories);
-        console.log(response.data.categories)
       } catch (error) {
-        console.log("Error Fetching Data", error);
         if (error.status === 401){
           navigate('/login');
         }

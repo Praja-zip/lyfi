@@ -10,7 +10,6 @@ import ImageBundling from "../components/infoBundling/ImageBundling";
 
 const InfoBundling = () => {
   const { id } = useParams();
-  console.log("ini adlaah bundling", id)
   const [loading, setLoading] = useState(true);
   const [bundling, setBundling] = useState({}); 
   const token = localStorage.getItem("token");
@@ -24,7 +23,7 @@ const InfoBundling = () => {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
-        console.log("ini dari info bundling",response.data.bundling); // Gunakan 'data' sesuai dengan respons dari server
+      
         setBundling(response.data.bundling);
       } catch (error) {
         console.error("Error fetching product:", error);

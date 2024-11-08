@@ -58,7 +58,6 @@ const EditProduct = () => {
           value: productData.kategori[0].id, // Asumsi kategori adalah array
           label: productData.kategori[0].nama_kategori,
         });
-        console.log(response.data.data);
         setLoading(false); // Set loading ke false setelah data produk berhasil diambil
       } catch (error) {
         if (error.status === 401 || error.message === "Unauthorized"){
@@ -120,8 +119,6 @@ const EditProduct = () => {
     fotoProductFromServer.forEach((foto, index) => {
       formData.append(`existing_foto_produk[]`, foto); // Nama file/URL foto yang sudah ada
     });
-
-    console.log([...formData]);
 
     try {
       await axios.post(
