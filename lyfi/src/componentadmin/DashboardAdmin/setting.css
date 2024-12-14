@@ -1,0 +1,186 @@
+/* Styling container utama */
+.setting-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(
+    90deg,
+    rgba(180, 171, 124, 1) 0%,
+    rgba(179, 167, 124, 1) 35%,
+    rgba(207, 193, 144, 1) 51%,
+    rgba(179, 167, 124, 1) 63%,
+    rgba(176, 158, 124, 1) 100%
+  );
+  padding: 1rem;
+}
+
+/* Styling form utama */
+.setting-form {
+  background-color: white;
+  width: 100%;
+  max-width: 600px;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.setting-form h1 {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.setting-form hr {
+  border: none;
+  border-top: 2px solid #ddd;
+  margin: 1rem 0;
+}
+
+/* Styling bagian pengaturan gambar */
+.form-setting {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.form-setting img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #ccc;
+}
+.custom-file-uploadd {
+  background-color: #b2a778;
+}
+.custom-file-upload {
+  background-color: red;
+}
+.custom-file-uploadd,
+.custom-file-upload {
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 0.9rem;
+  width: auto;
+}
+
+.custom-file-uploadd:hover,
+.custom-file-upload:hover {
+  background-color: #695c3f;
+}
+
+#file-upload {
+  display: none;
+}
+
+/* Styling form input */
+.form-addproduct {
+  display: flex;
+  flex-direction: column;
+  gap: 0rem;
+}
+
+.addproduct-input {
+  display: flex;
+  flex-direction: column;
+  gap: 0rem;
+}
+
+.addproduct-input label {
+  font-size: 1rem;
+  color: #555;
+}
+
+.addproduct-input input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.addproduct-input input:focus {
+  border-color: #b2a778;
+}
+
+/* Tombol submit */
+.setting-form .submit-button {
+  background-color: #b2a778;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 1.5rem;
+  transition: background-color 0.3s;
+  width: auto;
+}
+
+.setting-form .submit-button:hover {
+    background-color: #70694a;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .setting-form {
+    width: 90%;
+    padding: 1.5rem;
+  }
+
+  .form-setting img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .setting-form h1 {
+    font-size: 1.25rem;
+  }
+
+  .addproduct-input input {
+    font-size: 0.9rem;
+    padding: 0.5rem;
+  }
+
+  .custom-file-uploadd,
+  .custom-file-upload,
+  .setting-form .submit-button {
+    font-size: 0.8rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .setting-form {
+    padding: 1rem;
+  }
+
+  .form-setting img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .addproduct-input label {
+    font-size: 0.9rem;
+  }
+
+  .addproduct-input input {
+    font-size: 0.8rem;
+  }
+
+  .custom-file-uploadd,
+  .custom-file-upload,
+  .setting-form .submit-button {
+    font-size: 0.7rem;
+  }
+}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Loading from "../../components/Loading/Loading";
-import userPhoto from "./../../assets/user.png";
+import userPhoto from "./../../assets/logopic.png";
+import "./../../componentadmin/DashboardAdmin/setting.css";
 
 const SettingProfile = () => {
     const [loading, setLoading] = useState(true);
@@ -44,7 +45,7 @@ const SettingProfile = () => {
             ) : (
                 <div className="setting-container">
                     <div className="setting-form">
-                        <h1><i className="fa-solid fa-wrench me-5"></i>Setting</h1>
+                        <h1><i className="fa-solid fa-wrench me-4 judul-setting"></i>Setting</h1>
                         <hr />
                         <div className="form-setting ms-5">
                             <img src={profileImage} alt="User" />
@@ -72,6 +73,7 @@ const SettingProfile = () => {
                                     <input type="text" name="redirect" placeholder="Link" />
                                 </div>
                             </div>
+                                <button type="submit" className="submit-button">Simpan</button>
                         </div>
                     </div>
                 </div>

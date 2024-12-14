@@ -72,8 +72,9 @@ const ProductTable = ({
                   }).format(product?.harga_produk || 0)}
                 </td>
                 <td className="text-center text-light" style={{ width: "40%" }}>
-                  {product.detail_produk.split(" ").slice(0, 5).join(" ") +
-                    "..."}
+                  {product.detail_produk.length > 100
+                    ? product.detail_produk.substring(0, 100) + "..."
+                    : product.detail_produk}
                 </td>
                 <td className="text-center">
                   <img

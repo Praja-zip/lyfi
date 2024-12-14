@@ -126,20 +126,29 @@ const DetailProduct = ({ product }) => {
 
                 <div class="text-sharelink">Salin Link</div>
               </button>
-              <button class="Btn-instagram me-2">
-                <div class="sign-instagram">
-                  <i class="fa-brands fa-instagram"></i>
-                </div>
+              <a
+                href="https://www.instagram.com/lyfi_brightskin?igsh=MWttc3oycHRzNHBucg%3D%3D&utm_source=qr"
+                className="text-decoration-none"
+              >
+                <button class="Btn-instagram me-2">
+                  <div className="sign-instagram">
+                    <i className="fa-brands fa-instagram"></i>
+                  </div>
+                  <div className="text-instagram">Kunjungi Kami</div>
+                </button>
+              </a>
+              <a
+                href="https://wa.me/628112749588"
+                className="text-decoration-none"
+              >
+                <button class="Btn-Facebook">
+                  <div class="sign-Facebook">
+                    <i class="fa-brands fa-whatsapp"></i>
+                  </div>
 
-                <div class="text-instagram">Kunjungi Kami</div>
-              </button>
-              <button class="Btn-Facebook">
-                <div class="sign-Facebook">
-                  <i class="fa-brands fa-whatsapp"></i>
-                </div>
-
-                <div class="text-Facebook">Kirim Pesan ke kami</div>
-              </button>
+                  <div class="text-Facebook">Kirim Pesan ke kami</div>
+                </button>
+              </a>
             </div>
           </span>
         </p>

@@ -58,9 +58,11 @@ const BundlingTable = ({ products, handleDeleteBundling, loading }) => {
                   }).format(product?.harga_bundle || 0)}
                 </td>
                 <td className="text-center text-light" style={{ width: "40%" }}>
-                  {product.detail_bundle.split(" ").slice(0, 5).join(" ") +
-                    "..."}
+                  {product.detail_bundle.length > 100
+                    ? product.detail_bundle.substring(0, 100) + "..."
+                    : product.detail_bundle}
                 </td>
+
                 <td className="text-center">
                   <img
                     src={`http://127.0.0.1:8000/${product.foto_bundle[0]}`}
@@ -73,7 +75,10 @@ const BundlingTable = ({ products, handleDeleteBundling, loading }) => {
                     }}
                   />
                 </td>
-                <td className="text-center d-flex align-items-center justify-content-center" style={{ width: "100%", height: "6.5rem" }}>
+                <td
+                  className="text-center d-flex align-items-center justify-content-center"
+                  style={{ width: "100%", height: "6.5rem" }}
+                >
                   <Link
                     to={`/admin/editbundling/${product.id}`}
                     className="mx-1 text-decoration-none"
