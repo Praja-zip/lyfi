@@ -37,11 +37,11 @@ const Footer = () => {
               </li>
               <li>
                 <i class="fa-brands fa-instagram me-2"></i>
-                <a href="">Instagram</a>
+                <a href="https://www.instagram.com/lyfi_brightskin/">Instagram</a>
               </li>
               <li>
                 <i class="fa-brands fa-whatsapp me-2"></i>
-                <a href="">WhatsApp</a>
+                <a href="https://wa.me/08112749588">WhatsApp</a>
               </li>
             </ul>
           </div>
