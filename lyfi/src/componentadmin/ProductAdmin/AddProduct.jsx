@@ -178,7 +178,7 @@ const AddProduct = ({
                 marginBottom: "10px",
                 padding: "10px",
                 background: "#ffcaca",
-                border : "1px solid #e65e5e",
+                border: "1px solid #e65e5e",
                 color: "#155724",
                 borderRadius: "5px",
               }}
@@ -267,10 +267,9 @@ const AddProduct = ({
             <label htmlFor="redirect">Redirect Produk :</label>
             <input
               type="text"
-              name="redirect"
               placeholder="Redirect Produk"
               value={shopeeLink}
-              onChange={(e) => handleInputChange.setRedirect(e.target.value)}
+              onChange={(e) => setShopeeLink(e.target.value)}
             />
           </div>
         </div>

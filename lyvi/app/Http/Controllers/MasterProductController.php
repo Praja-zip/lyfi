@@ -39,6 +39,7 @@ class MasterProductController extends Controller
                 'harga_produk' => $product->harga_produk,
                 'foto_produk' => json_decode($product->foto_produk),
                 'detail_produk' => $product->detail_produk,
+                'redirect' => $product->redirect,
                 'kategori' => $product->kategoris->map(function ($kategori) {
                     return $kategori->nama_kategori;
                 }),

@@ -36,12 +36,8 @@ const DetailProduct = ({ product }) => {
           </div>
         )}
         <div className="judul-Info">
-          <h1 className="text-start">
-            {product?.nama_produk || "Nama Produk Tidak Tersedia"}
-          </h1>
-          <p className="text-start">
-            {product?.detail_produk || "Detail produk tidak tersedia"}
-          </p>
+          <h1 className="text-start">{product?.nama_produk}</h1>
+          <p className="text-start">{product?.detail_produk}</p>
         </div>
         <div className="accordion" id="accordionPanelsStayOpenExample">
           <div className="accordion-item">
@@ -107,16 +103,16 @@ const DetailProduct = ({ product }) => {
                 <img src={tokped} alt="Tokopedia" /> Tokopedia
               </a>
             )} */}
-            {product.redirect[1] && (
-                        <a
-                          href={product.redirect[1]}
-                          className="ms-2 shopee"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <img src={shopee} alt="Shopee" /> Shopee
-                        </a>
-                      )}
+            {product.redirect && (
+              <a
+                href={product.redirect}
+                className="ms-2 shopee"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img src={shopee} alt="Shopee" /> Shopee
+              </a>
+            )}
           </div>
         </div>
         <hr className="mt-5" />
