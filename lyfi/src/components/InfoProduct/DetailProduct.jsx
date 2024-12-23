@@ -107,11 +107,16 @@ const DetailProduct = ({ product }) => {
                 <img src={tokped} alt="Tokopedia" /> Tokopedia
               </a>
             )} */}
-            {product.redirect && product.redirect[1] && (
-              <a href={product.redirect[1]} className="ms-2 shopee">
-                <img src={shopee} alt="Shopee" /> Shopee
-              </a>
-            )}
+            {product.redirect[1] && (
+                        <a
+                          href={product.redirect[1]}
+                          className="ms-2 shopee"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <img src={shopee} alt="Shopee" /> Shopee
+                        </a>
+                      )}
           </div>
         </div>
         <hr className="mt-5" />

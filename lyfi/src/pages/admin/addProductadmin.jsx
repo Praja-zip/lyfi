@@ -36,7 +36,7 @@ const AddProductAdmin = () => {
   const [detail_produk, setDetailProduk] = useState("");
   const [bahan_produk, setBahanProduk] = useState("");
   const [cara_pemakaian, setCaraPemakaian] = useState("");
-  const [redirect, setRedirect] = useState("");
+  const [redirect, setRedirect] = useState([]);
   const [foto_produk, setFotoProduk] = useState(null);
   const [kategori, setKategori] = useState([]);
   const [allCategories, setAllCategories] = useState([]);

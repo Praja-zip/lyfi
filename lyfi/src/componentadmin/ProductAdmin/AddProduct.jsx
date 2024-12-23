@@ -17,6 +17,8 @@ const AddProduct = ({
   setSelectedFiles,
   setSelectedCategory,
   handleFileChange,
+  setShopeeLink,
+  shopeeLink,
 }) => {
   const [showNotification, setShowNotification] = useState(false);
   const [message, setMessage] = useState("");
@@ -267,7 +269,7 @@ const AddProduct = ({
               type="text"
               name="redirect"
               placeholder="Redirect Produk"
-              value={redirect}
+              value={shopeeLink}
               onChange={(e) => handleInputChange.setRedirect(e.target.value)}
             />
           </div>
