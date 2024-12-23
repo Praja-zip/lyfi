@@ -129,12 +129,12 @@ const AddBundling = ({
           <div className="addproduct-input row">
             <label htmlFor="addproduct">Link Bundling :</label>
             <div className="link-product">
-              <input
+              {/* <input
                 type="text"
                 placeholder="Tokopedia"
                 value={tokopediaLink}
                 onChange={(e) => setTokopediaLink(e.target.value)}
-              />
+              /> */}
               <input
                 type="text"
                 placeholder="Shopee"

@@ -21,7 +21,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import Register from "./pages/Register";
 import EditBundlingAdmin from "./pages/admin/EditBundlingAdmin";
-import DetailProfile from "./pages/admin/Detail";
+import SettingProfile from "./componentadmin/DashboardAdmin/Setting";
 
 function App() {
   return (
@@ -48,7 +48,8 @@ function App() {
           <Route path="/admin/editbundling/:id" element={<EditBundlingAdmin />} />
           <Route path="/admin/editcategory/:id" element={<EditCategoriesAdmin />} />
           <Route path="/admin/category" element={<Category />} />
-          <Route path="/admin/setting" element={<DetailProfile />} /> 
+          <Route path="/admin/setsetting" element={<SettingProfile />} />
+
         </Routes>
       </BrowserRouter>
     </>

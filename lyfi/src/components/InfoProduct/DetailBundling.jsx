@@ -127,7 +127,7 @@ const DetailBundling = ({ bundling }) => {
             }).format(bundling?.harga_bundle || 0)}
           </p>
           <p className="fw-semibold text-secondary">Tersedia di</p>
-          {bundling.redirect[0] && (
+          {/* {bundling.redirect[0] && (
             <a
               href={bundling.redirect[0]}
               className="tokopedia"
@@ -136,7 +136,7 @@ const DetailBundling = ({ bundling }) => {
             >
               <img src={tokped} alt="Tokopedia" /> Tokopedia
             </a>
-          )}
+          )} */}
           {bundling.redirect[1] && (
             <a
               href={bundling.redirect[1]}
